@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Gastro Jansen · Testversion V30</title><style>
+<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Gastro Jansen · Testversion V31</title><style>
 :root{font-family:system-ui,Arial;color:#12304e;background:#edf3f9}*{box-sizing:border-box}body{margin:0}header{background:#07396d;color:white;padding:14px;text-align:center}header b{font-size:25px}header small{display:block}.wrap{max-width:850px;margin:auto;padding:10px}.card{background:white;border-radius:13px;padding:15px;margin:10px 0;box-shadow:0 2px 12px #17355213}h2{font-size:21px;margin:3px 0 12px}h3{margin:9px 0}label{display:block;font-weight:700;margin:8px 0 4px}input,select{width:100%;padding:10px;border:1px solid #b5c6d8;border-radius:9px;font-size:18px;min-width:0}button{border:0;border-radius:10px;padding:12px;font-size:16px;font-weight:750;cursor:pointer;background:#e5eef9;color:#123e6b}.green{background:#07802c;color:white}.red{background:#c42d3b;color:white}.tabs{display:flex;gap:5px;position:sticky;top:0;background:#edf3f9;padding:6px 0;z-index:5}.tabs button{flex:1;padding:11px 3px;font-size:14px}.tabs .active{background:#07396d;color:white}.hide{display:none!important}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:end}.item{border:1px solid #cfdae6;border-radius:12px;padding:12px;margin:10px 0}.item strong{font-size:19px}.item small{color:#526b84}.item .value{font-weight:800;color:#08752a}.total{background:#dff5e6;padding:15px;border-radius:10px;display:flex;justify-content:space-between;gap:8px;font-size:20px;font-weight:800;margin:10px 0}.note{background:#fff2d2;padding:10px;border-radius:8px;font-size:13px}.muted{font-size:13px;color:#5b6e80}.wide{width:100%}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 4px;border-bottom:1px solid #d8e1eb;text-align:right}th:first-child,td:first-child{text-align:left}.scroll{overflow:auto}.settings-item{border-bottom:1px solid #ddd;padding:10px 0}.settings-item .row{grid-template-columns:2fr 1fr 1fr 1fr}.sticky{position:sticky;bottom:0;background:white;padding:8px 0}.error{color:#a41b2d}.good{color:#08752a}.sig{width:100%;height:90px;border:1px dashed #8297ae;border-radius:8px;touch-action:none}.pill{display:inline-block;background:#e5effb;padding:5px 9px;border-radius:8px;font-size:13px} @media(max-width:650px){.row{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-item .row{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:6px}.card{padding:10px}.item{padding:10px}.item strong{font-size:18px}input{font-size:18px}.tabs button{font-size:13px}}@media print{@page{size:A4;margin:11mm}header,.tabs,.noprint,.sticky{display:none!important}body{background:white;font-size:11px}.wrap{max-width:none}.card{box-shadow:none;padding:0;margin:0}.screen{display:none!important}#report{display:block!important}.report-table{font-size:10px}.report-table td,.report-table th{padding:4px}.total{font-size:14px;padding:7px}.note{font-size:10px}h2{font-size:17px}h3{font-size:13px}}
 .item{border:3px solid #7897ba!important;border-left:7px solid #0b5ba1!important;border-radius:14px!important;margin:16px 0!important;padding:15px!important;background:#fff}.item>strong{display:inline-block;font-size:21px;margin-bottom:7px}.calc-detail{background:#e8f6ec;border:2px solid #84c99a;border-radius:10px;padding:11px;line-height:1.7;font-size:15px}.calc-detail strong{display:block;font-size:19px;color:#09672d;border-top:1px solid #a5d5b3;margin-top:5px;padding-top:5px}.item input{min-width:0}.item .inline-settings{margin-top:10px}@media(max-width:550px){.item{padding:11px!important}.calc-detail{font-size:13px}.calc-detail strong{font-size:16px}}
 .report-table tbody tr:nth-child(odd){background:#e9f4ff}.report-table tbody tr:nth-child(even){background:#fff}.report-table tbody tr:hover{background:#d9eaff}#reportDenoms tr:nth-child(odd){background:#f0f6fc}@media print{.report-table tbody tr:nth-child(odd){background:#e9f4ff!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style><style>
@@ -51,7 +51,7 @@
 </style><style>
 .pdf-share-box{border:2px solid #8ac5a0;background:#eaf8ee;border-radius:13px;padding:14px;margin:16px 0}.pdf-share-box h3{color:#125b31;margin:0 0 7px}.pdf-share-box p{font-size:15px;line-height:1.5}.pdf-share-box button{font-size:19px;min-height:57px}.pdf-share-box .steps{background:#fff;border-radius:9px;padding:10px;margin-top:10px;font-size:15px;line-height:1.65}
 @media print{.pdf-share-box{display:none!important}}
-</style></head><body><header><b id="brand">GASTRO · ABRECHNUNG</b><small>Digitale Waren- und Kassenabrechnung · DEMO V30</small></header><div class="wrap"><div class="note noprint">⚠️ <b>Testversion:</b> Daten bleiben nur in diesem Browser. Keine TSE, keine Cloud-Synchronisierung, keine rechtssichere elektronische Registrierkasse. Für echte Kassenführung zusätzlich ein geeignetes Kassensystem verwenden.</div><div class="tabs noprint"><button id="t-start" onclick="tab('start')">① Start</button><button id="t-stock" onclick="tab('stock')">② Waren</button><button id="t-cash" onclick="tab('cash')">③ Kasse</button><button id="t-report" onclick="tab('report')">④ Bericht</button><button id="t-settings" onclick="tab('settings')">⑤ ⚙️ Einstellungen</button><button id="t-clear" type="button" onclick="clearStockEntries()" title="Waren, Zählprotokoll, Kassenwerte und Unterschrift löschen">🗑️ Testeingaben löschen</button><button id="t-send" type="button" onclick="sendReportEmail()" title="E-Mail mit Abrechnungsübersicht vorbereiten">📧 Abrechnung senden</button><button id="t-whatsapp" type="button" onclick="sendReportWhatsApp()" title="WhatsApp mit Abrechnungsübersicht vorbereiten">💬 WhatsApp senden</button></div>
+</style></head><body><header><b id="brand">GASTRO · ABRECHNUNG</b><small>Digitale Waren- und Kassenabrechnung · DEMO V31</small></header><div class="wrap"><div class="note noprint">⚠️ <b>Testversion:</b> Daten bleiben nur in diesem Browser. Keine TSE, keine Cloud-Synchronisierung, keine rechtssichere elektronische Registrierkasse. Für echte Kassenführung zusätzlich ein geeignetes Kassensystem verwenden.</div><div class="tabs noprint"><button id="t-start" onclick="tab('start')">① Start</button><button id="t-stock" onclick="tab('stock')">② Waren</button><button id="t-cash" onclick="tab('cash')">③ Kasse</button><button id="t-report" onclick="tab('report')">④ Bericht</button><button id="t-settings" onclick="tab('settings')">⑤ ⚙️ Einstellungen</button><button id="t-clear" type="button" onclick="clearStockEntries()" title="Waren, Zählprotokoll, Kassenwerte und Unterschrift löschen">🗑️ Testeingaben löschen</button><button id="t-send" type="button" onclick="sendReportEmail()" title="E-Mail mit Abrechnungsübersicht vorbereiten">📧 Abrechnung senden</button><button id="t-whatsapp" type="button" onclick="sendReportWhatsApp()" title="WhatsApp mit Abrechnungsübersicht vorbereiten">💬 WhatsApp senden</button></div>
 <section class="card screen" id="start"><div class="start-shift-box"><h2>📍 Schicht / Stand starten</h2><div class="grid"><div><label>Veranstaltung</label><select id="event" onchange="eventChanged()"><option value="">Bitte Veranstaltungsort auswählen</option><option value="stadium">🏟️ Stadion</option><option>Aurich | E-Center</option><option>Bad Oldesloe | Famila</option><option>Bad Segeberg | Rennkoppel</option><option>Baunatal | Am Parkstadion</option><option>Bernau | Obi</option><option>Brake | Famila</option><option>Brandenburg | Beetzsee-Center</option><option>Bremerhaven | Ikea</option><option>Delmenhorst | Graftwiesen</option><option>Delmenhorst | Zurbrüggen</option><option>Finowfurt | Obi</option><option>Geesthacht | Menzer-Werft-Platz</option><option>Greifswald | Elisen-Park</option><option>Kaltenkirchen | Festplatz</option><option>Kassel | d/e/z</option><option>Leer | Ostfrieslandhalle</option><option>Lüneburg | Famila</option><option>Lüneburg | Sülzwiesen</option><option>Mölln | Edeka Süllau</option><option>Neubrandenburg | Bethanien-Center</option><option>Neuenkirchen | Marktkauf</option><option>Oldenburg | Famila Wechloy</option><option>Oldenburg | Freigelände Weser-Ems-Hallen</option><option>Oldenburg | Ikea</option><option>Oldenburg, Metjendorf | Fliegerhorst</option><option>Posthausen | dodenhof</option><option>Prenzlau | Marktkauf</option><option>Rangsdorf | Südring Center</option><option>Rostock | Antikmarkt zur Hanse Sail</option><option>Rostock | Citti-Park</option><option>Rostock | Ikea</option><option>Rostock, Roggentin | Globus</option><option>Rostock, Sievershagen | Ostsee-Park</option><option>Schwarzenbek | Hagebaumarkt</option><option>Schwedt | Oder-Center</option><option>Schwerin | Bertha-Klingberg-Platz</option><option>Schwerin | Sieben-Seen-Center</option><option>Schwerin | Stadthafen</option><option>Schwerin, Pampow | XXXLutz</option><option>Stade | Marktkauf</option><option>Stralsund | Strelapark</option><option>Stralsund, Langendorf | Ostseecenter</option><option>Strausberg | Handelscentrum</option><option>Varel | Famila</option><option>Vechta | Famila</option><option>Westerstede | Famila</option><option>Wildau | A 10 Center</option><option>Wildeshausen | Famila</option><option>Wilhelmshaven | Sportforum</option><option>Winsen (Luhe) | Famila</option><option>Wismar | Veranstaltungsort frei eingeben</option><option value="custom">✏️ Anderen Veranstaltungsort eingeben</option></select><div class="hide" id="customEventWrap"><label>Anderer Veranstaltungsort</label><input id="customEvent" oninput="save()" placeholder="Veranstaltungsort eingeben"/></div></div><div class="hide start-stadium" id="stadiumWrap"><label>Gegner – gegen wen wurde gespielt?</label><input id="opponent" oninput="save()" placeholder="z. B. SV Meppen"/></div><div><label>Vor- und Nachname des Mitarbeiters</label><input id="employee" autocomplete="name" placeholder="Vorname Nachname"/></div><div><label>Standort / Stand</label><input id="location" placeholder="z. B. Kiosk"/></div><div><label>Datum</label><input id="date" type="date"/></div><div><label>Firma</label><input id="company" readonly="" style="background:#eaf1f8;font-weight:800" value="Gastro Jansen"/></div><div id="stadiumWeather"><div><label>Wetter</label><select id="weather"><option>☀️ Sonnig</option><option>⛅ Bewölkt</option><option>🌤️ Trocken</option><option>🌧️ Regen</option><option>💨 Windig</option><option>❄️ Schnee</option></select></div><div><label>Temperatur (°C)</label><div style="display:grid;grid-template-columns:65px 1fr 65px;gap:8px"><button onclick="adjustTemp(-1)" type="button">−</button><input id="temperature" max="50" min="-30" step="1" style="text-align:center;font-size:25px;font-weight:800" type="number" value="15"/><button onclick="adjustTemp(1)" type="button">+</button></div></div></div></div></div><div class="quick-stock"><h3>📦 Anfangsbestände und Waren schnell eingeben</h3><p class="muted">Stadion-Flaschenbier: 0,33 l je Flasche ÷ 0,4 l je Becher = 0,825 Becher pro Flasche. Die Artikel stehen untereinander. Anfangsbestand, Endbestand, Zugang und Abgang direkt eingeben. Schwund und Personal sind bei Bedarf ausklappbar. Alle Werte werden automatisch mit ② Waren abgeglichen.</p><div id="quickStartItems"></div><button class="green wide" onclick="tab('cash')" type="button">Weiter zur Kasse →</button></div><p class="muted">Für Preisänderungen und weitere Details kannst du weiterhin ② Waren öffnen.</p></section>
 <section class="card screen hide" id="stock"><h2>Warenabrechnung</h2><p class="muted">Flaschenbier Stadion wird mit 0,33 l je Flasche und 0,4 l je Becher umgerechnet (Faktor 0,825). Anfangsbestand − Endbestand + Zugang − Abgang = verbrauchte Ware. Schwund und Personal werden zusätzlich abgezogen. Preise und Verkaufseinheiten können direkt beim Artikel geändert werden.</p><div id="items"></div><div class="total"><span>Rechnerischer Warenumsatz</span><span id="stockTotal">0,00 €</span></div><div class="sticky"><button class="green wide" onclick="tab('cash')">Weiter zur Kasse →</button></div></section>
 <section class="card screen hide" id="cash"><h2>💶 Zählprotokoll – Bargeld</h2><p class="muted">Links steht der Nennwert. Nur die Anzahl eintragen – der Betrag rechts wird automatisch berechnet.</p><table class="count-table"><thead><tr><th>Nennwert</th><th>Anzahl</th><th>Betrag</th></tr></thead><tbody id="denoms"></tbody><tfoot><tr><th>GESAMT</th><th></th><th id="denomTotal">0,00 €</th></tr></tfoot></table><div class="cash-entry"><h3>💳 EC / SumUp und Wechselgeld</h3><p class="muted">Beträge selbst eintragen. Die Zusammenfassung steht anschließend im Bericht.</p><div class="grid"><div><label>Wechselgeld zu Schichtbeginn (€)</label><input id="float" inputmode="decimal" min="0" oninput="update()" step="0.01" type="number"/></div><div><label>EC / SumUp laut Terminal (€)</label><input id="card" inputmode="decimal" min="0" oninput="update()" step="0.01" type="number"/></div></div></div><div class="signature-block cash-sign"><h3>✍️ Unterschrift – Bargeld gezählt</h3><p class="muted">Nach dem Zählen direkt mit dem Finger oder der Maus unterschreiben.</p><canvas height="180" id="signature" width="720"></canvas><button onclick="clearSignature()" type="button">Unterschrift löschen</button></div><div class="pdf-share-box"><h3>📄 Veranstaltung abschließen</h3><p>Vollständigen Bericht mit Waren, Kasse und Unterschrift als PDF speichern und anschließend über WhatsApp an Olaf senden.</p><button class="green wide" type="button" onclick="prepareIphonePDF()">📄 PDF für iPhone vorbereiten</button><div id="iphonePdfReady" class="steps hide"><b>PDF ist fertig!</b><br><button class="green wide" type="button" onclick="sharePreparedPDF()">📤 Jetzt über WhatsApp teilen</button><button class="wide" type="button" onclick="openPreparedPDF()">📄 PDF öffnen / sichern</button></div><div class="steps"><b>iPhone:</b> Erst „PDF vorbereiten“, danach „Jetzt über WhatsApp teilen“ tippen. WhatsApp auswählen und den Bericht abschicken. Wenn das Teilen nicht angeboten wird, „PDF öffnen / sichern“ wählen und über das iPhone-Teilen-Symbol senden.</div></div><button class="wide" onclick="tab('report')">Kassenbericht ansehen →</button></section>
@@ -214,55 +214,63 @@ function sendReportWhatsApp(){
  window.open(url,'_blank','noopener');
 }
 
-async function loadPDFScript(url, check){
- if(check())return;
- await new Promise((resolve,reject)=>{const sc=document.createElement('script');sc.src=url;sc.onload=resolve;sc.onerror=()=>reject(new Error('PDF-Bibliothek konnte nicht geladen werden. Bitte Internetverbindung prüfen.'));document.head.appendChild(sc)});
- if(!check())throw new Error('PDF-Bibliothek nicht verfügbar.');
-}
+// V31: Vollstaendig offlinefaehige PDF-Erstellung ohne CDN / Fremdbibliotheken.
 let preparedPDF=null;
-async function prepareIphonePDF(){
- preparedPDF=null; const ready=$('iphonePdfReady');if(ready)ready.classList.add('hide');
- save();
- if(!s.meta.employee.trim()){
-  alert('Bitte zuerst Vor- und Nachnamen des Mitarbeiters eintragen.');
-  tab('start');$('employee').focus();return;
+function makeOfflinePDF(){
+ const W=1240,H=1754,M=68,footer=45, pages=[];
+ let canvas,ctx,y;
+ function page(){canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);y=M;pages.push(canvas);ctx.fillStyle='#173a60';ctx.font='bold 30px Arial';ctx.fillText('GASTRO JANSEN  |  WAREN- UND KASSENABRECHNUNG',M,y);y+=33;ctx.strokeStyle='#b5cce1';ctx.beginPath();ctx.moveTo(M,y);ctx.lineTo(W-M,y);ctx.stroke();y+=25;}
+ function ensure(h){if(y+h>H-M-footer)page()}
+ function line(t,size=19,bold=false,indent=0){t=String(t??'');ctx.font=(bold?'bold ':'')+size+'px Arial';const max=W-M*2-indent;let words=t.split(/\s+/),row='';for(const word of words){const test=row?row+' '+word:word;if(ctx.measureText(test).width>max&&row){ensure(size+12);ctx.fillStyle='#172d46';ctx.fillText(row,M+indent,y);y+=size+12;row=word;}else row=test;}if(row){ensure(size+12);ctx.fillStyle='#172d46';ctx.fillText(row,M+indent,y);y+=size+12;}}
+ function heading(t){ensure(66);y+=19;line(t,25,true);y+=7;}
+ function entry(label,val){line(label+'   '+val,19,false,10)}
+ page();line($('reportMeta').textContent,19);heading('ZAEHLPROTOKOLL / BARGELD');
+ for(const d of denominations){const qty=number(s.counts[d]);entry(eur(d)+'  x  '+fmt(qty),eur(d*qty));}
+ entry('Bargeld gesamt',eur(count()));
+ heading('WARENABRECHNUNG');
+ let stock=0;
+ for(const x of s.items.filter(x=>!x.extra||x.name.trim())){
+  const c=calcItem(x);stock+=c.amount;
+  ensure(88);line(x.name||'Artikel',21,true);line('Anfang '+fmt(x.start)+' '+(x.unit||'')+' | Ende '+fmt(x.end)+' | Zugang '+fmt(x.incoming)+' | Abgang '+fmt(x.outgoing),17,false,12);
+  line('Schwund '+fmt(x.waste)+' | Personal '+fmt(x.staff)+' | Verkauf '+fmt(c.qty)+' | Preis '+eur(x.price)+' | Umsatz '+eur(c.amount),17,false,12);y+=9;
  }
+ heading('UMSATZ UND KASSENABGLEICH');
+ const cash=count(),card=number(s.card),flo=number(s.float),actual=cash+card-flo;
+ entry('Rechnerischer Warenumsatz',eur(stock));entry('Gezaehltes Bargeld',eur(cash));entry('EC / SumUp',eur(card));entry('Wechselgeld zu Beginn',eur(flo));entry('Tatsaechlicher Tagesumsatz',eur(actual));entry('Differenz (Kasse - Waren)',eur(actual-stock));
+ heading('BEMERKUNGEN');line(s.notes||'Keine Bemerkungen');
+ heading('UNTERSCHRIFT MITARBEITER / KASSENABSCHLUSS');
+ if(s.signature){ensure(220);try{const im=document.createElement('img');im.src=s.signature;const sig=document.createElement('canvas');sig.width=750;sig.height=180;sig.getContext('2d').drawImage(document.getElementById('signature'),0,0,750,180);ctx.drawImage(sig,M,y,600,150);y+=160;}catch(e){line('Unterschrift konnte nicht dargestellt werden.')}}else line('Keine Unterschrift erfasst.');
+ line('Gegenkontrolle: ______________________________');
+ for(let i=0;i<pages.length;i++){const c=pages[i],cx=c.getContext('2d');cx.fillStyle='#66778a';cx.font='17px Arial';cx.fillText('Gastro Jansen  |  '+(s.meta.date||'')+'  |  Seite '+(i+1)+' von '+pages.length,M,H-35)}
+ // Einfache standardkonforme PDF-Datei: jede A4-Seite als JPEG-Bild eingebettet.
+ const enc=new TextEncoder(),parts=[],offsets=[0];let pos=0;
+ function add(v){let bytes=typeof v==='string'?enc.encode(v):v;parts.push(bytes);pos+=bytes.length}
+ function obj(id,head,data){offsets[id]=pos;add(id+' 0 obj\n'+head);if(data){add('\nstream\n');add(data);add('\nendstream')}add('\nendobj\n')}
+ add('%PDF-1.4\n%\xC2\xA5\xC2\xB1\n');const n=2+pages.length*3;
+ obj(1,'<< /Type /Catalog /Pages 2 0 R >>');
+ obj(2,'<< /Type /Pages /Kids ['+pages.map((_,i)=>(3+i*3)+' 0 R').join(' ')+'] /Count '+pages.length+' >>');
+ for(let i=0;i<pages.length;i++){
+  const pid=3+i*3,cid=pid+1,iid=pid+2;
+  const b64=pages[i].toDataURL('image/jpeg',0.83).split(',')[1];const raw=atob(b64);const jpg=new Uint8Array(raw.length);for(let j=0;j<raw.length;j++)jpg[j]=raw.charCodeAt(j);
+  const content='q\n595 0 0 842 0 0 cm\n/Im0 Do\nQ\n',cb=enc.encode(content);
+  obj(pid,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im0 '+iid+' 0 R >> >> /Contents '+cid+' 0 R >>');
+  obj(cid,'<< /Length '+cb.length+' >>',cb);
+  obj(iid,'<< /Type /XObject /Subtype /Image /Width '+W+' /Height '+H+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>',jpg);
+ }
+ const xref=pos;add('xref\n0 '+(n+1)+'\n0000000000 65535 f \n');for(let i=1;i<=n;i++)add(String(offsets[i]).padStart(10,'0')+' 00000 n \n');
+ add('trailer\n<< /Size '+(n+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF');
+ return new Blob(parts,{type:'application/pdf'});
+}
+async function prepareIphonePDF(){
+ preparedPDF=null;const ready=$('iphonePdfReady');if(ready)ready.classList.add('hide');save();
+ if(!s.meta.employee.trim()){alert('Bitte zuerst Vor- und Nachnamen des Mitarbeiters eintragen.');tab('start');$('employee').focus();return}
  tab('report');renderReport();
  const btns=[...document.querySelectorAll('button')].filter(b=>b.getAttribute('onclick')==='prepareIphonePDF()');
- btns.forEach(b=>{b.disabled=true;b.dataset.original=b.textContent;b.textContent='⏳ PDF wird erstellt …'});
- let clone;
- try{
-  await loadPDFScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',()=>!!window.html2canvas);
-  await loadPDFScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js',()=>!!window.jspdf);
-  clone=$('report').cloneNode(true);
-  clone.id='pdf-report-copy';
-  Object.assign(clone.style,{position:'fixed',left:'-10000px',top:'0',width:'900px',maxWidth:'none',display:'block',background:'#fff',padding:'24px',boxShadow:'none',zIndex:'-1'});
-  clone.querySelectorAll('.noprint,.report-cash-inputs,button').forEach(el=>el.remove());
-  clone.querySelectorAll('.scroll').forEach(el=>{el.style.overflow='visible';el.style.width='100%'});
-  const img=clone.querySelector('#printSignature');
-  if(img){if(s.signature){img.src=s.signature;img.style.display='block'}else img.style.display='none'}
-  document.body.appendChild(clone);
-  await new Promise(r=>setTimeout(r,80));
-  const canvas=await html2canvas(clone,{scale:1.5,backgroundColor:'#ffffff',useCORS:true,windowWidth:1000});
-  const {jsPDF}=window.jspdf;
-  const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true});
-  const pw=210,ph=297,margin=9,contentW=pw-2*margin,contentH=ph-2*margin;
-  const pagePixels=canvas.width*contentH/contentW;
-  let offset=0,page=0;
-  while(offset<canvas.height){
-   const slice=document.createElement('canvas');slice.width=canvas.width;slice.height=Math.min(Math.ceil(pagePixels),canvas.height-offset);
-   slice.getContext('2d').drawImage(canvas,0,offset,canvas.width,slice.height,0,0,canvas.width,slice.height);
-   if(page++)pdf.addPage();
-   pdf.addImage(slice.toDataURL('image/jpeg',0.86),'JPEG',margin,margin,contentW,slice.height*contentW/canvas.width);
-   offset+=slice.height;
-  }
-  const filename='Gastro-Jansen-Abrechnung-'+(s.meta.date||'Test')+'.pdf';
-  const blob=pdf.output('blob');
-  preparedPDF={blob,filename,file:new File([blob],filename,{type:'application/pdf'})};
-  if(ready){ready.classList.remove('hide');ready.scrollIntoView({behavior:'smooth',block:'center'});}
-  else alert('PDF ist fertig. Öffne die Kasse und tippe auf „Jetzt über WhatsApp teilen“.');
- }catch(err){alert('PDF-Erstellung nicht möglich: '+err.message+'\n\nDu kannst weiterhin auf „Bericht“ gehen und über das Browsermenü „Drucken / Als PDF speichern“ verwenden.');}
- finally{if(clone)clone.remove();btns.forEach(b=>{b.disabled=false;b.textContent=b.dataset.original||'📄 PDF vorbereiten'})}
+ btns.forEach(b=>{b.disabled=true;b.dataset.original=b.textContent;b.textContent='PDF wird erstellt ...'});
+ try{await new Promise(r=>setTimeout(r,40));const blob=makeOfflinePDF();const filename='Gastro-Jansen-Abrechnung-'+(s.meta.date||'Test')+'.pdf';preparedPDF={blob,filename,file:new File([blob],filename,{type:'application/pdf'})};
+ if(ready){ready.classList.remove('hide');ready.scrollIntoView({behavior:'smooth',block:'center'});}else alert('PDF ist fertig.');
+ }catch(err){alert('PDF-Erstellung fehlgeschlagen: '+err.message)}
+ finally{btns.forEach(b=>{b.disabled=false;b.textContent=b.dataset.original||'PDF vorbereiten'})}
 }
 function openPreparedPDF(){
  if(!preparedPDF){alert('Bitte zuerst die PDF vorbereiten.');return;}
