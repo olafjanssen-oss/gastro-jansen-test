@@ -51,7 +51,7 @@
 </style><style>
 .pdf-share-box{border:2px solid #8ac5a0;background:#eaf8ee;border-radius:13px;padding:14px;margin:16px 0}.pdf-share-box h3{color:#125b31;margin:0 0 7px}.pdf-share-box p{font-size:15px;line-height:1.5}.pdf-share-box button{font-size:19px;min-height:57px}.pdf-share-box .steps{background:#fff;border-radius:9px;padding:10px;margin-top:10px;font-size:15px;line-height:1.65}
 @media print{.pdf-share-box{display:none!important}}
-</style></head><body><header><b id="brand">GASTRO · ABRECHNUNG</b><small>Digitale Waren- und Kassenabrechnung · DEMO V32</small></header><div class="wrap"><div class="note noprint">⚠️ <b>Testversion:</b> Daten bleiben nur in diesem Browser. Keine TSE, keine Cloud-Synchronisierung, keine rechtssichere elektronische Registrierkasse. Für echte Kassenführung zusätzlich ein geeignetes Kassensystem verwenden.</div><div class="tabs noprint"><button id="t-start" onclick="tab('start')">① Start</button><button id="t-stock" onclick="tab('stock')">② Waren</button><button id="t-cash" onclick="tab('cash')">③ Kasse</button><button id="t-report" onclick="tab('report')">④ Bericht</button><button id="t-settings" onclick="tab('settings')">⑤ ⚙️ Einstellungen</button><button id="t-clear" type="button" onclick="clearStockEntries()" title="Waren, Zählprotokoll, Kassenwerte und Unterschrift löschen">🗑️ Testeingaben löschen</button><button id="t-send" type="button" onclick="sendReportEmail()" title="E-Mail mit Abrechnungsübersicht vorbereiten">📧 Abrechnung senden</button><button id="t-whatsapp" type="button" onclick="sendReportWhatsApp()" title="WhatsApp mit Abrechnungsübersicht vorbereiten">💬 WhatsApp senden</button></div>
+</style></head><body><header><b id="brand">GASTRO · ABRECHNUNG</b><small>Digitale Waren- und Kassenabrechnung · DEMO V33</small></header><div class="wrap"><div class="note noprint">⚠️ <b>Testversion:</b> Daten bleiben nur in diesem Browser. Keine TSE, keine Cloud-Synchronisierung, keine rechtssichere elektronische Registrierkasse. Für echte Kassenführung zusätzlich ein geeignetes Kassensystem verwenden.</div><div class="tabs noprint"><button id="t-start" onclick="tab('start')">① Start</button><button id="t-stock" onclick="tab('stock')">② Waren</button><button id="t-cash" onclick="tab('cash')">③ Kasse</button><button id="t-report" onclick="tab('report')">④ Bericht</button><button id="t-settings" onclick="tab('settings')">⑤ ⚙️ Einstellungen</button><button id="t-clear" type="button" onclick="clearStockEntries()" title="Waren, Zählprotokoll, Kassenwerte und Unterschrift löschen">🗑️ Testeingaben löschen</button><button id="t-send" type="button" onclick="sendReportEmail()" title="E-Mail mit Abrechnungsübersicht vorbereiten">📧 Abrechnung senden</button><button id="t-whatsapp" type="button" onclick="sendReportWhatsApp()" title="WhatsApp mit Abrechnungsübersicht vorbereiten">💬 WhatsApp senden</button></div>
 <section class="card screen" id="start"><div class="start-shift-box"><h2>📍 Schicht / Stand starten</h2><div class="grid"><div><label>Veranstaltung</label><select id="event" onchange="eventChanged()"><option value="">Bitte Veranstaltungsort auswählen</option><option value="stadium">🏟️ Stadion</option><option>Aurich | E-Center</option><option>Bad Oldesloe | Famila</option><option>Bad Segeberg | Rennkoppel</option><option>Baunatal | Am Parkstadion</option><option>Bernau | Obi</option><option>Brake | Famila</option><option>Brandenburg | Beetzsee-Center</option><option>Bremerhaven | Ikea</option><option>Delmenhorst | Graftwiesen</option><option>Delmenhorst | Zurbrüggen</option><option>Finowfurt | Obi</option><option>Geesthacht | Menzer-Werft-Platz</option><option>Greifswald | Elisen-Park</option><option>Kaltenkirchen | Festplatz</option><option>Kassel | d/e/z</option><option>Leer | Ostfrieslandhalle</option><option>Lüneburg | Famila</option><option>Lüneburg | Sülzwiesen</option><option>Mölln | Edeka Süllau</option><option>Neubrandenburg | Bethanien-Center</option><option>Neuenkirchen | Marktkauf</option><option>Oldenburg | Famila Wechloy</option><option>Oldenburg | Freigelände Weser-Ems-Hallen</option><option>Oldenburg | Ikea</option><option>Oldenburg, Metjendorf | Fliegerhorst</option><option>Posthausen | dodenhof</option><option>Prenzlau | Marktkauf</option><option>Rangsdorf | Südring Center</option><option>Rostock | Antikmarkt zur Hanse Sail</option><option>Rostock | Citti-Park</option><option>Rostock | Ikea</option><option>Rostock, Roggentin | Globus</option><option>Rostock, Sievershagen | Ostsee-Park</option><option>Schwarzenbek | Hagebaumarkt</option><option>Schwedt | Oder-Center</option><option>Schwerin | Bertha-Klingberg-Platz</option><option>Schwerin | Sieben-Seen-Center</option><option>Schwerin | Stadthafen</option><option>Schwerin, Pampow | XXXLutz</option><option>Stade | Marktkauf</option><option>Stralsund | Strelapark</option><option>Stralsund, Langendorf | Ostseecenter</option><option>Strausberg | Handelscentrum</option><option>Varel | Famila</option><option>Vechta | Famila</option><option>Westerstede | Famila</option><option>Wildau | A 10 Center</option><option>Wildeshausen | Famila</option><option>Wilhelmshaven | Sportforum</option><option>Winsen (Luhe) | Famila</option><option>Wismar | Veranstaltungsort frei eingeben</option><option value="custom">✏️ Anderen Veranstaltungsort eingeben</option></select><div class="hide" id="customEventWrap"><label>Anderer Veranstaltungsort</label><input id="customEvent" oninput="save()" placeholder="Veranstaltungsort eingeben"/></div></div><div class="hide start-stadium" id="stadiumWrap"><label>Gegner – gegen wen wurde gespielt?</label><input id="opponent" oninput="save()" placeholder="z. B. SV Meppen"/></div><div><label>Vor- und Nachname des Mitarbeiters</label><input id="employee" autocomplete="name" placeholder="Vorname Nachname"/></div><div><label>Standort / Stand</label><input id="location" placeholder="z. B. Kiosk"/></div><div><label>Datum</label><input id="date" type="date"/></div><div><label>Firma</label><input id="company" readonly="" style="background:#eaf1f8;font-weight:800" value="Gastro Jansen"/></div><div id="stadiumWeather"><div><label>Wetter</label><select id="weather"><option>☀️ Sonnig</option><option>⛅ Bewölkt</option><option>🌤️ Trocken</option><option>🌧️ Regen</option><option>💨 Windig</option><option>❄️ Schnee</option></select></div><div><label>Temperatur (°C)</label><div style="display:grid;grid-template-columns:65px 1fr 65px;gap:8px"><button onclick="adjustTemp(-1)" type="button">−</button><input id="temperature" max="50" min="-30" step="1" style="text-align:center;font-size:25px;font-weight:800" type="number" value="15"/><button onclick="adjustTemp(1)" type="button">+</button></div></div></div></div></div><div class="quick-stock"><h3>📦 Anfangsbestände und Waren schnell eingeben</h3><p class="muted">Stadion-Flaschenbier: 0,33 l je Flasche ÷ 0,4 l je Becher = 0,825 Becher pro Flasche. Die Artikel stehen untereinander. Anfangsbestand, Endbestand, Zugang und Abgang direkt eingeben. Schwund und Personal sind bei Bedarf ausklappbar. Alle Werte werden automatisch mit ② Waren abgeglichen.</p><div id="quickStartItems"></div><button class="green wide" onclick="tab('cash')" type="button">Weiter zur Kasse →</button></div><p class="muted">Für Preisänderungen und weitere Details kannst du weiterhin ② Waren öffnen.</p></section>
 <section class="card screen hide" id="stock"><h2>Warenabrechnung</h2><p class="muted">Flaschenbier Stadion wird mit 0,33 l je Flasche und 0,4 l je Becher umgerechnet (Faktor 0,825). Anfangsbestand − Endbestand + Zugang − Abgang = verbrauchte Ware. Schwund und Personal werden zusätzlich abgezogen. Preise und Verkaufseinheiten können direkt beim Artikel geändert werden.</p><div id="items"></div><div class="total"><span>Rechnerischer Warenumsatz</span><span id="stockTotal">0,00 €</span></div><div class="sticky"><button class="green wide" onclick="tab('cash')">Weiter zur Kasse →</button></div></section>
 <section class="card screen hide" id="cash"><h2>💶 Zählprotokoll – Bargeld</h2><p class="muted">Links steht der Nennwert. Nur die Anzahl eintragen – der Betrag rechts wird automatisch berechnet.</p><table class="count-table"><thead><tr><th>Nennwert</th><th>Anzahl</th><th>Betrag</th></tr></thead><tbody id="denoms"></tbody><tfoot><tr><th>GESAMT</th><th></th><th id="denomTotal">0,00 €</th></tr></tfoot></table><div class="cash-entry"><h3>💳 EC / SumUp und Wechselgeld</h3><p class="muted">Beträge selbst eintragen. Die Zusammenfassung steht anschließend im Bericht.</p><div class="grid"><div><label>Wechselgeld zu Schichtbeginn (€)</label><input id="float" inputmode="decimal" min="0" oninput="update()" step="0.01" type="number"/></div><div><label>EC / SumUp laut Terminal (€)</label><input id="card" inputmode="decimal" min="0" oninput="update()" step="0.01" type="number"/></div></div></div><div class="signature-block cash-sign"><h3>✍️ Unterschrift – Bargeld gezählt</h3><p class="muted">Nach dem Zählen direkt mit dem Finger oder der Maus unterschreiben.</p><canvas height="180" id="signature" width="720"></canvas><button onclick="clearSignature()" type="button">Unterschrift löschen</button></div><div class="pdf-share-box"><h3>📄 Veranstaltung abschließen</h3><p>Vollständigen Bericht mit Waren, Kasse und Unterschrift als PDF speichern und anschließend über WhatsApp an Olaf senden.</p><button class="green wide" type="button" onclick="prepareIphonePDF()">📄 PDF für iPhone vorbereiten</button><div id="iphonePdfReady" class="steps hide"><b>PDF ist fertig!</b><br><button class="green wide" type="button" onclick="sharePreparedPDF()">📤 Jetzt über WhatsApp teilen</button><button class="wide" type="button" onclick="openPreparedPDF()">📄 PDF öffnen / sichern</button></div><div class="steps"><b>iPhone:</b> Erst „PDF vorbereiten“, danach „Jetzt über WhatsApp teilen“ tippen. Im iPhone-Teilen-Menü WhatsApp und Olaf auswählen. WhatsApp auswählen und den Bericht abschicken. Wenn das Teilen nicht angeboten wird, „PDF öffnen / sichern“ wählen und über das iPhone-Teilen-Symbol senden.</div></div><button class="wide" onclick="tab('report')">Kassenbericht ansehen →</button></section>
@@ -217,42 +217,81 @@ function sendReportWhatsApp(){
 // V32: Vollstaendig offlinefaehige PDF-Erstellung ohne CDN / Fremdbibliotheken.
 let preparedPDF=null;
 function makeOfflinePDF(){
- const W=1240,H=1754,M=68,footer=45, pages=[];
- let canvas,ctx,y;
- function page(){canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);y=M;pages.push(canvas);ctx.fillStyle='#173a60';ctx.font='bold 30px Arial';ctx.fillText('GASTRO JANSEN  |  WAREN- UND KASSENABRECHNUNG',M,y);y+=33;ctx.strokeStyle='#b5cce1';ctx.beginPath();ctx.moveTo(M,y);ctx.lineTo(W-M,y);ctx.stroke();y+=25;}
- function ensure(h){if(y+h>H-M-footer)page()}
- function line(t,size=19,bold=false,indent=0){t=String(t??'');ctx.font=(bold?'bold ':'')+size+'px Arial';const max=W-M*2-indent;let words=t.split(/\s+/),row='';for(const word of words){const test=row?row+' '+word:word;if(ctx.measureText(test).width>max&&row){ensure(size+12);ctx.fillStyle='#172d46';ctx.fillText(row,M+indent,y);y+=size+12;row=word;}else row=test;}if(row){ensure(size+12);ctx.fillStyle='#172d46';ctx.fillText(row,M+indent,y);y+=size+12;}}
- function heading(t){ensure(66);y+=19;line(t,25,true);y+=7;}
- function entry(label,val){line(label+'   '+val,19,false,10)}
- page();line($('reportMeta').textContent,19);heading('ZAEHLPROTOKOLL / BARGELD');
- for(const d of denominations){const qty=number(s.counts[d]);entry(eur(d)+'  x  '+fmt(qty),eur(d*qty));}
- entry('Bargeld gesamt',eur(count()));
- heading('WARENABRECHNUNG');
- let stock=0;
- for(const x of s.items.filter(x=>!x.extra||x.name.trim())){
-  const c=calcItem(x);stock+=c.amount;
-  ensure(88);line(x.name||'Artikel',21,true);line('Anfang '+fmt(x.start)+' '+(x.unit||'')+' | Ende '+fmt(x.end)+' | Zugang '+fmt(x.incoming)+' | Abgang '+fmt(x.outgoing),17,false,12);
-  line('Schwund '+fmt(x.waste)+' | Personal '+fmt(x.staff)+' | Verkauf '+fmt(c.qty)+' | Preis '+eur(x.price)+' | Umsatz '+eur(c.amount),17,false,12);y+=9;
+ // A4-Bericht, sauber gesetzte Tabellen, ohne externe Bibliotheken.
+ const W=1240,H=1754,L=66,R=66,B=92,TOP=72,usable=W-L-R,pages=[];
+ let cv,ctx,y,pageNo=0;
+ const blue='#123e68',ink='#1d3145',muted='#526578',lineColor='#d4e0ea',pale='#edf4fa';
+ function text(t,x,yy,size=19,bold=false,color=ink,align='left'){
+  ctx.fillStyle=color;ctx.font=(bold?'700 ':'400 ')+size+'px Arial';ctx.textAlign=align;ctx.fillText(String(t??''),x,yy);ctx.textAlign='left';
  }
- heading('UMSATZ UND KASSENABGLEICH');
+ function rule(yy){ctx.strokeStyle=lineColor;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(L,yy);ctx.lineTo(W-R,yy);ctx.stroke()}
+ function newPage(){
+  cv=document.createElement('canvas');cv.width=W;cv.height=H;ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);pages.push(cv);pageNo++;y=TOP;
+  text('GASTRO JANSEN',L,y,34,true,blue);text('WAREN- UND KASSENABRECHNUNG',W-R,y,23,true,blue,'right');y+=24;rule(y);y+=40;
+ }
+ function need(h){if(y+h>H-B)newPage()}
+ function section(title){need(84);y+=18;text(title.toUpperCase(),L,y,23,true,blue);y+=17;rule(y);y+=28}
+ function wrap(value,maxWidth,size=18){
+  const out=[];ctx.font=size+'px Arial';let row='';
+  for(const word of String(value??'').split(/\s+/)){const trial=row?row+' '+word:word;if(row&&ctx.measureText(trial).width>maxWidth){out.push(row);row=word}else row=trial}if(row)out.push(row);return out.length?out:['–'];
+ }
+ function info(label,value){const lines=wrap(value,usable-270,19);need(lines.length*30+6);text(label,L+8,y,19,true,muted);lines.forEach((t,i)=>text(t,L+270,y+i*30,19));y+=lines.length*30+6}
+ function row(vals,widths,height=43,header=false,alt=false,aligns=[]){
+  need(height);if(header||alt){ctx.fillStyle=header?blue:pale;ctx.fillRect(L,y-27,usable,height)}
+  let x=L;for(let i=0;i<vals.length;i++){const align=aligns[i]||'left';let tx=x+(align==='right'?widths[i]-8:8);text(vals[i],tx,y,header?16:17,header,header?'#fff':ink,align);x+=widths[i]}
+  y+=height;if(!header){ctx.strokeStyle='#e6edf3';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,y-27);ctx.lineTo(W-R,y-27);ctx.stroke()}
+ }
+ function total(label,value,emphasis=false){need(47);if(emphasis){ctx.fillStyle='#e4f1e8';ctx.fillRect(L,y-27,usable,46)}text(label,L+12,y,19,emphasis,ink);text(value,W-R-12,y,21,true,emphasis?'#17633d':blue,'right');y+=48}
+ newPage();
+ section('Veranstaltung und Schicht');
+ info('Firma',s.meta.company||'Gastro Jansen');info('Veranstaltung',s.meta.event||'–');info('Stand / Standort',s.meta.location||'–');info('Datum',s.meta.date||'–');info('Mitarbeiter',s.meta.employee||'–');
+ if(s.meta.opponent)info('Gegner',s.meta.opponent);
+ info('Wetter / Temperatur',(s.meta.weather||'–')+'  |  '+(s.meta.temperature??15)+' °C');
+ section('Warenabrechnung');
+ const products=s.items.filter(x=>!x.extra||x.name.trim());let stock=0;
+ // Tabellenbreite: Artikel 224, Anfang 93, Ende 87, Zu 78, Ab 78, Schwund 90, Personal 91, Verkauf 99, Preis 113, Umsatz 155.
+ const widths=[224,93,87,78,78,90,91,99,113,155];
+ const heads=['Artikel','Anfang','Ende','Zu','Ab','Schw.','Pers.','Verkauf','Preis','Umsatz'];
+ const aligns=['left','right','right','right','right','right','right','right','right','right'];
+ function goodsHead(){row(heads,widths,48,true,false,aligns)}
+ goodsHead();
+ products.forEach((x,i)=>{
+  const c=calcItem(x);stock+=c.amount;
+  const name=String(x.name||'Artikel');let names=wrap(name,widths[0]-15,17);const height=Math.max(43,names.length*23+16);
+  if(y+height>H-B){newPage();section('Warenabrechnung – Fortsetzung');goodsHead()}
+  const values=[names[0],fmt(x.start),fmt(x.end),fmt(x.incoming),fmt(x.outgoing),fmt(x.waste),fmt(x.staff),fmt(c.qty),eur(x.price),eur(c.amount)];
+  const before=y;row(values,widths,height,false,i%2===1,aligns);
+  if(names.length>1){names.slice(1).forEach((n,j)=>text(n,L+8,before+23+j*23,16,false,ink))}
+ });
+ y+=8;total('Rechnerischer Warenumsatz',eur(stock),true);
+ section('Zählprotokoll – Bargeld');
+ const dWidths=[390,270,448];row(['Nennwert','Anzahl','Betrag'],dWidths,48,true,false,['left','right','right']);
+ denominations.forEach((d,i)=>row([eur(d),fmt(s.counts[d]),eur(d*number(s.counts[d]))],dWidths,39,false,i%2===1,['left','right','right']));
+ total('Gezähltes Bargeld gesamt',eur(count()),true);
+ section('Kassen- und Umsatzabgleich');
  const cash=count(),card=number(s.card),flo=number(s.float),actual=cash+card-flo;
- entry('Rechnerischer Warenumsatz',eur(stock));entry('Gezaehltes Bargeld',eur(cash));entry('EC / SumUp',eur(card));entry('Wechselgeld zu Beginn',eur(flo));entry('Tatsaechlicher Tagesumsatz',eur(actual));entry('Differenz (Kasse - Waren)',eur(actual-stock));
- heading('BEMERKUNGEN');line(s.notes||'Keine Bemerkungen');
- heading('UNTERSCHRIFT MITARBEITER / KASSENABSCHLUSS');
- if(s.signature){ensure(220);try{const im=document.createElement('img');im.src=s.signature;const sig=document.createElement('canvas');sig.width=750;sig.height=180;sig.getContext('2d').drawImage(document.getElementById('signature'),0,0,750,180);ctx.drawImage(sig,M,y,600,150);y+=160;}catch(e){line('Unterschrift konnte nicht dargestellt werden.')}}else line('Keine Unterschrift erfasst.');
- line('Gegenkontrolle: ______________________________');
- for(let i=0;i<pages.length;i++){const c=pages[i],cx=c.getContext('2d');cx.fillStyle='#66778a';cx.font='17px Arial';cx.fillText('Gastro Jansen  |  '+(s.meta.date||'')+'  |  Seite '+(i+1)+' von '+pages.length,M,H-35)}
- // Einfache standardkonforme PDF-Datei: jede A4-Seite als JPEG-Bild eingebettet.
+ total('Gezähltes Bargeld',eur(cash));total('+ EC / SumUp',eur(card));total('− Wechselgeld zu Schichtbeginn',eur(flo));
+ total('Tatsächlicher Tagesumsatz',eur(actual),true);total('Rechnerischer Warenumsatz',eur(stock));total('Differenz (Kasse − Waren)',(actual-stock>0?'+':'')+eur(actual-stock),true);
+ section('Bemerkungen / Differenzklärung');
+ for(const t of wrap(s.notes||'Keine Bemerkungen.',usable-20,19)){need(31);text(t,L+10,y,19);y+=31}
+ section('Unterschrift und Gegenkontrolle');
+ if(s.signature){
+  need(220);try{const sig=document.getElementById('signature');ctx.drawImage(sig,L+10,y-22,650,160);y+=164}catch(e){text('Unterschrift konnte nicht dargestellt werden.',L+10,y,18);y+=32}
+ }else{need(48);text('Keine Unterschrift erfasst.',L+10,y,19);y+=45}
+ need(65);rule(y);y+=34;text('Gegenkontrolle: ____________________________________',L+10,y,19);y+=34;
+ // Seitenzahlen und Zuordnung auf jeder Seite
+ pages.forEach((p,i)=>{const c=p.getContext('2d');c.strokeStyle='#d4e0ea';c.beginPath();c.moveTo(L,H-68);c.lineTo(W-R,H-68);c.stroke();c.font='16px Arial';c.fillStyle='#607286';c.fillText('Gastro Jansen  |  '+(s.meta.date||'')+'  |  '+(s.meta.location||''),L,H-43);c.textAlign='right';c.fillText('Seite '+(i+1)+' / '+pages.length,W-R,H-43);c.textAlign='left'});
+ // PDF-Container mit je einer A4-JPEG-Seite, offline und iOS-kompatibel.
  const enc=new TextEncoder(),parts=[],offsets=[0];let pos=0;
- function add(v){let bytes=typeof v==='string'?enc.encode(v):v;parts.push(bytes);pos+=bytes.length}
+ function add(v){const bytes=typeof v==='string'?enc.encode(v):v;parts.push(bytes);pos+=bytes.length}
  function obj(id,head,data){offsets[id]=pos;add(id+' 0 obj\n'+head);if(data){add('\nstream\n');add(data);add('\nendstream')}add('\nendobj\n')}
- add('%PDF-1.4\n%\xC2\xA5\xC2\xB1\n');const n=2+pages.length*3;
+ add('%PDF-1.4\n%PDF\n');const n=2+pages.length*3;
  obj(1,'<< /Type /Catalog /Pages 2 0 R >>');
  obj(2,'<< /Type /Pages /Kids ['+pages.map((_,i)=>(3+i*3)+' 0 R').join(' ')+'] /Count '+pages.length+' >>');
  for(let i=0;i<pages.length;i++){
   const pid=3+i*3,cid=pid+1,iid=pid+2;
-  const b64=pages[i].toDataURL('image/jpeg',0.83).split(',')[1];const raw=atob(b64);const jpg=new Uint8Array(raw.length);for(let j=0;j<raw.length;j++)jpg[j]=raw.charCodeAt(j);
-  const content='q\n595 0 0 842 0 0 cm\n/Im0 Do\nQ\n',cb=enc.encode(content);
+  const raw=atob(pages[i].toDataURL('image/jpeg',0.88).split(',')[1]);const jpg=new Uint8Array(raw.length);for(let j=0;j<raw.length;j++)jpg[j]=raw.charCodeAt(j);
+  const cb=enc.encode('q\n595 0 0 842 0 0 cm\n/Im0 Do\nQ\n');
   obj(pid,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im0 '+iid+' 0 R >> >> /Contents '+cid+' 0 R >>');
   obj(cid,'<< /Length '+cb.length+' >>',cb);
   obj(iid,'<< /Type /XObject /Subtype /Image /Width '+W+' /Height '+H+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>',jpg);
