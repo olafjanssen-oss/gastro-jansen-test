@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Gastro Jansen · Testversion V30</title><style>
+:root{font-family:system-ui,Arial;color:#12304e;background:#edf3f9}*{box-sizing:border-box}body{margin:0}header{background:#07396d;color:white;padding:14px;text-align:center}header b{font-size:25px}header small{display:block}.wrap{max-width:850px;margin:auto;padding:10px}.card{background:white;border-radius:13px;padding:15px;margin:10px 0;box-shadow:0 2px 12px #17355213}h2{font-size:21px;margin:3px 0 12px}h3{margin:9px 0}label{display:block;font-weight:700;margin:8px 0 4px}input,select{width:100%;padding:10px;border:1px solid #b5c6d8;border-radius:9px;font-size:18px;min-width:0}button{border:0;border-radius:10px;padding:12px;font-size:16px;font-weight:750;cursor:pointer;background:#e5eef9;color:#123e6b}.green{background:#07802c;color:white}.red{background:#c42d3b;color:white}.tabs{display:flex;gap:5px;position:sticky;top:0;background:#edf3f9;padding:6px 0;z-index:5}.tabs button{flex:1;padding:11px 3px;font-size:14px}.tabs .active{background:#07396d;color:white}.hide{display:none!important}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:end}.item{border:1px solid #cfdae6;border-radius:12px;padding:12px;margin:10px 0}.item strong{font-size:19px}.item small{color:#526b84}.item .value{font-weight:800;color:#08752a}.total{background:#dff5e6;padding:15px;border-radius:10px;display:flex;justify-content:space-between;gap:8px;font-size:20px;font-weight:800;margin:10px 0}.note{background:#fff2d2;padding:10px;border-radius:8px;font-size:13px}.muted{font-size:13px;color:#5b6e80}.wide{width:100%}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 4px;border-bottom:1px solid #d8e1eb;text-align:right}th:first-child,td:first-child{text-align:left}.scroll{overflow:auto}.settings-item{border-bottom:1px solid #ddd;padding:10px 0}.settings-item .row{grid-template-columns:2fr 1fr 1fr 1fr}.sticky{position:sticky;bottom:0;background:white;padding:8px 0}.error{color:#a41b2d}.good{color:#08752a}.sig{width:100%;height:90px;border:1px dashed #8297ae;border-radius:8px;touch-action:none}.pill{display:inline-block;background:#e5effb;padding:5px 9px;border-radius:8px;font-size:13px} @media(max-width:650px){.row{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-item .row{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:6px}.card{padding:10px}.item{padding:10px}.item strong{font-size:18px}input{font-size:18px}.tabs button{font-size:13px}}@media print{@page{size:A4;margin:11mm}header,.tabs,.noprint,.sticky{display:none!important}body{background:white;font-size:11px}.wrap{max-width:none}.card{box-shadow:none;padding:0;margin:0}.screen{display:none!important}#report{display:block!important}.report-table{font-size:10px}.report-table td,.report-table th{padding:4px}.total{font-size:14px;padding:7px}.note{font-size:10px}h2{font-size:17px}h3{font-size:13px}}
+.item{border:3px solid #7897ba!important;border-left:7px solid #0b5ba1!important;border-radius:14px!important;margin:16px 0!important;padding:15px!important;background:#fff}.item>strong{display:inline-block;font-size:21px;margin-bottom:7px}.calc-detail{background:#e8f6ec;border:2px solid #84c99a;border-radius:10px;padding:11px;line-height:1.7;font-size:15px}.calc-detail strong{display:block;font-size:19px;color:#09672d;border-top:1px solid #a5d5b3;margin-top:5px;padding-top:5px}.item input{min-width:0}.item .inline-settings{margin-top:10px}@media(max-width:550px){.item{padding:11px!important}.calc-detail{font-size:13px}.calc-detail strong{font-size:16px}}
+.report-table tbody tr:nth-child(odd){background:#e9f4ff}.report-table tbody tr:nth-child(even){background:#fff}.report-table tbody tr:hover{background:#d9eaff}#reportDenoms tr:nth-child(odd){background:#f0f6fc}@media print{.report-table tbody tr:nth-child(odd){background:#e9f4ff!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style><style>
+.item .inline-settings{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0;padding:9px;background:#edf5ff;border-radius:10px}.item .inline-settings label{font-size:14px}.item .inline-settings input{font-weight:750;background:white}.cash-overview{background:#edf7ff;border:2px solid #aacbe8;border-radius:12px;padding:12px;margin:15px 0}.cash-overview .cash-line{display:flex;justify-content:space-between;gap:10px;padding:8px 2px;border-bottom:1px solid #cbddec}.cash-overview .cash-line strong{white-space:nowrap}.cash-overview .cash-line:last-child{background:#d9f4df;border-radius:8px;padding:12px;font-size:20px;font-weight:800;border:0}.signature-block{margin:22px 0;break-inside:avoid}#signature{width:100%;height:145px;touch-action:none;border:2px dashed #8da3bc;background:white;border-radius:10px}#printSignature{width:100%;max-height:110px;object-fit:contain;object-position:left}@media(max-width:480px){.item .inline-settings{grid-template-columns:1fr 1fr}.cash-overview .cash-line:last-child{font-size:17px}}@media print{#signature,.signature-block button{display:none!important}#printSignature{display:block!important}.cash-overview{border:1px solid #bbb;padding:6px}.cash-overview .cash-line{padding:3px}.signature-block{break-inside:avoid}}
+
+.count-table{table-layout:fixed;border:2px solid #b5c9de;border-radius:10px;overflow:hidden;font-size:17px}.count-table th,.count-table td{padding:9px 10px;text-align:left}.count-table th:nth-child(2),.count-table td:nth-child(2){width:34%;text-align:center}.count-table th:last-child,.count-table td:last-child{text-align:right;width:34%;font-weight:800}.count-table thead,.count-table tfoot{background:#dcebf9}.count-table tbody tr:nth-child(even){background:#f0f6fc}.count-table input{font-size:20px;font-weight:750;text-align:center;min-height:47px;padding:6px;width:100%}.cash-sign{background:#f5f9ff;border:1px solid #b5c9de;border-radius:12px;padding:14px}.cash-sign button{margin-top:8px}@media(max-width:440px){.count-table{font-size:14px}.count-table th,.count-table td{padding:7px 5px}.count-table input{font-size:19px}}@media print{.cash-sign{display:none!important}#printSignature{display:block!important;min-height:65px;border-bottom:1px solid #888}}
+</style><style>
+#t-settings{background:#ffdf73!important;color:#143250!important;border:3px solid #d18a00!important;font-weight:900!important;box-shadow:0 2px 8px #0002;white-space:nowrap}
+#t-settings.active{background:#e8a920!important}
+#cash .count-table{margin-top:12px}
+.report-cash-inputs{border:2px solid #b9d1e9;border-radius:12px;padding:14px;margin:15px 0;background:#f5faff}
+@media(max-width:620px){.tabs{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}.tabs #t-settings{grid-column:1/-1;font-size:19px!important;min-height:53px!important}}
+@media print{.report-cash-inputs{display:none!important}}
+</style><style id="v11-goods">
+.goods-card{border:2px solid #8aaacb!important;border-left:6px solid #155a9b!important;border-radius:14px!important;padding:13px!important;margin:12px 0!important;background:#fff}.goods-card.goods-tint{background:#eef6ff!important}.goods-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.goods-title{display:flex;gap:10px;align-items:center;min-width:0}.goods-title>div{min-width:0}.goods-title strong{font-size:20px;display:block;overflow-wrap:anywhere}.goods-title small{display:block;font-size:12px;margin-top:3px}.goods-number{background:#155a9b;color:white;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;flex:none;font-weight:800}.goods-price{background:#dff3e5;color:#12642a;padding:8px;border-radius:9px;font-weight:800;white-space:nowrap}.goods-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.goods-fields label{font-size:14px;margin:0 0 5px}.goods-fields label small{font-size:12px;font-weight:500}.goods-fields input{background:white;border:2px solid #bacfe2;min-height:51px;font-size:20px;font-weight:650}.goods-fields>div:nth-child(-n+2) input{border-color:#387bb6}.goods-extra{margin-bottom:12px}.goods-options{margin:12px 0;border:1px solid #b8cce1;background:#f8fbff;border-radius:10px;padding:9px}.goods-options summary{cursor:pointer;color:#164b7d;font-weight:750}.goods-options-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.goods-result .calc-detail{margin:10px 0 0;padding:9px;font-size:13px;line-height:1.5}.goods-result .calc-detail strong{font-size:17px}.goods-card .value{margin:0}@media(min-width:720px){.goods-fields{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:390px){.goods-title strong{font-size:17px}.goods-price{font-size:13px}.goods-fields{gap:7px}.goods-fields label{font-size:12px}.goods-fields input{font-size:18px;padding:8px}.goods-options-grid{grid-template-columns:1fr}}
+</style><style id="v13-mobile-nav">
+/* V13: vier gleich gut erkennbare Arbeitsschritte; Einstellungen als kleine fünfte Taste */
+.tabs{gap:7px;align-items:stretch}
+.tabs button{border:2px solid #9cb7d4;border-radius:10px;background:#fff;color:#123e6b;font-weight:850;min-height:52px;box-shadow:0 2px 5px #12345614}
+.tabs button.active{background:#07396d;color:white;border-color:#07396d}
+#t-settings{font-size:13px!important;min-height:42px!important;padding:6px 8px!important;border:2px solid #c08b1b!important;box-shadow:none!important}
+@media(max-width:620px){
+.tabs{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;padding:5px 0!important}
+.tabs button{font-size:clamp(12px,3.5vw,16px)!important;min-height:52px!important;padding:8px 2px!important;border-width:2px!important}
+.tabs #t-settings{grid-column:4!important;grid-row:2!important;justify-self:end!important;width:auto!important;min-height:32px!important;font-size:12px!important;padding:4px 9px!important;border-width:2px!important}
+.tabs #t-start,.tabs #t-stock,.tabs #t-cash,.tabs #t-report{grid-row:1!important}
+.goods-fields label{font-size:15px!important;line-height:1.25}
+.goods-fields input{min-height:46px!important}
+}
+</style><style>.cash-entry{margin:20px 0;padding:15px;border:2px solid #a5c5e7;border-radius:14px;background:#f0f7ff}.cash-entry h3{margin:0 0 8px}.cash-entry label{font-weight:750}.cash-entry input{width:100%;font-size:22px;min-height:54px;border:2px solid #8caed1;border-radius:9px;padding:9px}.cash-entry .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}@media(max-width:480px){.cash-entry .grid{grid-template-columns:1fr}.cash-entry{padding:11px}}</style><style>.quick-stock{margin-top:18px;padding:14px;background:#f1f7ff;border:2px solid #a4c5e8;border-radius:14px}.quick-stock h3{margin:0 0 6px}.quick-row{display:grid;grid-template-columns:minmax(0,1fr) 110px;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid #d4e3f2}.quick-row:nth-child(even){background:#e6f1fc}.quick-row label{font-size:17px;font-weight:750}.quick-row small{font-size:12px;font-weight:500}.quick-row input{font-size:21px;font-weight:750;min-height:49px;text-align:center;border:2px solid #92b6d9}.start-stadium{background:#eaf4ff;border-radius:10px;padding:12px}#stadiumWeather{display:contents}#stadiumWeather.hide{display:none}@media(max-width:440px){.quick-row{grid-template-columns:minmax(0,1fr) 95px}.quick-row label{font-size:16px}}</style><style id="v17-quick-entry">.quick-stock{padding:12px}.quick-card{background:white;border:2px solid #b2cce4;border-left:6px solid #24669d;border-radius:13px;padding:12px;margin:12px 0}.quick-card.quick-blue{background:#edf6ff}.quick-card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.quick-card-head strong{font-size:20px}.quick-price{background:#dcf4e4;border:1px solid #8ec7a0;color:#116333;border-radius:9px;padding:7px 10px;font-weight:850;font-size:19px;white-space:nowrap}.quick-price small{display:block;font-size:11px;font-weight:600;text-align:right}.quick-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.quick-fields label{font-size:15px;margin:0 0 5px}.quick-fields label small{font-size:12px;font-weight:550}.quick-fields input{width:100%;min-height:53px;font-size:22px;font-weight:750;text-align:center;background:white;border:2px solid #a0bedc}@media(max-width:370px){.quick-card{padding:9px}.quick-card-head strong{font-size:17px}.quick-price{font-size:16px;padding:6px}.quick-fields{gap:8px}.quick-fields label{font-size:13px}}@media print{.quick-stock{display:none!important}}</style><style id="v18-compact-start">#start>.grid{margin-bottom:8px}.quick-stock{background:#f4f8fc;padding:10px}.quick-card{margin:8px 0;padding:10px;border-width:1px;border-left-width:5px}.quick-card-head{margin-bottom:7px}.quick-card-head strong{font-size:18px}.quick-price{font-size:16px;padding:5px 8px}.quick-fields{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.quick-fields label{font-size:13px;line-height:1.25;min-height:32px}.quick-fields label small{display:block;font-size:11px}.quick-fields input{min-height:46px;font-size:19px;padding:6px;text-align:center}.quick-more{margin-top:7px}.quick-more summary{color:#235b8a;font-size:13px;font-weight:750;cursor:pointer;padding:5px 0}.quick-extra{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:6px}.quick-extra label{min-height:0}@media(max-width:400px){.quick-fields{gap:4px}.quick-fields label{font-size:12px}.quick-fields label small{font-size:10px}.quick-fields input{font-size:17px;padding:4px}.quick-card-head strong{font-size:16px}.quick-price{font-size:14px}}</style><style id="v23-misc">.misc-edit{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:9px;margin:0 0 12px}.misc-edit label{font-weight:750;font-size:14px;grid-row:1}.misc-edit input{width:100%;min-width:0;min-height:49px;font-size:19px;background:#fff;border:2px solid #91b7d9;border-radius:8px;padding:8px}@media(max-width:400px){.misc-edit{grid-template-columns:1fr 110px;gap:6px}.misc-edit label{font-size:12px}.misc-edit input{font-size:17px}}</style><style id="v19-start-panels">
+#start{background:transparent;box-shadow:none;padding:0}
+.start-shift-box,.quick-stock{border:2px solid #a4c5e8;border-radius:15px;background:#f3f8ff;box-shadow:0 3px 10px #183e6714;padding:16px;margin:12px 0 24px}
+.start-shift-box{background:#fff;border-left:6px solid #24669d}
+.start-shift-box h2{font-size:21px;color:#123e6b;margin:0 0 15px;padding-bottom:11px;border-bottom:2px solid #dbe9f7}
+.start-shift-box>.grid{gap:14px 13px}
+.start-shift-box label{font-size:15px;margin:0 0 7px;color:#17456d}
+.start-shift-box input,.start-shift-box select{background:#fff;border:2px solid #b4cbe2;min-height:53px;font-size:18px}
+.start-shift-box input:focus,.start-shift-box select:focus{outline:3px solid #b6ddff;border-color:#176ab1}
+.start-shift-box .start-stadium{background:#eaf4ff;border:1px solid #c2d9ef}
+.quick-stock{margin-top:26px;border-left:6px solid #24669d}
+@media(max-width:580px){.start-shift-box,.quick-stock{padding:13px 11px;margin-bottom:24px}.start-shift-box>.grid{grid-template-columns:1fr;gap:15px}.start-shift-box h2{font-size:20px}.start-shift-box label{font-size:16px}.start-shift-box input,.start-shift-box select{font-size:19px;min-height:55px}#start{padding:0}}
+@media print{.start-shift-box{display:none!important}}
+/* V20: Löschen direkt neben Einstellungen, auf Mobilgeräten gut erreichbar */
+#t-clear{background:#fff4f2!important;color:#9b2530!important;border:2px solid #d78d94!important;font-size:13px!important;min-height:42px!important;padding:6px 9px!important;white-space:normal}
+@media(max-width:620px){.tabs #t-settings{grid-column:3!important;grid-row:2!important;justify-self:stretch!important;width:100%!important;min-height:39px!important}.tabs #t-clear{grid-column:4!important;grid-row:2!important;min-height:39px!important;font-size:12px!important;padding:4px!important}}
+#t-send{background:#147d48;color:white;border:2px solid #0d6136;font-weight:800}#t-send:hover{background:#0b6034}@media(max-width:640px){#t-send{min-height:46px;font-size:15px}}
+#t-whatsapp{background:#157347;color:#fff;border:2px solid #0c5733;font-weight:800}#t-whatsapp:hover{background:#0b6034}@media(max-width:640px){.tabs #t-send{grid-column:1 / span 2!important;grid-row:3!important}.tabs #t-whatsapp{grid-column:3 / span 2!important;grid-row:3!important}#t-whatsapp{min-height:46px;font-size:15px}}
+</style><style>
+.pdf-share-box{border:2px solid #8ac5a0;background:#eaf8ee;border-radius:13px;padding:14px;margin:16px 0}.pdf-share-box h3{color:#125b31;margin:0 0 7px}.pdf-share-box p{font-size:15px;line-height:1.5}.pdf-share-box button{font-size:19px;min-height:57px}.pdf-share-box .steps{background:#fff;border-radius:9px;padding:10px;margin-top:10px;font-size:15px;line-height:1.65}
+@media print{.pdf-share-box{display:none!important}}
+</style></head><body><header><b id="brand">GASTRO · ABRECHNUNG</b><small>Digitale Waren- und Kassenabrechnung · DEMO V30</small></header><div class="wrap"><div class="note noprint">⚠️ <b>Testversion:</b> Daten bleiben nur in diesem Browser. Keine TSE, keine Cloud-Synchronisierung, keine rechtssichere elektronische Registrierkasse. Für echte Kassenführung zusätzlich ein geeignetes Kassensystem verwenden.</div><div class="tabs noprint"><button id="t-start" onclick="tab('start')">① Start</button><button id="t-stock" onclick="tab('stock')">② Waren</button><button id="t-cash" onclick="tab('cash')">③ Kasse</button><button id="t-report" onclick="tab('report')">④ Bericht</button><button id="t-settings" onclick="tab('settings')">⑤ ⚙️ Einstellungen</button><button id="t-clear" type="button" onclick="clearStockEntries()" title="Waren, Zählprotokoll, Kassenwerte und Unterschrift löschen">🗑️ Testeingaben löschen</button><button id="t-send" type="button" onclick="sendReportEmail()" title="E-Mail mit Abrechnungsübersicht vorbereiten">📧 Abrechnung senden</button><button id="t-whatsapp" type="button" onclick="sendReportWhatsApp()" title="WhatsApp mit Abrechnungsübersicht vorbereiten">💬 WhatsApp senden</button></div>
+<section class="card screen" id="start"><div class="start-shift-box"><h2>📍 Schicht / Stand starten</h2><div class="grid"><div><label>Veranstaltung</label><select id="event" onchange="eventChanged()"><option value="">Bitte Veranstaltungsort auswählen</option><option value="stadium">🏟️ Stadion</option><option>Aurich | E-Center</option><option>Bad Oldesloe | Famila</option><option>Bad Segeberg | Rennkoppel</option><option>Baunatal | Am Parkstadion</option><option>Bernau | Obi</option><option>Brake | Famila</option><option>Brandenburg | Beetzsee-Center</option><option>Bremerhaven | Ikea</option><option>Delmenhorst | Graftwiesen</option><option>Delmenhorst | Zurbrüggen</option><option>Finowfurt | Obi</option><option>Geesthacht | Menzer-Werft-Platz</option><option>Greifswald | Elisen-Park</option><option>Kaltenkirchen | Festplatz</option><option>Kassel | d/e/z</option><option>Leer | Ostfrieslandhalle</option><option>Lüneburg | Famila</option><option>Lüneburg | Sülzwiesen</option><option>Mölln | Edeka Süllau</option><option>Neubrandenburg | Bethanien-Center</option><option>Neuenkirchen | Marktkauf</option><option>Oldenburg | Famila Wechloy</option><option>Oldenburg | Freigelände Weser-Ems-Hallen</option><option>Oldenburg | Ikea</option><option>Oldenburg, Metjendorf | Fliegerhorst</option><option>Posthausen | dodenhof</option><option>Prenzlau | Marktkauf</option><option>Rangsdorf | Südring Center</option><option>Rostock | Antikmarkt zur Hanse Sail</option><option>Rostock | Citti-Park</option><option>Rostock | Ikea</option><option>Rostock, Roggentin | Globus</option><option>Rostock, Sievershagen | Ostsee-Park</option><option>Schwarzenbek | Hagebaumarkt</option><option>Schwedt | Oder-Center</option><option>Schwerin | Bertha-Klingberg-Platz</option><option>Schwerin | Sieben-Seen-Center</option><option>Schwerin | Stadthafen</option><option>Schwerin, Pampow | XXXLutz</option><option>Stade | Marktkauf</option><option>Stralsund | Strelapark</option><option>Stralsund, Langendorf | Ostseecenter</option><option>Strausberg | Handelscentrum</option><option>Varel | Famila</option><option>Vechta | Famila</option><option>Westerstede | Famila</option><option>Wildau | A 10 Center</option><option>Wildeshausen | Famila</option><option>Wilhelmshaven | Sportforum</option><option>Winsen (Luhe) | Famila</option><option>Wismar | Veranstaltungsort frei eingeben</option><option value="custom">✏️ Anderen Veranstaltungsort eingeben</option></select><div class="hide" id="customEventWrap"><label>Anderer Veranstaltungsort</label><input id="customEvent" oninput="save()" placeholder="Veranstaltungsort eingeben"/></div></div><div class="hide start-stadium" id="stadiumWrap"><label>Gegner – gegen wen wurde gespielt?</label><input id="opponent" oninput="save()" placeholder="z. B. SV Meppen"/></div><div><label>Vor- und Nachname des Mitarbeiters</label><input id="employee" autocomplete="name" placeholder="Vorname Nachname"/></div><div><label>Standort / Stand</label><input id="location" placeholder="z. B. Kiosk"/></div><div><label>Datum</label><input id="date" type="date"/></div><div><label>Firma</label><input id="company" readonly="" style="background:#eaf1f8;font-weight:800" value="Gastro Jansen"/></div><div id="stadiumWeather"><div><label>Wetter</label><select id="weather"><option>☀️ Sonnig</option><option>⛅ Bewölkt</option><option>🌤️ Trocken</option><option>🌧️ Regen</option><option>💨 Windig</option><option>❄️ Schnee</option></select></div><div><label>Temperatur (°C)</label><div style="display:grid;grid-template-columns:65px 1fr 65px;gap:8px"><button onclick="adjustTemp(-1)" type="button">−</button><input id="temperature" max="50" min="-30" step="1" style="text-align:center;font-size:25px;font-weight:800" type="number" value="15"/><button onclick="adjustTemp(1)" type="button">+</button></div></div></div></div></div><div class="quick-stock"><h3>📦 Anfangsbestände und Waren schnell eingeben</h3><p class="muted">Stadion-Flaschenbier: 0,33 l je Flasche ÷ 0,4 l je Becher = 0,825 Becher pro Flasche. Die Artikel stehen untereinander. Anfangsbestand, Endbestand, Zugang und Abgang direkt eingeben. Schwund und Personal sind bei Bedarf ausklappbar. Alle Werte werden automatisch mit ② Waren abgeglichen.</p><div id="quickStartItems"></div><button class="green wide" onclick="tab('cash')" type="button">Weiter zur Kasse →</button></div><p class="muted">Für Preisänderungen und weitere Details kannst du weiterhin ② Waren öffnen.</p></section>
+<section class="card screen hide" id="stock"><h2>Warenabrechnung</h2><p class="muted">Flaschenbier Stadion wird mit 0,33 l je Flasche und 0,4 l je Becher umgerechnet (Faktor 0,825). Anfangsbestand − Endbestand + Zugang − Abgang = verbrauchte Ware. Schwund und Personal werden zusätzlich abgezogen. Preise und Verkaufseinheiten können direkt beim Artikel geändert werden.</p><div id="items"></div><div class="total"><span>Rechnerischer Warenumsatz</span><span id="stockTotal">0,00 €</span></div><div class="sticky"><button class="green wide" onclick="tab('cash')">Weiter zur Kasse →</button></div></section>
+<section class="card screen hide" id="cash"><h2>💶 Zählprotokoll – Bargeld</h2><p class="muted">Links steht der Nennwert. Nur die Anzahl eintragen – der Betrag rechts wird automatisch berechnet.</p><table class="count-table"><thead><tr><th>Nennwert</th><th>Anzahl</th><th>Betrag</th></tr></thead><tbody id="denoms"></tbody><tfoot><tr><th>GESAMT</th><th></th><th id="denomTotal">0,00 €</th></tr></tfoot></table><div class="cash-entry"><h3>💳 EC / SumUp und Wechselgeld</h3><p class="muted">Beträge selbst eintragen. Die Zusammenfassung steht anschließend im Bericht.</p><div class="grid"><div><label>Wechselgeld zu Schichtbeginn (€)</label><input id="float" inputmode="decimal" min="0" oninput="update()" step="0.01" type="number"/></div><div><label>EC / SumUp laut Terminal (€)</label><input id="card" inputmode="decimal" min="0" oninput="update()" step="0.01" type="number"/></div></div></div><div class="signature-block cash-sign"><h3>✍️ Unterschrift – Bargeld gezählt</h3><p class="muted">Nach dem Zählen direkt mit dem Finger oder der Maus unterschreiben.</p><canvas height="180" id="signature" width="720"></canvas><button onclick="clearSignature()" type="button">Unterschrift löschen</button></div><div class="pdf-share-box"><h3>📄 Veranstaltung abschließen</h3><p>Vollständigen Bericht mit Waren, Kasse und Unterschrift als PDF speichern und anschließend über WhatsApp an Olaf senden.</p><button class="green wide" type="button" onclick="prepareIphonePDF()">📄 PDF für iPhone vorbereiten</button><div id="iphonePdfReady" class="steps hide"><b>PDF ist fertig!</b><br><button class="green wide" type="button" onclick="sharePreparedPDF()">📤 Jetzt über WhatsApp teilen</button><button class="wide" type="button" onclick="openPreparedPDF()">📄 PDF öffnen / sichern</button></div><div class="steps"><b>iPhone:</b> Erst „PDF vorbereiten“, danach „Jetzt über WhatsApp teilen“ tippen. WhatsApp auswählen und den Bericht abschicken. Wenn das Teilen nicht angeboten wird, „PDF öffnen / sichern“ wählen und über das iPhone-Teilen-Symbol senden.</div></div><button class="wide" onclick="tab('report')">Kassenbericht ansehen →</button></section>
+<section class="card hide" id="report"><h2>Waren- und Kassenbericht</h2><p class="note noprint">Leere Testabrechnung: Trage deine Warenmengen und Kassenwerte selbst ein. Die Unterschrift aus dem Zählprotokoll erscheint hier automatisch.</p><p id="reportMeta"></p><h3>Zählprotokoll</h3><table><thead><tr><th>Nennwert</th><th>Anzahl</th><th>Betrag</th></tr></thead><tbody id="reportDenoms"></tbody></table><h3>Warenabrechnung</h3><div class="scroll"><table class="report-table"><thead><tr><th>Artikel</th><th>Anfangsbestand</th><th>Endbestand</th><th>Zugang</th><th>Abgang</th><th>Schwund</th><th>Personal</th><th>Verkauf</th><th>Preis</th><th>Umsatz</th></tr></thead><tbody id="reportRows"></tbody></table></div><div class="total"><span>Rechnerischer Warenumsatz</span><span id="rStock"></span></div><div class="report-cash-inputs noprint"><h3>Kassenabschluss – Übersicht</h3><div class="cash-overview" id="cashOverview"></div><div class="grid"><div><label>Gezähltes Bargeld</label><div class="total" id="cashTotal">0,00 €</div></div><div><label>Tatsächlicher Tagesumsatz</label><div class="total" id="actualTotal">0,00 €</div></div></div><label>Bemerkung / Differenzklärung</label><input id="notes" oninput="save()" placeholder="z. B. Pfandbewegungen, Korrektur"/></div><h3>Kassen- und Umsatzabgleich</h3><table><tbody><tr><td>Gezähltes Bargeld</td><td id="rCash"></td></tr><tr><td>+ EC / SumUp</td><td id="rCard"></td></tr><tr><td>− Wechselgeld</td><td id="rFloat"></td></tr><tr><th>Tatsächlicher Tagesumsatz</th><th id="rActual"></th></tr><tr><th>Differenz (Kasse − Warenumsatz)</th><th id="rDiff"></th></tr></tbody></table><p><b>Bemerkung:</b> <span id="rNotes"></span></p><div class="signature-block"><h3>Unterschrift Mitarbeiter / Kassenabschluss</h3><p>Die Unterschrift wird automatisch aus dem Zählprotokoll (Schritt 3) übernommen:</p><img alt="Unterschrift Mitarbeiter – Bargeldzählung" id="printSignature" style="display:none"/><p>Gegenkontrolle: ________________________</p></div><div class="note">Die Differenz ist eine rechnerische Abweichung und nicht automatisch ein Kassenfehlbetrag. Warenmengen, Umrechnungen, Pfand und Zahlungsbewegungen müssen gegebenenfalls geprüft werden.</div><div class="noprint"><button class="wide" onclick="loadDemo()">↻ Optional: Musterabrechnung laden</button><button class="green wide" onclick="prepareIphonePDF()">📄 PDF für iPhone vorbereiten</button><button class="wide" onclick="downloadJSON()">💾 Sicherung der Abrechnung herunterladen</button></div></section>
+<section class="card screen hide" id="settings"><h2>⚙️ Artikel &amp; Preise einstellen</h2><p class="muted">Hier kannst du Preise, Umrechnungen und Artikel verändern. Bei Zapfbier bedeutet „Einheiten pro Gebinde“: Becher pro Fass. Beispiel: 50 Liter / 0,4 Liter = 125 Becher. Bei Pommes: 25 Portionen je Tüte.</p><div id="settingsItems"></div><h3>Neuen Artikel hinzufügen</h3><div class="grid"><div><label>Artikelname</label><input id="newName" placeholder="z. B. Brezel"/></div><div><label>Preis je Portion / Stück (€)</label><input id="newPrice" min="0" step="0.01" type="number" value="3"/></div><div><label>Bestandseinheit</label><select id="newUnit"><option>Stück</option><option>Waffeln</option><option>Flasche</option><option>Tüte</option><option>Fass</option><option>Becher</option></select></div><div><label>Verkaufseinheiten je Bestandseinheit</label><input id="newFactor" min="0.01" step="0.01" type="number" value="1"/></div></div><button class="green wide" onclick="addItem()">+ Artikel hinzufügen</button><p class="note">Änderungen an Preisen oder Umrechnungen wirken sich auf die aktuelle Abrechnung aus. Bei einer abgeschlossenen Schicht erst den Bericht sichern.</p><button class="red wide" onclick="resetAll()">Testdaten vollständig zurücksetzen</button></section>
+</div><script>
+const $=id=>document.getElementById(id),eur=n=>Number(n||0).toLocaleString('de-DE',{style:'currency',currency:'EUR'}),fmt=n=>{const v=Number(String(n??'').replace(',','.'));return (Number.isFinite(v)?v:0).toLocaleString('de-DE',{maximumFractionDigits:2})};
+const defaults=[['Bratwurst',4,'Stück',1],['Pommes',4,'Tüte',25],['Currywurst-Zuschlag',1,'Stück',1],['Fassbier',4.5,'Fass',125],['Flaschenbier Stadion',4.5,'Flasche',0.825],['Flaschenbier',4.5,'Flasche',1],['Cola / Fanta / Sprite',4,'Flasche',2.5],['Wasser',2,'Flasche',2.5],['Glühwein',4,'Becher',1],['Kaffee',2.5,'Becher',1],['Softeis',3,'Waffeln',1]].map((x,i)=>({id:i===4?16:i>4?i:i+1,name:x[0],price:x[1],unit:x[2],factor:x[3],start:'',end:'',waste:'',staff:'',incoming:'',outgoing:''}));
+let s;try{s=JSON.parse(localStorage.getItem('gastro_demo_v26') || localStorage.getItem('gastro_demo_v25_aurich'))}catch(e){}if(!s||!Array.isArray(s.items))s={items:defaults,meta:{},counts:{},float:'',card:'',notes:''};// Bestehende V3-Daten übernehmen; Getränkemengen zusammenführen, ohne Bestände zu verlieren.
+if(!s.counts)s.counts={};
+if(s.items){let drinks=s.items.filter(x=>['Cola','Fanta','Sprite','Cola / Fanta / Sprite'].includes(x.name));if(drinks.length){let first=drinks[0];for(const key of ['start','incoming','outgoing','end','waste','staff']){first[key]=drinks.reduce((sum,x)=>sum+numberRaw(x[key]),0)||''}first.name='Cola / Fanta / Sprite';s.items=s.items.filter(x=>x===first||!drinks.includes(x))}if(!s.items.some(x=>x.name==='Softeis'))s.items.push({id:Math.max(0,...s.items.map(x=>x.id))+1,name:'Softeis',price:3,unit:'Waffeln',factor:1,start:'',end:'',waste:'',staff:'',incoming:'',outgoing:''})}
+// Zwei frei benennbare Sonstiges-Artikel direkt nach Softeis, auch bei vorhandenen Testdaten.
+for(let n=1;n<=2;n++){
+ const id=16+n;
+ if(!s.items.some(x=>x.id===id))s.items.push({id,name:'Sonstiges '+n,price:0,unit:'Stück',factor:1,start:'',end:'',incoming:'',outgoing:'',waste:'',staff:'',quickMisc:true});
+}
+for(let n=1;n<=2;n++){const x=s.items.find(x=>x.id===16+n);if(x)x.quickMisc=true;}
+const softIndex=s.items.findIndex(x=>x.name==='Softeis');
+if(softIndex>=0){const extras=s.items.filter(x=>x.quickMisc);s.items=s.items.filter(x=>!x.quickMisc);s.items.splice(softIndex+1,0,...extras);}
+// Handschriftliche Testliste vom 09.11.2026 – nur beim ersten Öffnen dieser Version laden.
+if(!localStorage.getItem('gastro_demo_v26') && !localStorage.getItem('gastro_demo_v25_aurich')){
+ const handwritten={
+  'Bratwurst':{start:400,end:50,staff:4},
+  'Pommes':{start:20,end:7,staff:5,waste:1},
+  'Currywurst-Zuschlag':{start:100,end:0},
+  'Kaffee':{start:177,end:7}
+ };
+ for(const x of s.items)if(handwritten[x.name])Object.assign(x,handwritten[x.name]);
+ s.notes='Testdaten aus handschriftlicher Liste vom 09.11.2026. Currywurst-Anfangsbestand als korrigierte 100 gelesen; Kaffee-Endbestand als 7 gelesen. Bitte mit Original prüfen.';
+ s.meta={company:'Gastro Jansen',event:'Aurich | E-Center',employee:'Heike',location:'Imbiss',date:'2026-11-09',weather:'🌤️ Trocken',temperature:12};
+}
+// Musterabrechnung vom 07.11.2026 aus der bereitgestellten PDF; offene Unstimmigkeiten sind markiert.
+const demoRows={
+ 'Bratwurst':{start:420,end:70,waste:15,staff:7,price:4,factor:1},
+ 'Pommes':{start:18,end:9.5,waste:0,staff:4,price:4,factor:25},
+ 'Currywurst-Zuschlag':{start:83,end:0,waste:0,staff:0,price:1,factor:1},
+ 'Glühwein':{start:100,end:15,waste:0,staff:0,price:4,factor:1},
+ 'Kaffee':{start:50,end:8,waste:0,staff:0,price:2.5,factor:1},
+ 'Fassbier':{start:3.75,end:2,waste:0,staff:0,price:4.5,factor:125},
+ 'Flaschenbier':{start:120,end:0,waste:0,staff:0,price:4.5,factor:0.825},
+ 'Cola / Fanta / Sprite':{start:40,end:0,waste:0,staff:0,price:4,factor:2.5},
+ 'Wasser':{start:8,end:0,waste:0,staff:0,price:2,factor:2.5}
+};
+function loadDemo(){
+ if(!confirm('Musterabrechnung vom 07.11.2026 laden? Die aktuellen Testeingaben werden überschrieben.'))return;
+ applyDemo();save();renderItems();renderQuickStart();renderCash();tab('report');
+}
+function applyDemo(){
+ s.items=defaults.map(x=>({...x}));for(const x of s.items)if(demoRows[x.name])Object.assign(x,demoRows[x.name]);
+ for(let i=1;i<=5;i++)s.items.push({id:10+i,name:'',price:'',unit:'Stück',factor:1,start:'',incoming:'',outgoing:'',end:'',waste:'',staff:'',extra:i});
+ s.meta={company:'Gastro Jansen',location:'Kiosk',date:'2026-11-07',employee:'Demo-Mitarbeiter',event:'VfB Oldenburg',weather:'Trocken, kalt',temperature:10};
+ s.counts={'100':2,'50':44,'20':71,'10':75,'5':52,'2':18,'1':11,'0.5':25,'0.2':0,'0.1':0};
+ s.float='1000';s.card='374,50';s.notes='Musterwerte aus Imbiss 2.pdf. Differenz ungeklärt. Wasser: 8 Liter ergeben 20 Becher (nicht 100). Fassbier-Rundung: 984,375 € = 984,38 €. Flaschenbier laut Vorlage als 99 Becher berechnet.';s.signature='';
+ $('opponent').value=s.meta.opponent||'';$('stadiumWrap').classList.add('hide');$('stadiumWeather').classList.remove('hide');$('location').value=s.meta.location;$('date').value=s.meta.date;$('employee').value=s.meta.employee;$('weather').value=s.meta.weather;$('temperature').value=s.meta.temperature;
+ $('event').value='custom';$('customEvent').value=s.meta.event;$('customEventWrap').classList.remove('hide');$('float').value=s.float;$('card').value=s.card;$('notes').value=s.notes;
+ sigctx.clearRect(0,0,signature.width,signature.height);$('printSignature').removeAttribute('src');
+}
+
+// Neuen Stadionartikel auch in bereits gespeicherten Testständen ergänzen.
+if(!s.items.some(x=>x.name==='Flaschenbier Stadion')){const fresh={...defaults.find(x=>x.name==='Flaschenbier Stadion')};const pos=s.items.findIndex(x=>x.name==='Fassbier');s.items.splice(pos>=0?pos+1:0,0,fresh);}
+// Fünf frei beschriftbare Zusatzartikel, dauerhaft gespeichert.
+for(let i=1;i<=5;i++)if(!s.items.some(x=>x.extra===i))s.items.push({id:Math.max(0,...s.items.map(x=>Number(x.id)||0))+1,name:'',price:'',unit:'Stück',factor:1,start:'',incoming:'',outgoing:'',end:'',waste:'',staff:'',extra:i});
+function numberRaw(v){return Math.max(0,Number(String(v??'').replace(',','.'))||0)}
+const denominations=[200,100,50,20,10,5,2,1,.5,.2,.1];function save(){s.meta={company:$('company').value,location:$('location').value,date:$('date').value,employee:$('employee').value,event:$('event').value==='custom'?$('customEvent').value:$('event').value,weather:$('weather').value,temperature:$('temperature').value,opponent:$('opponent').value};s.float=$('float').value;s.card=$('card').value;s.notes=$('notes').value;localStorage.setItem('gastro_demo_v26',JSON.stringify(s))}function number(v){return Math.max(0,Number(String(v??'').replace(',','.'))||0)}function calcItem(x){let used=(number(x.start)+number(x.incoming)-number(x.outgoing)-number(x.end))*number(x.factor)-number(x.waste)-number(x.staff);return {qty:Math.max(0,Math.round(used*10000)/10000),negative:used<0,amount:Math.round(Math.max(0,used)*number(x.price)*100)/100}}function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function field(id,key,v){return `<input id="goodsfield${id}_${key}" aria-label="${esc(key)}" type="text" inputmode="decimal" placeholder="" value="${esc(v)}" oninput="changeItem(${id},'${key}',this.value)">`}function consumptionUnit(x){
+ const name=(x.name||'').toLowerCase();
+ if(name.includes('bratwurst')||name.includes('currywurst'))return 'Stück';
+ if(name.includes('pommes'))return 'Portionen';
+ if(name.includes('fassbier')||name.includes('cola')||name.includes('fanta')||name.includes('sprite')||name.includes('wasser')||name.includes('kaffee')||name.includes('glühwein'))return 'Becher';
+ if(name.includes('flaschenbier stadion'))return 'Becher';
+ if(name.includes('flaschenbier'))return 'Flaschen';
+ if(name.includes('softeis'))return 'Waffeln';
+ return x.factor==1?(x.unit||'Stück'):'Portionen';
+}
+function renderItems(){
+ $('items').innerHTML=s.items.map((x,i)=>`<article class="item goods-card ${i%2===0?'goods-tint':''}" id="goods${x.id}">
+ <div class="goods-head"><div class="goods-title"><span class="goods-number">${i+1}</span><div><strong id="itemtitle${x.id}">${esc(x.name||'Zusatzartikel '+(x.extra||'')+' – Namen eingeben')}</strong><small>${esc(x.unit)} · ${fmt(x.factor)} Verkaufseinheit(en) je ${esc(x.unit)}</small></div></div><span class="goods-price">${eur(x.price)}</span></div>
+ ${x.extra?`<div class="goods-extra"><label>✏️ Name des neuen Artikels</label><input type="text" value="${esc(x.name)}" placeholder="z. B. Crêpe oder Kakao" oninput="changeItemName(${x.id},this.value)"></div>`:''}
+ <div class="goods-fields"><div><label>① Anfangsbestand <small>(${esc(x.unit)})</small></label>${field(x.id,'start',x.start)}</div><div><label>② Endbestand <small>(${esc(x.unit)})</small></label>${field(x.id,'end',x.end)}</div><div><label>③ Zugang <small>(${esc(x.unit)})</small></label>${field(x.id,'incoming',number(x.incoming)===0?'':x.incoming)}</div><div><label>④ Abgang <small>(${esc(x.unit)})</small></label>${field(x.id,'outgoing',number(x.outgoing)===0?'':x.outgoing)}</div><div><label>⑤ Schwund <small>(${esc(consumptionUnit(x))})</small></label>${field(x.id,'waste',x.waste)}</div><div><label>⑥ Personal <small>(${esc(consumptionUnit(x))})</small></label>${field(x.id,'staff',x.staff)}</div></div>
+ <details class="goods-options"><summary>⚙️ Preis und Verkaufseinheit ändern</summary><div class="goods-options-grid"><div><label>Preis je Verkaufseinheit (€)</label>${field(x.id,'price',x.price)}</div><div><label>Verkaufseinheiten je ${esc(x.unit)}</label>${field(x.id,'factor',x.factor)}</div>${x.extra?`<div><label>Bestandseinheit</label><select onchange="changeItem(${x.id},'unit',this.value)">${['Stück','Waffeln','Becher','Tüte','Flasche','Liter','Fass'].map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select></div>`:''}</div></details>
+ <div id="itemresult${x.id}" class="goods-result"></div></article>`).join('');renderResults()}
+function renderResults(){let sum=0;for(const x of s.items){let c=calcItem(x);if(!x.extra||x.name.trim())sum+=c.amount;let el=$('itemresult'+x.id);if(el)el.innerHTML=(c.negative?'<span class="error">⚠️ Abzüge größer als Bestand! </span>':'')+`<div class="calc-detail"><div>(${fmt(x.start)} Anfang + ${fmt(x.incoming)} Zugang − ${fmt(x.outgoing)} Abgang − ${fmt(x.end)} Ende) × ${fmt(x.factor)} Verkaufseinheiten</div><div>− ${fmt(x.waste)} Schwund − ${fmt(x.staff)} Personal</div><strong>= ${fmt(c.qty)} verkauft × ${eur(number(x.price))} = ${eur(c.amount)}</strong></div>`}$('stockTotal').textContent=eur(sum)}function changeItemName(id,v){let x=s.items.find(x=>x.id===id);if(!x)return;x.name=v;save();if(x.quickMisc){const q=$('miscname'+id);if(q&&q!==document.activeElement)q.value=v;const h=q?.closest('.quick-card')?.querySelector('.quick-card-head strong');if(h)h.textContent=v||'Sonstiges';}let title=document.getElementById('itemtitle'+id);if(title)title.textContent=v||'Neuer Artikel – bitte benennen';renderResults()}function refreshItemTitle(id){renderResults()}function changeItem(id,k,v){let x=s.items.find(x=>x.id===id);if(x){x[k]=v;save();if(['start','end','incoming','outgoing','waste','staff'].includes(k)){let q=$('quick'+k+id);if(q&&q!==document.activeElement)q.value=v;let goods=$('goodsfield'+id+'_'+k);if(goods&&goods!==document.activeElement)goods.value=v;}if(k==='name'){let t=$('itemtitle'+id);if(t)t.textContent=v||'Neuer Artikel – bitte benennen';renderResults();return;}if(k==='unit'){let active=document.activeElement;let y=window.scrollY;renderItems();window.scrollTo(0,y);return;}if(k==='price'){let m=$('miscprice'+id);if(m&&m!==document.activeElement)m.value=v;let p=$('quickprice'+id);if(p)p.innerHTML=eur(x.price)+' <small>je '+esc(consumptionUnit(x))+'</small>';let gp=document.querySelector('#goods'+id+' .goods-price');if(gp)gp.textContent=eur(x.price);}renderResults()}}function renderSettings(){$('settingsItems').innerHTML=s.items.map(x=>`<div class="settings-item"><div class="row"><div><label>Artikelname</label><input value="${esc(x.name)}" onchange="changeSetting(${x.id},'name',this.value)"></div><div><label>Preis (€)</label><input type="number" min="0" step="0.01" value="${esc(x.price)}" onchange="changeSetting(${x.id},'price',this.value)"></div><div><label>Einheit</label><select onchange="changeSetting(${x.id},'unit',this.value)">${['Stück','Waffeln','Flasche','Tüte','Fass','Becher','Liter','Kiste'].map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select></div><div><label>Portionen je Einheit</label><input type="number" min="0.01" step="any" value="${esc(x.factor)}" onchange="changeSetting(${x.id},'factor',this.value)"></div></div><button onclick="removeItem(${x.id})">Artikel entfernen</button></div>`).join('')}
+function changeSetting(id,k,v){let x=s.items.find(x=>x.id===id);if(!x)return;if(['price','factor'].includes(k)&&!(number(v)>0||k==='price'&&number(v)===0)){alert('Bitte eine gültige Zahl eingeben.');renderSettings();return}x[k]=v;save();renderItems();renderQuickStart()}function removeItem(id){if(!confirm('Artikel wirklich entfernen?'))return;s.items=s.items.filter(x=>x.id!==id);save();renderSettings();renderItems();renderQuickStart()}function addItem(){let name=$('newName').value.trim(),factor=number($('newFactor').value),price=number($('newPrice').value);if(!name||factor<=0||price<0||!Number.isFinite(price)){alert('Bitte gültigen Namen, Preis und Umrechnung eingeben.');return}s.items.push({id:Math.max(0,...s.items.map(x=>x.id))+1,name,price,unit:$('newUnit').value,factor,start:'',end:'',waste:'',staff:'',incoming:'',outgoing:''});$('newName').value='';save();renderSettings();renderItems();renderQuickStart()}
+function count(){let total=0;for(const d of denominations)total+=d*number(s.counts[d]);return Math.round(total*100)/100}function update(){save();renderResults();let cash=count(),actual=cash+number(s.card)-number(s.float);$('cashTotal').textContent=eur(cash);if($('denomTotal'))$('denomTotal').textContent=eur(cash);for(const d of denominations){let el=$('denomSum'+String(d).replace('.','_'));if(el)el.textContent=eur(d*number(s.counts[d]))}$('actualTotal').textContent=eur(actual);renderCashOverview()}function renderCash(){$('denoms').innerHTML=denominations.map(d=>`<tr><td><b>${eur(d)}</b></td><td><input aria-label="Anzahl ${eur(d)}" type="number" min="0" step="1" inputmode="numeric" value="${esc(s.counts[d]??'')}" oninput="setCount('${d}',this.value)"></td><td id="denomSum${String(d).replace('.','_')}">${eur(d*number(s.counts[d]))}</td></tr>`).join('');update()}function setCount(d,v){s.counts[d]=v;update()}
+function renderReport(){update();let stock=0;$('reportRows').innerHTML=s.items.filter(x=>!x.extra||x.name.trim()).map(x=>{let c=calcItem(x);stock+=c.amount;return `<tr><td>${esc(x.name)}${c.negative?' ⚠':''}</td><td>${fmt(x.start)} ${esc(x.unit)}</td><td>${fmt(x.end)}</td><td>${fmt(x.incoming)}</td><td>${fmt(x.outgoing)}</td><td>${fmt(x.waste)}</td><td>${fmt(x.staff)}</td><td>${fmt(c.qty)}</td><td>${eur(x.price)}</td><td>${eur(c.amount)}</td></tr>`}).join('');let cash=count(),card=number(s.card),flo=number(s.float),actual=cash+card-flo,diff=actual-stock;$('reportMeta').textContent=[s.meta.company,s.meta.event,s.meta.location,s.meta.date,s.meta.employee,s.meta.opponent?('Gegner: '+s.meta.opponent):'',s.meta.weather,(s.meta.temperature??15)+' °C'].filter(Boolean).join(' | ');$('rStock').textContent=eur(stock);$('rCash').textContent=eur(cash);$('rCard').textContent=eur(card);$('rFloat').textContent='− '+eur(flo);$('rActual').textContent=eur(actual);$('rDiff').textContent=(diff>0?'+':'')+eur(diff);$('rDiff').className=Math.abs(diff)<.005?'good':'error';$('rNotes').textContent=s.notes||'–';if(s.signature){$('printSignature').src=s.signature;$('printSignature').style.display='block'}else{$('printSignature').removeAttribute('src');$('printSignature').style.display='none'}$('reportDenoms').innerHTML=denominations.map(d=>`<tr><td>${eur(d)}</td><td>${fmt(s.counts[d])}</td><td>${eur(d*number(s.counts[d]))}</td></tr>`).join('')+`<tr><th>Summe</th><th></th><th>${eur(cash)}</th></tr>`}
+function tab(name){save();for(let id of ['start','stock','cash','report','settings']){$(id).classList.toggle('hide',id!==name);$('t-'+id).classList.toggle('active',id===name)}if(name==='start')renderQuickStart();if(name==='report')renderReport();if(name==='settings')renderSettings();if(name==='cash')renderCash();window.scrollTo(0,0)}function renderCashOverview(){let cash=count(),card=number(s.card),flo=number(s.float),actual=cash+card-flo;let stock=s.items.reduce((v,x)=>v+(!x.extra||x.name.trim()?calcItem(x).amount:0),0);$('cashOverview').innerHTML=[['💶 Bargeld gezählt',cash],['💳 EC / SumUp',card],['➖ Wechselgeld',-flo],['📦 Warenumsatz (Soll)',stock],['📊 Differenz Kasse − Waren',actual-stock],['✅ Tatsächlicher Tagesumsatz',actual]].map(([label,v])=>`<div class="cash-line"><span>${label}</span><strong>${v<0?'− ':''}${eur(Math.abs(v))}</strong></div>`).join('')}function resetAll(){if(confirm('Wirklich ALLE Testdaten dieses Geräts löschen?')){localStorage.removeItem('gastro_demo_v26');location.reload()}}function clearStockEntries(){
+ if(!confirm('Neue Testveranstaltung beginnen?\n\nEs werden alle Warenmengen, das Bargeld-Zählprotokoll, EC / SumUp, Wechselgeld, Bemerkungen und die Unterschrift gelöscht. Auch die Veranstaltungsangaben werden geleert.\n\nArtikel, Preise und Einstellungen bleiben erhalten.'))return;
+ for(const item of s.items){for(const key of ['start','end','incoming','outgoing','waste','staff'])item[key]='';}
+ s.counts={};s.float='';s.card='';s.notes='';s.signature='';s.meta={};
+ for(const id of ['location','employee','opponent','customEvent','float','card','notes'])$(id).value='';
+ $('event').selectedIndex=0;$('weather').value='';$('temperature').value=15;
+ $('date').value=new Date().toLocaleDateString('en-CA');
+ eventChanged();
+ if(typeof sigctx!=='undefined')sigctx.clearRect(0,0,signature.width,signature.height);
+ $('printSignature').removeAttribute('src');$('printSignature').style.display='none';
+ save();renderItems();renderQuickStart();renderCash();renderResults();
+ tab('start');
+ alert('Alle Testeingaben sind gelöscht. Artikel und Preise sind erhalten geblieben.');
+}
+
+// V26: Erstellt eine E-Mail mit lesbarer Abrechnung. Browser können keine PDF-Anhänge automatisch an mailto anhängen.
+function sendReportEmail(){
+ save();
+ if(!s.meta.employee.trim()){alert('Bitte zuerst Vor- und Nachnamen des Mitarbeiters eintragen.');tab('start');$('employee').focus();return;}
+ const recipient='olaf.janssen@flohmaxx.de';
+ const stock=s.items.filter(x=>!x.extra||x.name.trim()).map(x=>({x,c:calcItem(x)}));
+ const sum=stock.reduce((v,r)=>v+r.c.amount,0),cash=count(),card=number(s.card),change=number(s.float),actual=cash+card-change;
+ const lines=[
+ 'GASTRO JANSEN – TESTABRECHNUNG',
+ 'Veranstaltung: '+(s.meta.event||'–'),
+ 'Standort: '+(s.meta.location||'–'),
+ 'Datum: '+(s.meta.date||'–'),
+ 'Mitarbeiter: '+s.meta.employee,
+ 'Gegner: '+(s.meta.opponent||'–'),
+ 'Wetter: '+(s.meta.weather||'–')+' / '+(s.meta.temperature||'–')+' °C',
+ '', 'WARENABRECHNUNG',
+ ...stock.map(({x,c})=>x.name+': Anfang '+fmt(x.start)+', Ende '+fmt(x.end)+', Zugang '+fmt(x.incoming)+', Abgang '+fmt(x.outgoing)+', Schwund '+fmt(x.waste)+', Personal '+fmt(x.staff)+' | Verkauf '+fmt(c.qty)+' × '+eur(x.price)+' = '+eur(c.amount)),
+ '', 'Warenumsatz: '+eur(sum),'', 'KASSENZÄHLUNG',
+ ...denominations.filter(d=>number(s.counts[d])).map(d=>eur(d)+' × '+fmt(s.counts[d])+' = '+eur(d*number(s.counts[d]))),
+ 'Bargeld: '+eur(cash), 'EC / SumUp: '+eur(card),'Wechselgeld: '+eur(change),
+ 'Tagesumsatz: '+eur(actual),'Differenz: '+eur(actual-sum),
+ 'Bemerkungen: '+(s.notes||'–'),
+ '', 'Hinweis: Die handschriftliche Unterschrift kann per E-Mail nicht automatisch mitgesendet werden.',
+ 'Für einen vollständigen Bericht mit Unterschrift bitte unter „④ Bericht“ über „Drucken / als PDF speichern“ eine PDF erzeugen und manuell anhängen.'
+ ];
+ const subject='Gastro Jansen – Testabrechnung '+(s.meta.date||'')+' – '+s.meta.employee;
+ const url='mailto:'+recipient+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(lines.join('\n'));
+ if(url.length>12000){alert('Die E-Mail ist für manche E-Mail-Programme zu lang. Bitte den Bericht als PDF speichern und manuell an '+recipient+' senden.');tab('report');return;}
+ window.location.href=url;
+}
+
+// V27: WhatsApp-Nachricht wird nur vorbereitet. Der Mitarbeiter sendet sie selbst.
+function sendReportWhatsApp(){
+ save();
+ if(!s.meta.employee.trim()){alert('Bitte zuerst Vor- und Nachnamen des Mitarbeiters eintragen.');tab('start');$('employee').focus();return;}
+ const stock=s.items.filter(x=>!x.extra||x.name.trim()).map(x=>({x,c:calcItem(x)}));
+ const sum=stock.reduce((v,r)=>v+r.c.amount,0);
+ const cash=count(),card=number(s.card),change=number(s.float),actual=cash+card-change;
+ const lines=[
+  'GASTRO JANSEN – TESTABRECHNUNG',
+  'Veranstaltung: '+(s.meta.event||'–'),
+  'Standort: '+(s.meta.location||'–'),
+  'Datum: '+(s.meta.date||'–'),
+  'Mitarbeiter: '+s.meta.employee,
+  'Gegner: '+(s.meta.opponent||'–'),
+  'Wetter: '+(s.meta.weather||'–')+' / '+(s.meta.temperature??'–')+' °C',
+  '', 'WAREN',
+  ...stock.filter(({x,c})=>c.qty!==0||number(x.start)||number(x.end)||number(x.incoming)||number(x.outgoing)).map(({x,c})=>x.name+': '+fmt(c.qty)+' verkauft = '+eur(c.amount)),
+  'Warenumsatz: '+eur(sum),
+  '', 'KASSE',
+  'Bargeld: '+eur(cash),
+  'EC / SumUp: '+eur(card),
+  'Wechselgeld: '+eur(change),
+  'Tagesumsatz: '+eur(actual),
+  'Differenz: '+eur(actual-sum),
+  'Bemerkungen: '+(s.notes||'–'),
+  '', 'Hinweis: Unterschrift und PDF-Bericht sind nicht automatisch angehängt.'
+ ];
+ const url='https://wa.me/491724567866?text='+encodeURIComponent(lines.join('\n'));
+ if(url.length>8000){alert('Die WhatsApp-Nachricht ist sehr lang. Bitte den Bericht als PDF speichern und über WhatsApp manuell teilen.');tab('report');return;}
+ window.open(url,'_blank','noopener');
+}
+
+async function loadPDFScript(url, check){
+ if(check())return;
+ await new Promise((resolve,reject)=>{const sc=document.createElement('script');sc.src=url;sc.onload=resolve;sc.onerror=()=>reject(new Error('PDF-Bibliothek konnte nicht geladen werden. Bitte Internetverbindung prüfen.'));document.head.appendChild(sc)});
+ if(!check())throw new Error('PDF-Bibliothek nicht verfügbar.');
+}
+let preparedPDF=null;
+async function prepareIphonePDF(){
+ preparedPDF=null; const ready=$('iphonePdfReady');if(ready)ready.classList.add('hide');
+ save();
+ if(!s.meta.employee.trim()){
+  alert('Bitte zuerst Vor- und Nachnamen des Mitarbeiters eintragen.');
+  tab('start');$('employee').focus();return;
+ }
+ tab('report');renderReport();
+ const btns=[...document.querySelectorAll('button')].filter(b=>b.getAttribute('onclick')==='prepareIphonePDF()');
+ btns.forEach(b=>{b.disabled=true;b.dataset.original=b.textContent;b.textContent='⏳ PDF wird erstellt …'});
+ let clone;
+ try{
+  await loadPDFScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',()=>!!window.html2canvas);
+  await loadPDFScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js',()=>!!window.jspdf);
+  clone=$('report').cloneNode(true);
+  clone.id='pdf-report-copy';
+  Object.assign(clone.style,{position:'fixed',left:'-10000px',top:'0',width:'900px',maxWidth:'none',display:'block',background:'#fff',padding:'24px',boxShadow:'none',zIndex:'-1'});
+  clone.querySelectorAll('.noprint,.report-cash-inputs,button').forEach(el=>el.remove());
+  clone.querySelectorAll('.scroll').forEach(el=>{el.style.overflow='visible';el.style.width='100%'});
+  const img=clone.querySelector('#printSignature');
+  if(img){if(s.signature){img.src=s.signature;img.style.display='block'}else img.style.display='none'}
+  document.body.appendChild(clone);
+  await new Promise(r=>setTimeout(r,80));
+  const canvas=await html2canvas(clone,{scale:1.5,backgroundColor:'#ffffff',useCORS:true,windowWidth:1000});
+  const {jsPDF}=window.jspdf;
+  const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true});
+  const pw=210,ph=297,margin=9,contentW=pw-2*margin,contentH=ph-2*margin;
+  const pagePixels=canvas.width*contentH/contentW;
+  let offset=0,page=0;
+  while(offset<canvas.height){
+   const slice=document.createElement('canvas');slice.width=canvas.width;slice.height=Math.min(Math.ceil(pagePixels),canvas.height-offset);
+   slice.getContext('2d').drawImage(canvas,0,offset,canvas.width,slice.height,0,0,canvas.width,slice.height);
+   if(page++)pdf.addPage();
+   pdf.addImage(slice.toDataURL('image/jpeg',0.86),'JPEG',margin,margin,contentW,slice.height*contentW/canvas.width);
+   offset+=slice.height;
+  }
+  const filename='Gastro-Jansen-Abrechnung-'+(s.meta.date||'Test')+'.pdf';
+  const blob=pdf.output('blob');
+  preparedPDF={blob,filename,file:new File([blob],filename,{type:'application/pdf'})};
+  if(ready){ready.classList.remove('hide');ready.scrollIntoView({behavior:'smooth',block:'center'});}
+  else alert('PDF ist fertig. Öffne die Kasse und tippe auf „Jetzt über WhatsApp teilen“.');
+ }catch(err){alert('PDF-Erstellung nicht möglich: '+err.message+'\n\nDu kannst weiterhin auf „Bericht“ gehen und über das Browsermenü „Drucken / Als PDF speichern“ verwenden.');}
+ finally{if(clone)clone.remove();btns.forEach(b=>{b.disabled=false;b.textContent=b.dataset.original||'📄 PDF vorbereiten'})}
+}
+function openPreparedPDF(){
+ if(!preparedPDF){alert('Bitte zuerst die PDF vorbereiten.');return;}
+ const url=URL.createObjectURL(preparedPDF.blob);
+ const w=window.open(url,'_blank');
+ if(!w){const a=document.createElement('a');a.href=url;a.download=preparedPDF.filename;document.body.appendChild(a);a.click();a.remove();}
+ setTimeout(()=>URL.revokeObjectURL(url),120000);
+}
+function sharePreparedPDF(){
+ if(!preparedPDF){alert('Bitte zuerst die PDF vorbereiten.');return;}
+ const f=preparedPDF.file;
+ // Wichtig auf iOS: navigator.share muss DIREKT im zweiten Fingertipp starten.
+ if(navigator.share && (!navigator.canShare || navigator.canShare({files:[f]}))){
+  navigator.share({files:[f],title:'Gastro Jansen – Abrechnung'}).catch(err=>{
+   if(err.name!=='AbortError')alert('Direktes Teilen nicht möglich. Bitte „PDF öffnen / sichern“ wählen und das iPhone-Teilen-Symbol verwenden.');
+  });
+ }else{
+  alert('Dein Browser unterstützt das direkte Teilen von PDF-Dateien nicht. Bitte „PDF öffnen / sichern“ antippen und dort über das iPhone-Teilen-Symbol WhatsApp wählen.');
+ }
+}
+
+function downloadJSON(){save();let blob=new Blob([JSON.stringify(s,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Gastro-Abrechnung-'+(s.meta.date||'Test')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function eventChanged(){let stadium=$('event').value==='stadium';$('customEventWrap').classList.toggle('hide',$('event').value!=='custom');$('stadiumWrap').classList.toggle('hide',!stadium);$('stadiumWeather').classList.remove('hide');save()}
+function adjustTemp(d){let el=$('temperature');el.value=Math.min(50,Math.max(-30,(Number(el.value)||0)+d));save()}
+for(const k of ['location','date','employee','weather']){$(k).value=s.meta[k]||'';$(k).addEventListener('input',save)}
+$('opponent').value=s.meta.opponent||'';$('company').value='Gastro Jansen';$('temperature').value=s.meta.temperature??15;$('temperature').addEventListener('input',save);
+if(s.meta.event){let opt=[...$('event').options].find(o=>o.value===s.meta.event);if(opt)$('event').value=s.meta.event;else{$('event').value='custom';$('customEvent').value=s.meta.event}}eventChanged();if(!s.meta.date)$('date').value=new Date().toLocaleDateString('en-CA');$('float').value=s.float;$('card').value=s.card;$('notes').value=s.notes;renderItems();renderQuickStart();renderCash();tab('start');
+
+const signature=$('signature'),sigctx=signature.getContext('2d');sigctx.lineWidth=3;sigctx.strokeStyle='#183e77';sigctx.lineCap='round';let signing=false;function signaturePoint(e){const r=signature.getBoundingClientRect();return {x:(e.clientX-r.left)*signature.width/r.width,y:(e.clientY-r.top)*signature.height/r.height}}signature.addEventListener('pointerdown',e=>{signing=true;signature.setPointerCapture(e.pointerId);const p=signaturePoint(e);sigctx.beginPath();sigctx.moveTo(p.x,p.y)});signature.addEventListener('pointermove',e=>{if(!signing)return;const p=signaturePoint(e);sigctx.lineTo(p.x,p.y);sigctx.stroke()});signature.addEventListener('pointerup',()=>{signing=false;s.signature=signature.toDataURL('image/png');save();$('printSignature').src=s.signature;$('printSignature').style.display='block'});function clearSignature(){sigctx.clearRect(0,0,signature.width,signature.height);s.signature='';save();$('printSignature').removeAttribute('src');$('printSignature').style.display='none'}if(s.signature){const im=new Image();im.onload=()=>sigctx.drawImage(im,0,0);im.src=s.signature}
+
+function changeMisc(id,key,value){
+ const x=s.items.find(x=>x.id===id);if(!x)return;
+ if(key==='price'){if(value.trim()&&!/^\d+(?:[,.]\d{0,2})?$/.test(value.trim()))return;x.price=value;}
+ else x.name=value;
+ save();
+ const title=$('itemtitle'+id);if(title&&key==='name')title.textContent=value||'Sonstiges';
+ const quickTitle=$('miscname'+id)?.closest('.quick-card')?.querySelector('.quick-card-head strong');
+ if(quickTitle&&key==='name')quickTitle.textContent=value||'Sonstiges';
+ const quickPrice=$('quickprice'+id);if(quickPrice&&key==='price')quickPrice.innerHTML=eur(number(value))+' <small>je Stück</small>';
+ const goodsPrice=document.querySelector('#goods'+id+' .goods-price');if(goodsPrice&&key==='price')goodsPrice.textContent=eur(number(value));
+ const goodsName=document.querySelector('#goods'+id+' .goods-extra input');if(goodsName&&key==='name'&&goodsName!==document.activeElement)goodsName.value=value;
+ const goodsPriceInput=$('goodsfield'+id+'_price');if(goodsPriceInput&&key==='price'&&goodsPriceInput!==document.activeElement)goodsPriceInput.value=value;
+ renderResults();
+}
+function renderQuickStart(){
+ const box=$('quickStartItems');if(!box)return;
+ box.innerHTML=s.items.filter(x=>!x.extra||x.name.trim()).map((x,i)=>`<article class="quick-card ${i%2===0?'quick-blue':''}">
+ <div class="quick-card-head"><strong>${esc(x.name)}</strong><span class="quick-price" id="quickprice${x.id}">${eur(x.price)} <small>je ${esc(consumptionUnit(x))}</small></span></div>
+ ${x.quickMisc?`<div class="misc-edit"><label for="miscname${x.id}">Artikelbezeichnung</label><input id="miscname${x.id}" type="text" value="${esc(x.name)}" placeholder="z. B. Kakao, Brezel" oninput="changeMisc(${x.id},'name',this.value)"><label for="miscprice${x.id}">Verkaufspreis (€ je Stück)</label><input id="miscprice${x.id}" type="text" inputmode="decimal" value="${esc(x.price)}" placeholder="z. B. 3,50" oninput="changeMisc(${x.id},'price',this.value)"></div>`:''}
+ <div class="quick-fields">${[['start','Anfang',x.unit],['end','Ende',x.unit],['incoming','Zugang',x.unit],['outgoing','Abgang',x.unit]].map(([key,label,unit])=>`<div><label for="quick${key}${x.id}">${label} <small>(${esc(unit)})</small></label><input id="quick${key}${x.id}" type="text" inputmode="decimal" placeholder="—" value="${esc(x[key])}" oninput="changeItem(${x.id},'${key}',this.value)"></div>`).join('')}</div>
+ <details class="quick-more"><summary>Schwund und Personal (optional)</summary><div class="quick-fields quick-extra">${[['waste','Schwund',consumptionUnit(x)],['staff','Personal',consumptionUnit(x)]].map(([key,label,unit])=>`<div><label for="quick${key}${x.id}">${label} <small>(${esc(unit)})</small></label><input id="quick${key}${x.id}" type="text" inputmode="decimal" placeholder="—" value="${esc(x[key])}" oninput="changeItem(${x.id},'${key}',this.value)"></div>`).join('')}</div></details>
+ </article>`).join('')
+}
+
+</script></body></html>
