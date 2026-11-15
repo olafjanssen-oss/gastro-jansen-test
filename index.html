@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Gastro Janssen · Kasse</title><meta name="gastro-app-version" content="81"><style>
+<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Gastro Janssen · Kasse</title><meta name="gastro-app-version" content="83"><style>
 :root{font-family:system-ui,Arial;color:#12304e;background:#edf3f9}*{box-sizing:border-box}body{margin:0}header{background:#07396d;color:white;padding:14px;text-align:center}header b{font-size:25px}header small{display:block}.wrap{max-width:850px;margin:auto;padding:10px}.card{background:white;border-radius:13px;padding:15px;margin:10px 0;box-shadow:0 2px 12px #17355213}h2{font-size:21px;margin:3px 0 12px}h3{margin:9px 0}label{display:block;font-weight:700;margin:8px 0 4px}input,select{width:100%;padding:10px;border:1px solid #b5c6d8;border-radius:9px;font-size:18px;min-width:0}button{border:0;border-radius:10px;padding:12px;font-size:16px;font-weight:750;cursor:pointer;background:#e5eef9;color:#123e6b}.green{background:#07802c;color:white}.red{background:#c42d3b;color:white}.tabs{display:flex;gap:5px;position:sticky;top:0;background:#edf3f9;padding:6px 0;z-index:5}.tabs button{flex:1;padding:11px 3px;font-size:14px}.tabs .active{background:#07396d;color:white}.hide{display:none!important}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:end}.item{border:1px solid #cfdae6;border-radius:12px;padding:12px;margin:10px 0}.item strong{font-size:19px}.item small{color:#526b84}.item .value{font-weight:800;color:#08752a}.total{background:#dff5e6;padding:15px;border-radius:10px;display:flex;justify-content:space-between;gap:8px;font-size:20px;font-weight:800;margin:10px 0}.note{background:#fff2d2;padding:10px;border-radius:8px;font-size:13px}.muted{font-size:13px;color:#5b6e80}.wide{width:100%}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 4px;border-bottom:1px solid #d8e1eb;text-align:right}th:first-child,td:first-child{text-align:left}.scroll{overflow:auto}.settings-item{border-bottom:1px solid #ddd;padding:10px 0}.settings-item .row{grid-template-columns:2fr 1fr 1fr 1fr}.sticky{position:sticky;bottom:0;background:white;padding:8px 0}.error{color:#a41b2d}.good{color:#08752a}.sig{width:100%;height:90px;border:1px dashed #8297ae;border-radius:8px;touch-action:none}.pill{display:inline-block;background:#e5effb;padding:5px 9px;border-radius:8px;font-size:13px} @media(max-width:650px){.row{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-item .row{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:6px}.card{padding:10px}.item{padding:10px}.item strong{font-size:18px}input{font-size:18px}.tabs button{font-size:13px}}@media print{@page{size:A4;margin:11mm}header,.tabs,.noprint,.sticky{display:none!important}body{background:white;font-size:11px}.wrap{max-width:none}.card{box-shadow:none;padding:0;margin:0}.screen{display:none!important}#report{display:block!important}.report-table{font-size:10px}.report-table td,.report-table th{padding:4px}.total{font-size:14px;padding:7px}.note{font-size:10px}h2{font-size:17px}h3{font-size:13px}}
 .item{border:3px solid #7897ba!important;border-left:7px solid #0b5ba1!important;border-radius:14px!important;margin:16px 0!important;padding:15px!important;background:#fff}.item>strong{display:inline-block;font-size:21px;margin-bottom:7px}.calc-detail{background:#e8f6ec;border:2px solid #84c99a;border-radius:10px;padding:11px;line-height:1.7;font-size:15px}.calc-detail strong{display:block;font-size:19px;color:#09672d;border-top:1px solid #a5d5b3;margin-top:5px;padding-top:5px}.item input{min-width:0}.item .inline-settings{margin-top:10px}@media(max-width:550px){.item{padding:11px!important}.calc-detail{font-size:13px}.calc-detail strong{font-size:16px}}
 .report-table tbody tr:nth-child(odd){background:#e9f4ff}.report-table tbody tr:nth-child(even){background:#fff}.report-table tbody tr:hover{background:#d9eaff}#reportDenoms tr:nth-child(odd){background:#f0f6fc}@media print{.report-table tbody tr:nth-child(odd){background:#e9f4ff!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style><style>
@@ -468,36 +468,80 @@ function makeOfflinePDF(){
   y+=height;if(!header){ctx.strokeStyle='#e6edf3';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,y-27);ctx.lineTo(W-R,y-27);ctx.stroke()}
  }
  function total(label,value,emphasis=false){need(47);if(emphasis){ctx.fillStyle='#e4f1e8';ctx.fillRect(L,y-27,usable,46)}text(label,L+12,y,19,emphasis,ink);text(value,W-R-12,y,21,true,emphasis?'#17633d':blue,'right');y+=48}
- newPage();
+ const products=s.items.filter(x=>!x.extra||x.name.trim());
+ const stock=products.reduce((sum,x)=>sum+calcItem(x).amount,0);
+ const cash=count(),card=number(s.card),flo=number(s.float),receipts=number(s.receipts);
+ const actual=Math.round((cash+card+receipts-flo)*100)/100;
+ const expected=Math.round((stock-card-receipts+flo)*100)/100;
+ const diff=Math.round((cash-expected)*100)/100;
+ function titlePage(title,subtitle){
+  newPage();text(title,L,y+53,31,true,blue);y+=92;
+  text((s.meta.location||'Standort nicht angegeben')+'  |  '+(s.meta.date||'–')+'  |  '+(s.meta.employee||'–'),L,y,18,false,muted);y+=33;
+  if(subtitle){text(subtitle,L,y,18,false,muted);y+=30}rule(y);y+=32;
+ }
+ function valueLine(label,value,highlight=false){
+  need(57);if(highlight){ctx.fillStyle='#e5f3e9';ctx.fillRect(L,y-29,usable,54)}
+  text(label,L+15,y,highlight?21:19,highlight,ink);text(value,W-R-15,y,highlight?25:21,true,highlight?'#17633d':blue,'right');y+=57;
+ }
+ function differenceLine(label,value){
+  need(66);ctx.fillStyle=diff<-.005?'#fde8e8':'#e4f3e9';ctx.fillRect(L,y-32,usable,62);
+  text(label,L+15,y,22,true,ink);text(value,W-R-15,y,26,true,diff<-.005?'#b42332':'#16713e','right');y+=70;
+ }
+ // Seite 1: Kontrollblatt wie beim Flohmaxx-Tagesabschluss
+ titlePage('TAGESABSCHLUSS / KASSENKONTROLLE','Seite 1 · Die wichtigsten Zahlen auf einen Blick');
  section('Veranstaltung und Schicht');
- info('Firma',s.meta.company||'Gastro Janssen');info('Veranstaltung',s.meta.event||'–');info('Stand / Standort',s.meta.location||'–');info('Datum',s.meta.date||'–');info('Mitarbeiter',s.meta.employee||'–');
+ info('Veranstaltung',s.meta.event||'–');info('Standort',s.meta.location||'–');info('Datum',s.meta.date||'–');info('Mitarbeiter',s.meta.employee||'–');
  if(s.meta.opponent)info('Gegner',s.meta.opponent);
  info('Wetter / Temperatur',(s.meta.weather||'–')+'  |  '+(s.meta.temperature??15)+' °C');
- section('Warenabrechnung');
- const products=s.items.filter(x=>!x.extra||x.name.trim());let stock=0;
- // Tabellenbreite: Artikel 224, Anfang 93, Ende 87, Zu 78, Ab 78, Schwund 90, Personal 91, Verkauf 99, Preis 113, Umsatz 155.
+ info('Status',s.cashClosed?'Abgeschlossen':'Noch nicht abgeschlossen');
+ section('Umsatz und Bargeldkontrolle');
+ valueLine('Rechnerischer Warenumsatz',eur(stock),true);
+ valueLine('− EC / SumUp',eur(card));
+ valueLine('− Quittungen / bar bezahlte Auslagen',eur(receipts));
+ valueLine('+ Wechselgeld',eur(flo));
+ valueLine('Bargeld Soll laut Ware',eur(expected),true);
+ valueLine('Bargeld Ist laut Zählung',eur(cash),true);
+ differenceLine('Kassendifferenz (Ist − Soll)',(diff>0?'+ ':'')+eur(diff));
+ valueLine('Tatsächlicher Tagesumsatz',eur(actual));
+ section('Kontrollhinweis');
+ for(const t of wrap('Soll-Bargeld = Warenumsatz minus Kartenzahlungen minus bar bezahlte Quittungen plus Wechselgeld. Die Warenmengen und das Zählprotokoll sind auf den folgenden Seiten nachprüfbar.',usable-20,19)){text(t,L+10,y,19);y+=32}
+ // Seite 2: ausschließlich Warenbewegungen
+ titlePage('WARENABRECHNUNG','Seite 2 · Anfang, Zugang, Personal, Schwund, Ende und Umsatz');
  const widths=[224,93,87,78,78,90,91,99,113,155];
  const heads=['Artikel','Anfang','Ende','Zu','Ab','Schw.','Pers.','Verkauf','Preis','Umsatz'];
  const aligns=['left','right','right','right','right','right','right','right','right','right'];
  function goodsHead(){row(heads,widths,48,true,false,aligns)}
  goodsHead();
  products.forEach((x,i)=>{
-  const c=calcItem(x);stock+=c.amount;
-  const name=String(x.name||'Artikel');let names=wrap(name,widths[0]-15,17);const height=Math.max(43,names.length*23+16);
-  if(y+height>H-B){newPage();section('Warenabrechnung – Fortsetzung');goodsHead()}
+  const c=calcItem(x),names=wrap(String(x.name||'Artikel'),widths[0]-15,17),height=Math.max(43,names.length*23+16);
+  if(y+height>H-B-120){titlePage('WARENABRECHNUNG – FORTSETZUNG','Warenbewegungen und Umsatz');goodsHead()}
   const values=[names[0],fmt(x.start),fmt(x.end),fmt(x.incoming),fmt(x.outgoing),fmt(x.waste),fmt(x.staff),fmt(c.qty),eur(x.price),eur(c.amount)];
   const before=y;row(values,widths,height,false,i%2===1,aligns);
-  if(names.length>1){names.slice(1).forEach((n,j)=>text(n,L+8,before+23+j*23,16,false,ink))}
+  if(names.length>1)names.slice(1).forEach((n,j)=>text(n,L+8,before+23+j*23,16,false,ink));
  });
- y+=8;total('Rechnerischer Warenumsatz',eur(stock),true);
- section('Zählprotokoll – Bargeld');
- const dWidths=[390,270,448];row(['Nennwert','Anzahl','Betrag'],dWidths,48,true,false,['left','right','right']);
- denominations.forEach((d,i)=>row([eur(d),fmt(s.counts[d]),eur(d*number(s.counts[d]))],dWidths,39,false,i%2===1,['left','right','right']));
- total('Summe Scheine',eur(noteTotal()));total('Summe lose Münzen',eur(coinTotal()));rollDenoms.forEach(d=>row(['Rolle '+eur(d),fmt(s.rolls[d]),eur(d*rollPieces[d]*number(s.rolls[d]))],dWidths,39,false,false,['left','right','right']));total('Summe Rollen',eur(rollTotal()));total('Gezähltes Bargeld gesamt',eur(count()),true);
- section('Kassen- und Umsatzabgleich');
- const cash=count(),card=number(s.card),flo=number(s.float),actual=cash+card+number(s.receipts)-flo;
- total('Gezähltes Bargeld',eur(cash));total('+ EC / SumUp',eur(card));total('+ Bar entnommene Quittungen',eur(number(s.receipts)));total('− Wechselgeld zu Schichtbeginn',eur(flo));
- total('Tatsächlicher Tagesumsatz',eur(actual),true);total('Rechnerischer Warenumsatz',eur(stock));total('Differenz (Kasse − Waren)',(actual-stock>0?'+':'')+eur(actual-stock),true);
+ y+=15;total('Rechnerischer Warenumsatz',eur(stock),true);
+ section('Erläuterung');
+ for(const t of wrap('Verkauf = (Anfang + Zugang − Abgang − Ende) × Verkaufseinheiten je Gebinde − Schwund − Personal. Currywurst-Zuschlag wird automatisch aus 20 % der verkauften Bratwürste berechnet.',usable-20,18)){text(t,L+10,y,18);y+=29}
+ // Seite 3: vollständiges Zählprotokoll und Unterschrift
+ titlePage('ZÄHLPROTOKOLL / BARGELD','Seite 3 · Nachzählung, Differenz und Unterschrift');
+ const dWidths=[390,270,448];row(['Stückelung','Anzahl','Betrag'],dWidths,47,true,false,['left','right','right']);
+ denominations.forEach((d,i)=>row([eur(d),fmt(s.counts[d]),eur(d*number(s.counts[d]))],dWidths,36,false,i%2===1,['left','right','right']));
+ valueLine('Summe Scheine',eur(noteTotal()));valueLine('Summe lose Münzen',eur(coinTotal()));
+ const usedRolls=rollDenoms.filter(d=>number(s.rolls[d])>0);
+ if(usedRolls.length){section('Münzrollen');usedRolls.forEach(d=>row(['Rolle '+eur(d),fmt(s.rolls[d]),eur(d*rollPieces[d]*number(s.rolls[d]))],dWidths,36,false,false,['left','right','right']));}
+ valueLine('Summe Rollen',eur(rollTotal()));
+ valueLine('Gezähltes Bargeld (Ist)',eur(cash),true);
+ valueLine('Bargeld laut Ware (Soll)',eur(expected),true);
+ differenceLine('Differenz (Ist − Soll)',(diff>0?'+ ':'')+eur(diff));
+ // Seite 4: Unterzeichnung und Bemerkungen separat, ohne unkontrollierte Seitenumbrüche
+ titlePage('KASSENABSCHLUSS / UNTERSCHRIFT','Seite 4 · Bemerkungen und Verantwortlichkeit');
+ section('Abschlusswerte');
+ valueLine('Rechnerischer Warenumsatz',eur(stock));
+ valueLine('EC / SumUp',eur(card));
+ valueLine('Wechselgeld',eur(flo));
+ valueLine('Quittungen / Auslagen',eur(receipts));
+ valueLine('Bargeld gezählt',eur(cash),true);
+ differenceLine('Kassendifferenz (Ist − Soll)',(diff>0?'+ ':'')+eur(diff));
  section('Bemerkungen / Differenzklärung');
  for(const t of wrap(s.notes||'Keine Bemerkungen.',usable-20,19)){need(31);text(t,L+10,y,19);y+=31}
  section('Unterschrift Mitarbeiter');
@@ -505,7 +549,6 @@ function makeOfflinePDF(){
  if(s.signature){
   need(190);try{const preview=document.getElementById('printSignature'),sig=(preview&&preview.complete&&preview.naturalWidth)?preview:document.getElementById('signature');ctx.drawImage(sig,L+10,y-22,650,160);y+=164}catch(e){text('Unterschrift gespeichert – siehe Mitarbeitername oben.',L+10,y,18);y+=32}
  }else{need(48);text('Keine Unterschrift erfasst.',L+10,y,19);y+=45}
-
  // Seitenzahlen und Zuordnung auf jeder Seite
  pages.forEach((p,i)=>{const c=p.getContext('2d');c.strokeStyle='#d4e0ea';c.beginPath();c.moveTo(L,H-68);c.lineTo(W-R,H-68);c.stroke();c.font='16px Arial';c.fillStyle='#607286';c.fillText('Gastro Janssen  |  '+(s.meta.date||'')+'  |  '+(s.meta.location||''),L,H-43);c.textAlign='right';c.fillText('Seite '+(i+1)+' / '+pages.length,W-R,H-43);c.textAlign='left'});
  // PDF-Container mit je einer A4-JPEG-Seite, offline und iOS-kompatibel.
@@ -673,7 +716,7 @@ function acceptLandscapeSignature(){
 
 /* V57: Versionsabgleich fuer installierte iPhone-Homebildschirm-Web-App. */
 (function(){
- const current=81;let checking=false,lastCheck=0;
+ const current=83;let checking=false,lastCheck=0;
  async function checkAppVersion(){
   if(checking||Date.now()-lastCheck<25000||document.getElementById('landscapeSignModal')?.style.display==='flex')return;
   checking=true;lastCheck=Date.now();
