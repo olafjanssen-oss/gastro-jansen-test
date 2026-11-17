@@ -320,30 +320,17 @@ function refreshStartGate(){
 }
 
 function noteTotal(){return notesDenoms.reduce((a,d)=>a+d*number(s.counts[d]),0)}function coinTotal(){return coinDenoms.reduce((a,d)=>a+d*number(s.counts[d]),0)}function rollTotal(){return rollDenoms.reduce((a,d)=>a+d*rollPieces[d]*number(s.rolls[d]),0)}function count(){return Math.round((noteTotal()+coinTotal()+rollTotal())*100)/100}function update(){if($('startFloat')&&document.activeElement!==$('startFloat'))$('startFloat').value=$('float').value;save();renderResults();renderCashCheck();renderExpectedCash();let cash=count(),actual=cash+number(s.card)+number(s.receipts)-number(s.float);$('cashTotal').textContent=eur(cash);if($('denomTotal'))$('denomTotal').textContent=eur(cash);$('noteTotal').textContent=eur(noteTotal());$('coinTotal').textContent=eur(coinTotal());$('rollTotal').textContent=eur(rollTotal());for(const d of rollDenoms){const el=$('rollSum'+String(d).replace('.','_'));if(el)el.textContent=eur(d*rollPieces[d]*number(s.rolls[d]))}for(const d of denominations){let el=$('denomSum'+String(d).replace('.','_'));if(el)el.textContent=eur(d*number(s.counts[d]))}$('actualTotal').textContent=eur(actual);renderCashOverview()}function renderCash(){const row=d=>`<tr><td><b>${eur(d)}</b></td><td><input aria-label="Anzahl ${eur(d)}" type="number" min="0" step="1" inputmode="numeric" enterkeyhint="next" value="${esc(s.counts[d]??'')}" oninput="setCount('${d}',this.value)"></td><td id="denomSum${String(d).replace('.','_')}">${eur(d*number(s.counts[d]))}</td></tr>`;$('noteDenoms').innerHTML=notesDenoms.map(row).join('');$('coinDenoms').innerHTML=coinDenoms.map(row).join('');$('rollDenoms').innerHTML=rollDenoms.map(d=>`<tr><td><b>${eur(d)} (${rollPieces[d]} Stück)</b></td><td><input aria-label="Anzahl Rollen ${eur(d)}" type="number" min="0" step="1" inputmode="numeric" enterkeyhint="next" value="${esc(s.rolls[d]??'')}" oninput="setRoll('${d}',this.value)"></td><td id="rollSum${String(d).replace('.','_')}">${eur(d*rollPieces[d]*number(s.rolls[d]))}</td></tr>`).join('');setupSimpleCounting();update();renderCashClosed()}function setupSimpleCounting(){
- const cash=$('cash'),roll=$('rollDenoms'),coin=$('coinDenoms'),note=$('noteDenoms');
- // Zählreihenfolge: Münzrollen, lose Münzen, Scheine.
- for(const tbody of [roll,coin,note]){
-  const table=tbody.closest('table'),heading=table.previousElementSibling;
-  if(heading&&heading.tagName==='P'&&tbody===roll){
-   const h=heading.previousElementSibling;
-   if(h)cash.insertBefore(h,roll.closest('table').parentNode===cash?cash.firstElementChild:null);
-  }
- }
- const rollTable=roll.closest('table'),coinTable=coin.closest('table'),noteTable=note.closest('table');
- const rollHeading=rollTable.previousElementSibling,rollDescription=rollHeading?.previousElementSibling?.tagName==='H3'?rollHeading:null;
- const rollTitle=rollDescription?rollHeading.previousElementSibling:rollHeading;
- const coinTitle=coinTable.previousElementSibling,noteTitle=noteTable.previousElementSibling;
- const anchor=noteTitle;
- if(anchor){
-  const fragment=document.createDocumentFragment();
-  for(const el of [rollTitle,rollDescription,rollTable,coinTitle,coinTable,noteTitle,noteTable])if(el)fragment.appendChild(el);
-  cash.insertBefore(fragment,cash.querySelector('.total'));
- }
- const fields=[...document.querySelectorAll('#rollDenoms input,#coinDenoms input,#noteDenoms input')];
- fields.forEach((field,i)=>{
-  field.setAttribute('enterkeyhint',i===fields.length-1?'done':'next');
-  field.addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const next=fields[i+1];if(next){next.focus();next.scrollIntoView({block:'center',behavior:'smooth'});}else field.blur();});
- });
+ const cash=$('cash');
+ const rollTable=$('rollDenoms').closest('table'),coinTable=$('coinDenoms').closest('table'),noteTable=$('noteDenoms').closest('table');
+ const headings=[...cash.querySelectorAll('h3')];
+ const findHeading=word=>headings.find(h=>h.textContent.includes(word));
+ const rollHeading=findHeading('Münzrollen'),coinHeading=findHeading('Kleingeld'),noteHeading=findHeading('Scheine');
+ const rollDescription=rollHeading?.nextElementSibling?.tagName==='P'?rollHeading.nextElementSibling:null;
+ const fragment=document.createDocumentFragment();
+ for(const el of [rollHeading,rollDescription,rollTable,coinHeading,coinTable,noteHeading,noteTable])if(el)fragment.appendChild(el);
+ cash.insertBefore(fragment,cash.querySelector('.total'));
+ const fields=[...cash.querySelectorAll('#rollDenoms input,#coinDenoms input,#noteDenoms input')];
+ fields.forEach((field,i)=>{field.setAttribute('enterkeyhint',i===fields.length-1?'done':'next');field.addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const next=fields[i+1];if(next){next.focus();next.scrollIntoView({block:'center',behavior:'smooth'});}else field.blur();});});
 }
 function setRoll(d,v){s.rolls[d]=v;update()}
 function setCount(d,v){s.counts[d]=v;update()}
