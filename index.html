@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Gastro Janssen · Kasse</title><meta name="gastro-app-version" content="112"><style>
+<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Gastro Janssen · Kasse</title><meta name="gastro-app-version" content="113"><style>
 :root{font-family:system-ui,Arial;color:#12304e;background:#edf3f9}*{box-sizing:border-box}body{margin:0}header{background:#07396d;color:white;padding:14px;text-align:center}header b{font-size:25px}header small{display:block}.wrap{max-width:850px;margin:auto;padding:10px}.card{background:white;border-radius:13px;padding:15px;margin:10px 0;box-shadow:0 2px 12px #17355213}h2{font-size:21px;margin:3px 0 12px}h3{margin:9px 0}label{display:block;font-weight:700;margin:8px 0 4px}input,select{width:100%;padding:10px;border:1px solid #b5c6d8;border-radius:9px;font-size:18px;min-width:0}button{border:0;border-radius:10px;padding:12px;font-size:16px;font-weight:750;cursor:pointer;background:#e5eef9;color:#123e6b}.green{background:#07802c;color:white}.red{background:#c42d3b;color:white}.tabs{display:flex;gap:5px;position:sticky;top:0;background:#edf3f9;padding:6px 0;z-index:5}.tabs button{flex:1;padding:11px 3px;font-size:14px}.tabs .active{background:#07396d;color:white}.hide{display:none!important}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:end}.item{border:1px solid #cfdae6;border-radius:12px;padding:12px;margin:10px 0}.item strong{font-size:19px}.item small{color:#526b84}.item .value{font-weight:800;color:#08752a}.total{background:#dff5e6;padding:15px;border-radius:10px;display:flex;justify-content:space-between;gap:8px;font-size:20px;font-weight:800;margin:10px 0}.note{background:#fff2d2;padding:10px;border-radius:8px;font-size:13px}.muted{font-size:13px;color:#5b6e80}.wide{width:100%}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 4px;border-bottom:1px solid #d8e1eb;text-align:right}th:first-child,td:first-child{text-align:left}.scroll{overflow:auto}.settings-item{border-bottom:1px solid #ddd;padding:10px 0}.settings-item .row{grid-template-columns:2fr 1fr 1fr 1fr}.sticky{position:sticky;bottom:0;background:white;padding:8px 0}.error{color:#a41b2d}.good{color:#08752a}.sig{width:100%;height:90px;border:1px dashed #8297ae;border-radius:8px;touch-action:none}.pill{display:inline-block;background:#e5effb;padding:5px 9px;border-radius:8px;font-size:13px} @media(max-width:650px){.row{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-item .row{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:6px}.card{padding:10px}.item{padding:10px}.item strong{font-size:18px}input{font-size:18px}.tabs button{font-size:13px}}@media print{@page{size:A4;margin:11mm}header,.tabs,.noprint,.sticky{display:none!important}body{background:white;font-size:11px}.wrap{max-width:none}.card{box-shadow:none;padding:0;margin:0}.screen{display:none!important}#report{display:block!important}.report-table{font-size:10px}.report-table td,.report-table th{padding:4px}.total{font-size:14px;padding:7px}.note{font-size:10px}h2{font-size:17px}h3{font-size:13px}}
 .item{border:3px solid #7897ba!important;border-left:7px solid #0b5ba1!important;border-radius:14px!important;margin:16px 0!important;padding:15px!important;background:#fff}.item>strong{display:inline-block;font-size:21px;margin-bottom:7px}.calc-detail{background:#e8f6ec;border:2px solid #84c99a;border-radius:10px;padding:11px;line-height:1.7;font-size:15px}.calc-detail strong{display:block;font-size:19px;color:#09672d;border-top:1px solid #a5d5b3;margin-top:5px;padding-top:5px}.item input{min-width:0}.item .inline-settings{margin-top:10px}@media(max-width:550px){.item{padding:11px!important}.calc-detail{font-size:13px}.calc-detail strong{font-size:16px}}
 .report-table tbody tr:nth-child(odd){background:#e9f4ff}.report-table tbody tr:nth-child(even){background:#fff}.report-table tbody tr:hover{background:#d9eaff}#reportDenoms tr:nth-child(odd){background:#f0f6fc}@media print{.report-table tbody tr:nth-child(odd){background:#e9f4ff!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style><style>
@@ -555,26 +555,29 @@ function makeOfflinePDF(){
   text(label,L+15,y,22,true,ink);text(value,W-R-15,y,26,true,diff<-.005?'#b42332':'#16713e','right');y+=70;
  }
  // Seite 1: Kontrollblatt wie beim Flohmaxx-Tagesabschluss
- titlePage('TAGESABSCHLUSS / KASSENKONTROLLE','Seite 1 · Die wichtigsten Zahlen auf einen Blick');
+ titlePage('TAGESABSCHLUSS / KASSENKONTROLLE','Seite 1 · Mitarbeiterkontrolle, Gesamtumsatz und Kassenbuch');
  section('Veranstaltung und Schicht');
  info('Veranstaltung',s.meta.event||'–');info('Standort',s.meta.location||'–');info('Datum',s.meta.date||'–');info('Mitarbeiter',s.meta.employee||'–');
  if(s.meta.opponent)info('Gegner',s.meta.opponent);
  info('Wetter / Temperatur',(s.meta.weather||'–')+'  |  '+(s.meta.temperature??15)+' °C');
  info('Status',s.cashClosed?'Abgeschlossen':'Noch nicht abgeschlossen');info('Abschluss am',gastroClosedAtLabel());
- section('Umsatz und Bargeldkontrolle');
- valueLine('Rechnerischer Warenumsatz',eur(stock),true);
- valueLine('− EC / SumUp',eur(card));
- valueLine('− Quittungen / bar bezahlte Auslagen',eur(receipts));
- valueLine('+ Wechselgeld',eur(flo));
- valueLine('Bargeld Soll laut Ware',eur(expected),true);
- valueLine('Bargeld Ist laut Zählung',eur(cash),true);
- valueLine('− Wechselgeld bleibt im Büro/im Bestand',eur(flo));
- valueLine('BARGELD ZUR ABGABE (IST)',eur(cash-flo),true);
- valueLine('Bargeld zur Abgabe (Soll)',eur(stock-card-receipts));
- differenceLine('Kassendifferenz (Ist − Soll)',(diff>0?'+ ':'')+eur(diff));
- valueLine('Tatsächlicher Tagesumsatz',eur(actual));
- section('Kontrollhinweis');
- for(const t of wrap('Soll-Bargeld = Warenumsatz minus Kartenzahlungen minus bar bezahlte Quittungen plus Wechselgeld. Die Warenmengen und das Zählprotokoll sind auf den folgenden Seiten nachprüfbar.',usable-20,19)){text(t,L+10,y,19);y+=32}
+ section('Mitarbeiter-Kassenkontrolle');
+ valueLine('Bargeld gesamt gezaehlt (Ist)',eur(cash),true);
+ valueLine('Erwartetes Bargeld inkl. Wechselgeld (Soll)',eur(expected));
+ differenceLine('Kassendifferenz (Ist - Soll)',(diff>0?'+ ':'')+eur(diff));
+ section('Gesamtkontrolle');
+ valueLine('Umsatz laut verkaufter Ware (Soll)',eur(stock),true);
+ valueLine('Gezaehltes Bargeld',eur(cash));
+ valueLine('- Wechselgeld',eur(flo));
+ valueLine('+ Quittungen / Belege',eur(receipts));
+ valueLine('+ EC / SumUp',eur(card));
+ valueLine('Tatsaechlicher Gesamtumsatz (Ist)',eur(actual),true);
+ differenceLine('Umsatzdifferenz (Ist - Soll)',(diff>0?'+ ':'')+eur(diff));
+ section('Buchhaltung / Kassenbuch');
+ valueLine('Bargeld gesamt gezaehlt',eur(cash));
+ valueLine('- Wechselgeld',eur(flo));
+ valueLine('Bargeld ins Kassenbuch eintragen',eur(cash-flo),true);
+ // Seite 1 enthaelt dieselben Kernzahlen wie die Mitarbeiteransicht.
  // Seite 2: ausschließlich Warenbewegungen
  titlePage('WARENABRECHNUNG','Seite 2 · Anfang, Zugang, Personal, Schwund, Ende und Umsatz');
  const widths=[224,93,87,78,78,90,91,99,113,155];
@@ -604,17 +607,22 @@ function makeOfflinePDF(){
  valueLine('Bargeld laut Ware (Soll)',eur(expected),true);
  differenceLine('Differenz (Ist − Soll)',(diff>0?'+ ':'')+eur(diff));
  // Seite 4: Unterzeichnung und Bemerkungen separat, ohne unkontrollierte Seitenumbrüche
- titlePage('KASSENABSCHLUSS / UNTERSCHRIFT','Seite 4 · Bemerkungen und Verantwortlichkeit');
+ titlePage('KASSENABSCHLUSS / UNTERSCHRIFT','Seite 4 · Abschlusswerte, Bemerkungen und Unterschrift');
  section('Abschlusswerte');info('Abschluss am',gastroClosedAtLabel());
- valueLine('Rechnerischer Warenumsatz',eur(stock));
- valueLine('EC / SumUp',eur(card));
- valueLine('Wechselgeld',eur(flo));
- valueLine('Quittungen / Auslagen',eur(receipts));
- valueLine('Bargeld gezählt',eur(cash),true);
- valueLine('− Wechselgeld bleibt im Büro/im Bestand',eur(flo));
- valueLine('BARGELD ZUR ABGABE (IST)',eur(cash-flo),true);
- valueLine('Bargeld zur Abgabe (Soll)',eur(stock-card-receipts));
- differenceLine('Kassendifferenz (Ist − Soll)',(diff>0?'+ ':'')+eur(diff));
+ valueLine('Bargeld gesamt gezaehlt',eur(cash),true);
+ valueLine('Rechnerisches Bargeld inkl. Wechselgeld',eur(expected));
+ differenceLine('Kassendifferenz (Ist - Soll)',(diff>0?'+ ':'')+eur(diff));
+ section('Gesamtumsatz');
+ valueLine('Umsatz laut verkaufter Ware (Soll)',eur(stock));
+ valueLine('Bargeld gezaehlt',eur(cash));
+ valueLine('- Wechselgeld',eur(flo));
+ valueLine('+ Quittungen / Belege',eur(receipts));
+ valueLine('+ EC / SumUp',eur(card));
+ valueLine('Tatsaechlicher Gesamtumsatz (Ist)',eur(actual),true);
+ section('Kassenbuch');
+ valueLine('Bargeld gesamt gezaehlt',eur(cash));
+ valueLine('- Wechselgeld',eur(flo));
+ valueLine('Bargeld ins Kassenbuch eintragen',eur(cash-flo),true);
  section('Bemerkungen / Differenzklärung');
  for(const t of wrap(s.notes||'Keine Bemerkungen.',usable-20,19)){need(31);text(t,L+10,y,19);y+=31}
  section('Unterschrift Mitarbeiter');
@@ -792,7 +800,7 @@ function acceptLandscapeSignature(){
 
 /* V57: Versionsabgleich fuer installierte iPhone-Homebildschirm-Web-App. */
 (function(){
- const current=112;let checking=false,lastCheck=0;
+ const current=113;let checking=false,lastCheck=0;
  async function checkAppVersion(){
   if(checking||Date.now()-lastCheck<25000||document.getElementById('landscapeSignModal')?.style.display==='flex')return;
   checking=true;lastCheck=Date.now();
