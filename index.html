@@ -535,12 +535,12 @@ function makeOfflinePDF(){
   text(title.toUpperCase(),L+20,y+30,22,true,'#fff');y+=76;
  }
  function boxedSection(title,lines,accent='blue'){
-  const rowH=56,headH=64,pad=14,height=headH+lines.length*rowH+pad;
-  need(height+18);
+  const rowH=39,headH=48,pad=8,height=headH+lines.length*rowH+pad;
+  need(height+8);
   const top=y,edge=accent==='green'?'#2b8554':blue,shade=accent==='green'?'#e4f5e9':'#eaf3fb';
   ctx.fillStyle='#fff';ctx.strokeStyle=edge;ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(L,top,usable,height,15);ctx.fill();ctx.stroke();
   ctx.fillStyle=edge;ctx.beginPath();ctx.roundRect(L+1,top+1,usable-2,headH,12);ctx.fill();
-  text(title.toUpperCase(),L+20,top+41,23,true,'#fff');
+  text(title.toUpperCase(),L+20,top+32,21,true,'#fff');
   let yy=top+headH;
   lines.forEach(([label,value,kind],i)=>{
    const special=kind==='total'||kind==='diff';
@@ -548,11 +548,11 @@ function makeOfflinePDF(){
    else if(i%2){ctx.fillStyle='#f7f9fc';ctx.fillRect(L+4,yy,usable-8,rowH)}
    ctx.fillStyle=lineColor;ctx.fillRect(L+18,yy+rowH-2,usable-36,1);
    const color=kind==='diff'?(diff<-.005?'#b42332':diff>.005?'#13703d':blue):special?edge:ink;
-   text(label,L+19,yy+36,special?20:19,special,color===ink?ink:ink);
-   text(value,W-R-18,yy+36,special?24:22,true,color,'right');
+   text(label,L+19,yy+27,special?19:18,special,color===ink?ink:ink);
+   text(value,W-R-18,yy+27,special?22:20,true,color,'right');
    yy+=rowH;
   });
-  y=top+height+20;
+  y=top+height+9;
  }
  function wrap(value,maxWidth,size=18){
   const out=[];ctx.font=size+'px Arial';let row='';
@@ -586,13 +586,12 @@ function makeOfflinePDF(){
  }
  // Seite 1: Klare, voneinander getrennte Kontrollkaesten
  titlePage('TAGESABSCHLUSS / KASSENKONTROLLE','Mitarbeiter, Gesamtumsatz und Buchhaltung');
- section('Veranstaltung und Schicht');
- info('Veranstaltung',s.meta.event||'–');info('Standort',s.meta.location||'–');info('Datum',s.meta.date||'–');info('Mitarbeiter',s.meta.employee||'–');
- if(s.meta.opponent)info('Gegner',s.meta.opponent);
- info('Wetter / Temperatur',(s.meta.weather||'–')+'  |  '+(s.meta.temperature??15)+' °C');
- info('Status',s.cashClosed?'Endgueltig abgeschlossen':'VORLAEUFIG - noch nicht abgeschlossen');
- if(s.cashClosed)info('Abschluss am',gastroClosedAtLabel());
- y+=18;
+ const shiftLines=[['Veranstaltung',s.meta.event||'–'],['Standort',s.meta.location||'–'],['Datum',s.meta.date||'–'],['Mitarbeiter',s.meta.employee||'–'],...(s.meta.opponent?[['Gegner',s.meta.opponent]]:[]),['Wetter / Temperatur',(s.meta.weather||'–')+' | '+(s.meta.temperature??15)+' °C'],['Status',s.cashClosed?'Abgeschlossen':'Vorläufig / nicht abgeschlossen'],...(s.cashClosed?[['Abschluss am',gastroClosedAtLabel()]]:[])];
+ const sh=47+shiftLines.length*34+8;need(sh);
+ const sy=y;ctx.strokeStyle=blue;ctx.lineWidth=2.5;ctx.beginPath();ctx.roundRect(L,sy,usable,sh,11);ctx.stroke();ctx.fillStyle=blue;ctx.beginPath();ctx.roundRect(L+1,sy+1,usable-2,46,9);ctx.fill();
+ text('VERANSTALTUNG UND SCHICHT',L+17,sy+31,21,true,'#fff');
+ shiftLines.forEach(([label,value],i)=>{const yy=sy+47+i*34;if(i%2){ctx.fillStyle=pale;ctx.fillRect(L+3,yy,usable-6,34)}text(label,L+18,yy+24,18,true,muted);text(value,L+305,yy+24,18)});
+ y=sy+sh+10;
  boxedSection('1. Mitarbeiter-Kassenkontrolle',[
  ['Bargeld gesamt gezaehlt (Ist)',eur(cash)],
  ['Erwartetes Bargeld inkl. Wechselgeld',eur(expected)],
