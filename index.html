@@ -1,8 +1,603 @@
+<!DOCTYPE html>
+
+<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Gastro Janssen · Kasse</title><meta name="gastro-app-version" content="116"><style>
+:root{font-family:system-ui,Arial;color:#12304e;background:#edf3f9}*{box-sizing:border-box}body{margin:0}header{background:#07396d;color:white;padding:14px;text-align:center}header b{font-size:25px}header small{display:block}.wrap{max-width:850px;margin:auto;padding:10px}.card{background:white;border-radius:13px;padding:15px;margin:10px 0;box-shadow:0 2px 12px #17355213}h2{font-size:21px;margin:3px 0 12px}h3{margin:9px 0}label{display:block;font-weight:700;margin:8px 0 4px}input,select{width:100%;padding:10px;border:1px solid #b5c6d8;border-radius:9px;font-size:18px;min-width:0}button{border:0;border-radius:10px;padding:12px;font-size:16px;font-weight:750;cursor:pointer;background:#e5eef9;color:#123e6b}.green{background:#07802c;color:white}.red{background:#c42d3b;color:white}.tabs{display:flex;gap:5px;position:sticky;top:0;background:#edf3f9;padding:6px 0;z-index:5}.tabs button{flex:1;padding:11px 3px;font-size:14px}.tabs .active{background:#07396d;color:white}.hide{display:none!important}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:end}.item{border:1px solid #cfdae6;border-radius:12px;padding:12px;margin:10px 0}.item strong{font-size:19px}.item small{color:#526b84}.item .value{font-weight:800;color:#08752a}.total{background:#dff5e6;padding:15px;border-radius:10px;display:flex;justify-content:space-between;gap:8px;font-size:20px;font-weight:800;margin:10px 0}.note{background:#fff2d2;padding:10px;border-radius:8px;font-size:13px}.muted{font-size:13px;color:#5b6e80}.wide{width:100%}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 4px;border-bottom:1px solid #d8e1eb;text-align:right}th:first-child,td:first-child{text-align:left}.scroll{overflow:auto}.settings-item{border-bottom:1px solid #ddd;padding:10px 0}.settings-item .row{grid-template-columns:2fr 1fr 1fr 1fr}.sticky{position:sticky;bottom:0;background:white;padding:8px 0}.error{color:#a41b2d}.good{color:#08752a}.sig{width:100%;height:90px;border:1px dashed #8297ae;border-radius:8px;touch-action:none}.pill{display:inline-block;background:#e5effb;padding:5px 9px;border-radius:8px;font-size:13px} @media(max-width:650px){.row{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-item .row{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:6px}.card{padding:10px}.item{padding:10px}.item strong{font-size:18px}input{font-size:18px}.tabs button{font-size:13px}}@media print{@page{size:A4;margin:11mm}header,.tabs,.noprint,.sticky{display:none!important}body{background:white;font-size:11px}.wrap{max-width:none}.card{box-shadow:none;padding:0;margin:0}.screen{display:none!important}#report{display:block!important}.report-table{font-size:10px}.report-table td,.report-table th{padding:4px}.total{font-size:14px;padding:7px}.note{font-size:10px}h2{font-size:17px}h3{font-size:13px}}
+.item{border:3px solid #7897ba!important;border-left:7px solid #0b5ba1!important;border-radius:14px!important;margin:16px 0!important;padding:15px!important;background:#fff}.item>strong{display:inline-block;font-size:21px;margin-bottom:7px}.calc-detail{background:#e8f6ec;border:2px solid #84c99a;border-radius:10px;padding:11px;line-height:1.7;font-size:15px}.calc-detail strong{display:block;font-size:19px;color:#09672d;border-top:1px solid #a5d5b3;margin-top:5px;padding-top:5px}.item input{min-width:0}.item .inline-settings{margin-top:10px}@media(max-width:550px){.item{padding:11px!important}.calc-detail{font-size:13px}.calc-detail strong{font-size:16px}}
+.report-table tbody tr:nth-child(odd){background:#e9f4ff}.report-table tbody tr:nth-child(even){background:#fff}.report-table tbody tr:hover{background:#d9eaff}#reportDenoms tr:nth-child(odd){background:#f0f6fc}@media print{.report-table tbody tr:nth-child(odd){background:#e9f4ff!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style><style>
+.item .inline-settings{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0;padding:9px;background:#edf5ff;border-radius:10px}.item .inline-settings label{font-size:14px}.item .inline-settings input{font-weight:750;background:white}.cash-overview{background:#edf7ff;border:2px solid #aacbe8;border-radius:12px;padding:12px;margin:15px 0}.cash-overview .cash-line{display:flex;justify-content:space-between;gap:10px;padding:8px 2px;border-bottom:1px solid #cbddec}.cash-overview .cash-line strong{white-space:nowrap}.cash-overview .cash-line:last-child{background:#d9f4df;border-radius:8px;padding:12px;font-size:20px;font-weight:800;border:0}.signature-block{margin:22px 0;break-inside:avoid}#signature{width:100%;height:145px;touch-action:none;border:2px dashed #8da3bc;background:white;border-radius:10px}#printSignature{width:100%;max-height:110px;object-fit:contain;object-position:left}@media(max-width:480px){.item .inline-settings{grid-template-columns:1fr 1fr}.cash-overview .cash-line:last-child{font-size:17px}}@media print{#signature,.signature-block button{display:none!important}#printSignature{display:block!important}.cash-overview{border:1px solid #bbb;padding:6px}.cash-overview .cash-line{padding:3px}.signature-block{break-inside:avoid}}
+
+.count-table{table-layout:fixed;border:2px solid #b5c9de;border-radius:10px;overflow:hidden;font-size:17px}.count-table th,.count-table td{padding:9px 10px;text-align:left}.count-table th:nth-child(2),.count-table td:nth-child(2){width:34%;text-align:center}.count-table th:last-child,.count-table td:last-child{text-align:right;width:34%;font-weight:800}.count-table thead,.count-table tfoot{background:#dcebf9}.count-table tbody tr:nth-child(even){background:#f0f6fc}.count-table input{font-size:20px;font-weight:750;text-align:center;min-height:47px;padding:6px;width:100%}.cash-sign{background:#f5f9ff;border:1px solid #b5c9de;border-radius:12px;padding:14px}.cash-sign button{margin-top:8px}@media(max-width:440px){.count-table{font-size:14px}.count-table th,.count-table td{padding:7px 5px}.count-table input{font-size:19px}}@media print{.cash-sign{display:none!important}#printSignature{display:block!important;min-height:65px;border-bottom:1px solid #888}}
+</style><style>
+#t-settings{background:#ffdf73!important;color:#143250!important;border:3px solid #d18a00!important;font-weight:900!important;box-shadow:0 2px 8px #0002;white-space:nowrap}
+#t-settings.active{background:#e8a920!important}
+#cash .count-table{margin-top:12px}
+.report-cash-inputs{border:2px solid #b9d1e9;border-radius:12px;padding:14px;margin:15px 0;background:#f5faff}
+@media(max-width:620px){.tabs{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}.tabs #t-settings{grid-column:1/-1;font-size:19px!important;min-height:53px!important}}
+@media print{.report-cash-inputs{display:none!important}}
+</style><style id="v11-goods">
+.goods-card{border:2px solid #8aaacb!important;border-left:6px solid #155a9b!important;border-radius:14px!important;padding:13px!important;margin:12px 0!important;background:#fff}.goods-card.goods-tint{background:#eef6ff!important}.goods-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.goods-title{display:flex;gap:10px;align-items:center;min-width:0}.goods-title>div{min-width:0}.goods-title strong{font-size:20px;display:block;overflow-wrap:anywhere}.goods-title small{display:block;font-size:12px;margin-top:3px}.goods-number{background:#155a9b;color:white;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;flex:none;font-weight:800}.goods-price{background:#dff3e5;color:#12642a;padding:8px;border-radius:9px;font-weight:800;white-space:nowrap}.goods-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.goods-fields label{font-size:14px;margin:0 0 5px}.goods-fields label small{font-size:12px;font-weight:500}.goods-fields input{background:white;border:2px solid #bacfe2;min-height:51px;font-size:20px;font-weight:650}.goods-fields>div:nth-child(-n+2) input{border-color:#387bb6}.goods-extra{margin-bottom:12px}.goods-options{margin:12px 0;border:1px solid #b8cce1;background:#f8fbff;border-radius:10px;padding:9px}.goods-options summary{cursor:pointer;color:#164b7d;font-weight:750}.goods-options-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.goods-result .calc-detail{margin:10px 0 0;padding:9px;font-size:13px;line-height:1.5}.goods-result .calc-detail strong{font-size:17px}.goods-card .value{margin:0}@media(min-width:720px){.goods-fields{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:390px){.goods-title strong{font-size:17px}.goods-price{font-size:13px}.goods-fields{gap:7px}.goods-fields label{font-size:12px}.goods-fields input{font-size:18px;padding:8px}.goods-options-grid{grid-template-columns:1fr}}
+</style><style id="v13-mobile-nav">
+/* V13: vier gleich gut erkennbare Arbeitsschritte; Einstellungen als kleine fünfte Taste */
+.tabs{gap:7px;align-items:stretch}
+.tabs button{border:2px solid #9cb7d4;border-radius:10px;background:#fff;color:#123e6b;font-weight:850;min-height:52px;box-shadow:0 2px 5px #12345614}
+.tabs button.active{background:#07396d;color:white;border-color:#07396d}
+#t-settings{font-size:13px!important;min-height:42px!important;padding:6px 8px!important;border:2px solid #c08b1b!important;box-shadow:none!important}
+@media(max-width:620px){
+.tabs{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;padding:5px 0!important}
+.tabs button{font-size:clamp(12px,3.5vw,16px)!important;min-height:52px!important;padding:8px 2px!important;border-width:2px!important}
+.tabs #t-settings{grid-column:4!important;grid-row:2!important;justify-self:end!important;width:auto!important;min-height:32px!important;font-size:12px!important;padding:4px 9px!important;border-width:2px!important}
+.tabs #t-start,.tabs #t-stock,.tabs #t-cash,.tabs #t-report{grid-row:1!important}.tabs #t-start{grid-column:1!important}.tabs #t-cash{grid-column:2!important}.tabs #t-stock{grid-column:3!important}.tabs #t-report{grid-column:4!important}
+.goods-fields label{font-size:15px!important;line-height:1.25}
+.goods-fields input{min-height:46px!important}
+}
+</style><style>.cash-entry{margin:20px 0;padding:15px;border:2px solid #a5c5e7;border-radius:14px;background:#f0f7ff}.cash-entry h3{margin:0 0 8px}.cash-entry label{font-weight:750}.cash-entry input{width:100%;font-size:22px;min-height:54px;border:2px solid #8caed1;border-radius:9px;padding:9px}.cash-entry .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}@media(max-width:480px){.cash-entry .grid{grid-template-columns:1fr}.cash-entry{padding:11px}}</style><style>.quick-stock{margin-top:18px;padding:14px;background:#f1f7ff;border:2px solid #a4c5e8;border-radius:14px}.quick-stock h3{margin:0 0 6px}.quick-row{display:grid;grid-template-columns:minmax(0,1fr) 110px;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid #d4e3f2}.quick-row:nth-child(even){background:#e6f1fc}.quick-row label{font-size:17px;font-weight:750}.quick-row small{font-size:12px;font-weight:500}.quick-row input{font-size:21px;font-weight:750;min-height:49px;text-align:center;border:2px solid #92b6d9}.start-stadium{background:#eaf4ff;border-radius:10px;padding:12px}#stadiumWeather{display:contents}#stadiumWeather.hide{display:none}@media(max-width:440px){.quick-row{grid-template-columns:minmax(0,1fr) 95px}.quick-row label{font-size:16px}}</style><style id="v17-quick-entry">.quick-stock{padding:12px}.quick-card{background:white;border:2px solid #b2cce4;border-left:6px solid #24669d;border-radius:13px;padding:12px;margin:12px 0}.quick-card.quick-blue{background:#edf6ff}.quick-card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.quick-card-head strong{font-size:20px}.quick-price{background:#dcf4e4;border:1px solid #8ec7a0;color:#116333;border-radius:9px;padding:7px 10px;font-weight:850;font-size:19px;white-space:nowrap}.quick-price small{display:block;font-size:11px;font-weight:600;text-align:right}.quick-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.quick-fields label{font-size:15px;margin:0 0 5px}.quick-fields label small{font-size:12px;font-weight:550}.quick-fields input{width:100%;min-height:53px;font-size:22px;font-weight:750;text-align:center;background:white;border:2px solid #a0bedc}@media(max-width:370px){.quick-card{padding:9px}.quick-card-head strong{font-size:17px}.quick-price{font-size:16px;padding:6px}.quick-fields{gap:8px}.quick-fields label{font-size:13px}}@media print{.quick-stock{display:none!important}}</style><style id="v18-compact-start">#start>.grid{margin-bottom:8px}.quick-stock{background:#f4f8fc;padding:10px}.quick-card{margin:8px 0;padding:10px;border-width:1px;border-left-width:5px}.quick-card-head{margin-bottom:7px}.quick-card-head strong{font-size:18px}.quick-price{font-size:16px;padding:5px 8px}.quick-fields{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.quick-fields label{font-size:13px;line-height:1.25;min-height:32px}.quick-fields label small{display:block;font-size:11px}.quick-fields input{min-height:46px;font-size:19px;padding:6px;text-align:center}.quick-more{margin-top:7px}.quick-more summary{color:#235b8a;font-size:13px;font-weight:750;cursor:pointer;padding:5px 0}.quick-extra{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:6px}.quick-extra label{min-height:0}@media(max-width:400px){.quick-fields{gap:4px}.quick-fields label{font-size:12px}.quick-fields label small{font-size:10px}.quick-fields input{font-size:17px;padding:4px}.quick-card-head strong{font-size:16px}.quick-price{font-size:14px}}</style><style id="v23-misc">.misc-edit{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:9px;margin:0 0 12px}.misc-edit label{font-weight:750;font-size:14px;grid-row:1}.misc-edit input{width:100%;min-width:0;min-height:49px;font-size:19px;background:#fff;border:2px solid #91b7d9;border-radius:8px;padding:8px}@media(max-width:400px){.misc-edit{grid-template-columns:1fr 110px;gap:6px}.misc-edit label{font-size:12px}.misc-edit input{font-size:17px}}</style><style id="v19-start-panels">
+#start{background:transparent;box-shadow:none;padding:0}
+.start-shift-box,.quick-stock{border:2px solid #a4c5e8;border-radius:15px;background:#f3f8ff;box-shadow:0 3px 10px #183e6714;padding:16px;margin:12px 0 24px}
+.start-shift-box{background:#fff;border-left:6px solid #24669d}
+.start-shift-box h2{font-size:21px;color:#123e6b;margin:0 0 15px;padding-bottom:11px;border-bottom:2px solid #dbe9f7}
+.start-shift-box>.grid{gap:14px 13px}
+.start-shift-box label{font-size:15px;margin:0 0 7px;color:#17456d}
+.start-shift-box input,.start-shift-box select{background:#fff;border:2px solid #b4cbe2;min-height:53px;font-size:18px}
+.start-shift-box input:focus,.start-shift-box select:focus{outline:3px solid #b6ddff;border-color:#176ab1}
+.start-shift-box .start-stadium{background:#eaf4ff;border:1px solid #c2d9ef}
+.quick-stock{margin-top:26px;border-left:6px solid #24669d}
+@media(max-width:580px){.start-shift-box,.quick-stock{padding:13px 11px;margin-bottom:24px}.start-shift-box>.grid{grid-template-columns:1fr;gap:15px}.start-shift-box h2{font-size:20px}.start-shift-box label{font-size:16px}.start-shift-box input,.start-shift-box select{font-size:19px;min-height:55px}#start{padding:0}}
+@media print{.start-shift-box{display:none!important}}
+/* V20: Löschen direkt neben Einstellungen, auf Mobilgeräten gut erreichbar */
+#t-clear{background:#fff4f2!important;color:#9b2530!important;border:2px solid #d78d94!important;font-size:13px!important;min-height:42px!important;padding:6px 9px!important;white-space:normal}
+@media(max-width:620px){.tabs #t-settings{grid-column:3!important;grid-row:2!important;justify-self:stretch!important;width:100%!important;min-height:39px!important}.tabs #t-clear{grid-column:4!important;grid-row:2!important;min-height:39px!important;font-size:12px!important;padding:4px!important}}
+#t-send{background:#147d48;color:white;border:2px solid #0d6136;font-weight:800}#t-send:hover{background:#0b6034}@media(max-width:640px){#t-send{min-height:46px;font-size:15px}}
+#t-whatsapp{background:#157347;color:#fff;border:2px solid #0c5733;font-weight:800}#t-whatsapp:hover{background:#0b6034}@media(max-width:640px){.tabs #t-send{grid-column:1 / span 2!important;grid-row:3!important}.tabs #t-whatsapp{grid-column:3 / span 2!important;grid-row:3!important}#t-whatsapp{min-height:46px;font-size:15px}}
+</style><style>
+.pdf-share-box{border:2px solid #8ac5a0;background:#eaf8ee;border-radius:13px;padding:14px;margin:16px 0}.pdf-share-box h3{color:#125b31;margin:0 0 7px}.pdf-share-box p{font-size:15px;line-height:1.5}.pdf-share-box button{font-size:19px;min-height:57px}.pdf-share-box .steps{background:#fff;border-radius:9px;padding:10px;margin-top:10px;font-size:15px;line-height:1.65}
+@media print{.pdf-share-box{display:none!important}}
+.quick-price-edit{background:#167c43;color:white;border:0;border-radius:10px;padding:10px 12px;min-height:44px;cursor:pointer;font-weight:800;text-align:center}.quick-price-edit small{color:white}.quick-price-edit:focus-visible{outline:3px solid #173e6c;outline-offset:3px}.quick-price-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:12px;margin:0 0 10px;border:2px solid #9ac5a5;background:#eff9f1;border-radius:10px}.quick-price-panel.hide{display:none}.quick-price-panel label{display:block;font-size:12px;font-weight:750;min-height:30px}.quick-price-panel input{width:100%;min-width:0;min-height:46px;font-size:17px;padding:7px;border:1px solid #7aab89;border-radius:7px}.quick-price-panel button{grid-column:1/-1;min-height:44px}@media(max-width:420px){.quick-price-panel{grid-template-columns:1fr}.quick-price-panel label{min-height:0}}.start-gate-note{padding:16px;margin:14px 0;border-radius:12px;background:#fff5d8;border:1px solid #d7b969;font-weight:700}.report-group{background:#eaf1f8}.report-group th{text-align:left!important;padding:12px 7px!important;border-top:12px solid white;font-size:15px}.report-subtotal,.report-subtotal th,.report-subtotal td{background:#eef7ee!important}.report-subtotal th{padding:10px 6px!important}.report-grand{background:#d7efdf;font-size:16px}.report-grand th{padding:12px 6px!important}.automatic-curry input[aria-label="start"],.automatic-curry input[aria-label="end"],.automatic-curry input[aria-label="waste"],.automatic-curry input[aria-label="staff"]{opacity:.5;pointer-events:none}.curry-switch{display:flex;align-items:center;gap:10px;padding:12px;margin:10px 0;background:#eff9f1;border:1px solid #9ac5a5;border-radius:10px;font-weight:700}.curry-switch input{width:23px;height:23px;flex:none;accent-color:#167c43}</style><style id="v52-simple-counting">
+#cash .count-table{width:100%;table-layout:fixed;border-collapse:collapse}
+#cash .count-table th,#cash .count-table td{box-sizing:border-box;padding:8px 4px;overflow-wrap:anywhere}
+#cash .count-table th:first-child,#cash .count-table td:first-child{width:29%}
+#cash .count-table th:nth-child(2),#cash .count-table td:nth-child(2){width:33%}
+#cash .count-table th:last-child,#cash .count-table td:last-child{width:38%}
+#cash .count-table input{width:100%;min-width:0;min-height:52px;font-size:22px;border:2px solid #87afd5;border-radius:9px}
+#cash .count-table input:focus{outline:3px solid #1b75bd;outline-offset:1px;background:#f2faff}
+@media(max-width:440px){#cash .count-table{font-size:14px}#cash .count-table input{font-size:20px;padding:6px 2px}}
+@media print{#cash .count-table tr{break-inside:avoid;page-break-inside:avoid}}
+</style><style id="v53-landscape-sign">
+#openLandscapeSign{min-height:70px!important;font-size:20px!important;font-weight:900!important;background:#087c3a!important;color:#fff!important;border:3px solid #065e2b!important;border-radius:14px!important}
+#landscapeSignModal{position:fixed;inset:0;z-index:999999;background:#f3f8ff;display:none;flex-direction:column;padding:12px;box-sizing:border-box}
+#landscapeSignModal .landscape-sign-top,#landscapeSignModal .landscape-sign-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#landscapeSignModal button{font-size:16px;font-weight:800;min-height:46px;padding:8px 14px}
+#landscapeSignModal .landscape-sign-hint{text-align:center;font-size:15px;padding:5px}
+#landscapeSignCanvas{display:block;flex:1;min-height:0;width:100%;height:100%;background:white;border:3px solid #1b75bd;border-radius:12px;touch-action:none}
+#landscapeSignModal .landscape-sign-bottom{padding-top:8px}
+@media(orientation:portrait) and (max-width:900px){
+#landscapeSignModal{width:100dvh;height:100dvw;inset:auto;top:0;left:100vw;transform:rotate(90deg);transform-origin:top left}
+}
+@media print{#landscapeSignModal,#openLandscapeSign{display:none!important}}
+</style><style id="v55-signature-only-landscape">
+#cash #signature{display:none!important;visibility:hidden!important;pointer-events:none!important}
+#landscapeSignatureStatus{padding:12px;border:1px solid #a6c3db;border-radius:9px;background:#f5faff;margin:8px 0;font-weight:700}
+#landscapeSignModal{overscroll-behavior:contain}
+#landscapeSignCanvas{box-sizing:border-box}
+@media (orientation:portrait) and (max-width:900px){
+#landscapeSignModal{position:fixed!important;left:100vw!important;top:0!important;right:auto!important;bottom:auto!important;width:100dvh!important;height:100dvw!important;max-width:none!important;max-height:none!important;transform:rotate(90deg)!important;transform-origin:top left!important}
+}
+</style><style id="v56-signature-preview">.signature-preview-frame{height:125px;border:2px dashed #8da3bc;border-radius:10px;background:#fff;margin:12px 0 16px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:8px;box-sizing:border-box}.signature-preview-frame span{color:#71849a;font-size:14px;text-align:center;padding:12px}.signature-preview-frame img{background:white}@media print{.signature-preview-frame{display:none!important}}</style><style id="v57-refresh-and-sign">
+#landscapeSignModal .landscape-clear-button{background:#c92b35!important;color:#fff!important;border:2px solid #8c111b!important;border-radius:10px!important;min-height:52px!important;font-size:17px!important}
+#landscapeSignModal .landscape-sign-bottom button{flex:1;white-space:normal}
+#appUpdateBanner{position:fixed;z-index:999990;left:10px;right:10px;bottom:12px;background:#fff;border:2px solid #0a7742;border-radius:12px;padding:12px;box-shadow:0 4px 18px #0004;text-align:center;font-weight:700}
+#appUpdateBanner button{background:#087c3a;color:#fff;border:0;border-radius:9px;padding:12px 20px;margin-top:8px;font-size:17px}
+</style><style id="v60-start-gate-design">
+#startGateNote{background:#fff5f5!important;border:2px solid #d63643!important;border-left:7px solid #c52130!important;color:#8d1824!important;border-radius:14px!important;box-shadow:0 3px 12px #7e12201c;padding:16px 18px!important;font-size:16px}
+#startGateNote strong{font-size:19px;display:block;margin-bottom:8px}
+#startGateNote ul{margin:8px 0 12px;padding-left:23px;line-height:1.75}
+#startGateNote li{font-weight:750}
+#startGateNote small{display:block;color:#7d4146;font-weight:600;line-height:1.5}
+#start input.missing-required,#start select.missing-required{border:2px solid #dc4651!important;background:#fffafa!important}
+#start input.missing-required:focus,#start select.missing-required:focus{outline:2px solid #ec8490;outline-offset:2px}
+</style><style id="v61-settlement">#report table tbody tr:has(#rIntermediate),#report table tbody tr:has(#rBarRevenue){background:#eaf3ff;font-weight:800}#report table tbody tr:has(#rActual){background:#dff3e5;font-size:18px}#report .signature-employee-name{font-size:17px;padding:8px 0}.employee-help{display:block;margin-top:6px;color:#58718a}</style><style id="v62-staff-cash-close">
+#employeePick{border:2px solid #2c7ac1;background:#f1f8ff;font-weight:750;margin:6px 0 9px}
+.cash-status-panel{margin:20px 0;padding:17px;border:2px solid #a9c9e4;border-radius:15px;background:#f5faff;box-shadow:0 3px 12px #17355212}
+.cash-check-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid #d5e2f0;font-size:16px}
+.cash-check-row strong{white-space:nowrap;text-align:right}
+.cash-check-row:nth-child(5),.cash-check-row:last-child{font-weight:850;background:#e3f4e9;padding:12px 8px;border-radius:8px}
+.cash-check-result{padding:14px;border-radius:10px;font-size:17px;font-weight:850;margin-top:14px;line-height:1.5}
+.cash-check-result.neutral{background:#fff4d9;color:#805314}.cash-check-result.good-check{background:#d9f4e0;color:#11602e}.cash-check-result.bad-check{background:#ffe3e5;color:#991c2a}
+.cash-finalize{border:2px solid #a6bacf;border-radius:14px;padding:17px;margin:20px 0;background:#f3f7fc}
+#finishCashButton{background:#b71c2b;color:white;font-size:20px;min-height:66px;font-weight:900}
+#finishCashButton:disabled{background:#607987;color:white}
+#cashClosedMessage{padding:15px;background:#dff1e5;border:2px solid #39885a;border-radius:9px;font-weight:850;margin-bottom:12px}
+</style><style id="v64-defaults">#start #temperature:not(.missing-required){border:2px solid #2979c6!important;background:#edf6ff!important;color:#103e72!important;font-weight:800}#start #date:not(.missing-required){border:2px solid #2979c6!important;background:#edf6ff!important;font-weight:800}</style><style id="v65-difference">#cashCheckLines .cash-check-row:nth-last-child(2){background:#e9f1ff;font-weight:850;padding:12px 8px;border-radius:8px}#cashCheckLines .cash-check-row:last-child{font-size:19px;font-weight:900;padding:15px 8px;border-radius:9px}#cashCheckLines .cash-negative{background:#ffe2e5!important;color:#a11326}#cashCheckLines .cash-positive{background:#ddf4e5!important;color:#176b37}#cashCheckLines .cash-zero{background:#ddf4e5!important;color:#176b37}</style><style id="v66-cash-comparison">.cash-top-comparison{border:2px solid #2d72ad;background:#edf5ff;border-radius:13px;padding:12px;margin:12px 0 22px}.cash-top-comparison>div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid #c4d9ee}.cash-top-comparison>div:last-child{border-bottom:0;font-weight:900}.cash-top-comparison span{font-size:15px;font-weight:700}.cash-top-comparison strong{font-size:20px;white-space:nowrap}</style><style id="v74-shift-flow">#t-stock,#t-report{background:#e5e7eb!important;color:#526072!important;border:2px solid #b8c0ca!important}#t-stock.active,#t-report.active{background:#9ca3af!important;color:#fff!important}#t-cash:disabled,#t-stock:disabled,#t-report:disabled{opacity:.5!important;filter:grayscale(1);cursor:not-allowed!important}#t-cash:not(:disabled){background:#0e4077;color:#fff}#t-start{order:0}</style><style id="v75-protected-tabs">#t-stock,#t-report,#t-settings{background:#dfe3e8!important;color:#465365!important;border:2px solid #aeb7c2!important}#t-stock.active,#t-report.active,#t-settings.active{background:#b6bec8!important;color:#233244!important}#t-stock,#t-report,#t-settings{opacity:1!important;filter:none!important;cursor:pointer!important}</style><style id="v76-start-float">.start-float-box{margin:16px 0;padding:16px;border:2px solid #95b8d8;border-radius:12px;background:#edf5ff}.start-float-box label{font-size:18px;font-weight:800;display:block;margin-bottom:8px}.start-float-box input{width:100%;box-sizing:border-box;font-size:21px;font-weight:800}.start-float-box small{display:block;margin-top:8px;color:#38536a}</style><style id="v77-expected-cash">.expected-cash-box{margin:18px 0;padding:16px;border:3px solid #2672ad;border-radius:15px;background:#f0f7ff}.expected-cash-box h3{margin:0 0 10px;color:#123e68}.expected-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 3px;border-bottom:1px solid #caddeb}.expected-row span{font-size:15px}.expected-row strong{white-space:nowrap;font-size:18px}.expected-main{font-weight:800;background:#e0efff;padding:12px 8px}.expected-main strong{font-size:21px}.expected-difference{font-weight:900;background:#fff;padding:13px 8px}.expected-difference strong{font-size:22px}.expected-cash-box p{margin:12px 0 0}</style><style id="v78-cash-inline">.cash-inline-summary{margin:10px 0 18px;padding:13px;border:2px solid #1d7d50;border-radius:12px;background:#ecfaf1}.cash-inline-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 4px;border-bottom:1px solid #c2ddcb}.cash-inline-row span{font-size:16px;font-weight:750}.cash-inline-row strong{font-size:21px;white-space:nowrap}.cash-inline-diff{border-bottom:0;background:#fff;border-radius:7px;padding:12px 7px}.cash-inline-summary p{margin:9px 3px 0;font-size:13px}</style><style id="v87-uniform-required">
+#start select#event,#start select#employeePick,#start select#locationPick,#start input#date,#start select#weather,#start select#temperature{background:#fff!important;border:3px solid #d74b56!important;color:#162b41!important;font-weight:750!important;border-radius:12px!important;box-sizing:border-box!important}
+#start select#event.start-done,#start select#employeePick.start-done,#start select#locationPick.start-done,#start input#date.start-done,#start select#weather.start-done,#start select#temperature.start-done{background:#f0faf3!important;border-color:#2c9a61!important}
+#start select#event:focus,#start select#employeePick:focus,#start select#locationPick:focus,#start input#date:focus,#start select#weather:focus,#start select#temperature:focus{outline:3px solid #88b9ed!important;outline-offset:1px}
+</style><style id="v89-notes">.event-notes-box{margin:22px 0;padding:18px;background:#e8f7ec;border:3px solid #2e9958;border-radius:15px}.event-notes-box h3{color:#145c32;margin:0 0 8px}.event-notes-box textarea{display:block;width:100%;box-sizing:border-box;min-height:140px;border:2px solid #86bd98;border-radius:10px;padding:12px;font:inherit;resize:vertical;background:#fff}.event-notes-box p{color:#385a43}</style><style id="v92-optional-rolls">.optional-rolls{margin:15px 0 22px}.optional-rolls #toggleRolls{background:#e9edf2;color:#24384d;border:2px solid #9aaabb;font-weight:750}.optional-rolls #rollsContent{padding-top:12px}.optional-rolls #rollsContent[hidden]{display:none!important}</style><style id="v93-cash-counting">
+#cash{background:#e8f1ff}
+#cash .count-table{width:100%;border:1px solid #c6d3e1;border-radius:18px;border-collapse:separate;border-spacing:0;background:#fff;overflow:hidden;table-layout:fixed;margin:12px 0 20px}
+#cash .count-table thead{display:none}
+#cash .count-table tbody tr{background:#fff!important}
+#cash .count-table tbody td{padding:14px 10px;border-bottom:1px solid #dbe4ee;font-size:clamp(15px,3.6vw,21px);font-weight:850;color:#142e54;vertical-align:middle}
+#cash .count-table tbody tr:last-child td{border-bottom:0}
+#cash .count-table tbody td:first-child{width:27%}
+#cash .count-table tbody td:nth-child(2){width:35%}
+#cash .count-table tbody td:last-child{width:38%;white-space:nowrap;text-align:right}
+#cash .count-table input{width:100%;min-width:0;box-sizing:border-box;min-height:65px;border:2px solid #b9cbdf;border-radius:13px;background:#fff;font-size:26px;font-weight:800;text-align:center;color:#163557}
+#cash .count-table input:focus{outline:3px solid #85b6e5;outline-offset:1px}
+#cash .count-table tfoot{background:#e9f5eb}
+#cash .count-table tfoot th{padding:16px 10px;font-size:clamp(15px,3.7vw,20px);font-weight:850;color:#125b34}
+#cash .count-table tfoot th:first-child{white-space:nowrap}
+#cash .count-table tfoot th:last-child{text-align:right}
+#cash #denomTotal{font-size:clamp(23px,5vw,30px)}
+#cash .total{border-radius:12px;background:#dcf6df;color:#143b2b;padding:16px 12px}
+#cash .cash-inline-summary{border:0;background:transparent;padding:0}
+#cash .cash-inline-row{border:0;border-radius:12px;margin:9px 0;padding:17px 12px;background:#e4edfa;color:#18345b}
+#cash .cash-inline-row strong{font-size:clamp(19px,4.8vw,27px)}
+#cash .cash-inline-diff{background:#fff0f1}
+#cash .cash-entry{background:#fff;border:1px solid #c6d3e1;border-radius:15px;padding:15px;margin:16px 0 22px}
+@media(max-width:390px){#cash .count-table tbody td{padding:10px 5px;font-size:15px}#cash .count-table input{min-height:58px;font-size:23px}#cash .count-table tfoot th{padding:12px 5px;font-size:15px}}
+</style><style id="v94-compact-count">#cash .count-table tbody td{padding:7px 7px;font-size:clamp(14px,3.3vw,18px)}#cash .count-table input{min-height:44px;font-size:19px;padding:5px 6px;border-radius:10px}#cash .count-table tfoot th{padding:10px 7px;font-size:clamp(14px,3.4vw,18px)}#cash .count-table{margin:8px 0 12px;border-radius:12px}#cash .optional-rolls{margin:10px 0 14px}#cash .cash-inline-row{padding:12px 10px}@media(max-width:390px){#cash .count-table tbody td{padding:6px 4px;font-size:14px}#cash .count-table input{min-height:43px;font-size:18px}}</style><style id="v96-collapse-fix">#cash #coinsContent[hidden],#cash #rollsContent[hidden]{display:none!important}#cash #toggleCoins{background:#e9edf2;color:#24384d;border:2px solid #9aaabb;font-weight:750}#cash #coinsContent{padding-top:12px}</style><style id="v97-collapse">#cash #notesContent[hidden],#cash #coinsContent[hidden],#cash #rollsContent[hidden]{display:none!important}#cash #toggleNotes{background:#e9edf2;color:#24384d;border:2px solid #9aaabb;font-weight:750}</style><style id="v98-native-details">#cash details.cash-count-details{margin:12px 0 16px}#cash details.cash-count-details>summary{display:block;list-style:none;cursor:pointer;background:#e9edf2;color:#24384d;border:2px solid #9aaabb;border-radius:12px;padding:15px 9px;font-weight:850;text-align:center;font-size:clamp(17px,4vw,22px);-webkit-user-select:none;user-select:none}#cash details.cash-count-details>summary::-webkit-details-marker{display:none}#cash details.cash-count-details>.cash-count-body{padding-top:10px}#cash details.cash-count-details:not([open])>.cash-count-body{display:none!important}</style><style id="v100-deposit">#cash .cash-deposit-panel,.report-deposit-panel{background:#fff;border:3px solid #1e8750;border-radius:16px;padding:14px;margin:14px 0 20px;color:#193a31}.cash-deposit-panel h3,.report-deposit-panel h3{margin:0 0 12px;color:#145b36}.deposit-line{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 3px;border-bottom:1px solid #dbe5df;font-size:clamp(14px,3.6vw,18px)}.deposit-line strong{white-space:nowrap;font-size:clamp(16px,4vw,21px)}.deposit-result{background:#d8f5df;border-radius:12px;margin:12px 0;padding:18px 10px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;color:#10582d;font-weight:900}.deposit-result span{font-size:clamp(16px,4vw,20px)}.deposit-result strong{font-size:clamp(28px,7vw,38px);white-space:nowrap}.cash-deposit-panel p{font-size:14px;margin:10px 2px 0}.report-deposit-panel{break-inside:avoid}@media print{.cash-deposit-panel{display:none!important}}</style><style id="v103-clean-cash">#cash .cash-check-card,#cash .office-only-panel,.report-deposit-panel{background:#fff;border:2px solid #c6d4e3;border-radius:16px;margin:16px 0;padding:17px 14px;box-shadow:0 2px 5px #19344b0b}#cash .cash-check-card{border-color:#2779b5}#cash .cash-check-card h3,#cash .office-only-panel h3{margin:0 0 13px;color:#143d68}#cash .office-only-panel{border-color:#258350}#cash .office-only-panel h3{color:#155c36}.cash-check-line{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 2px;border-bottom:1px solid #dce5ed;font-size:clamp(15px,3.6vw,19px)}.cash-check-line strong{white-space:nowrap;font-size:clamp(18px,4vw,23px)}.cash-check-diff{background:#eef3f9;border-radius:10px;padding:15px 10px;margin-top:9px;border:0;font-weight:800}.cash-check-card p{font-size:14px;color:#42586b}.office-only-panel .deposit-result,.report-deposit-panel .deposit-result{margin:15px 0 5px;background:#e0f4e5}#cash .office-only-panel #depositHint[hidden]{display:none!important}@media(max-width:400px){.cash-check-line{font-size:14px}.cash-check-line strong{font-size:18px}}</style><style id="v104-report-preview">.report-preview-status{padding:12px 14px;border-radius:10px;background:#fff2d5;color:#745018;font-weight:800;margin:14px 0}.report-sales-audit{background:#f4f8fc;border:2px solid #b8cfe1;border-radius:14px;padding:14px;margin:18px 0}.report-sales-audit h3{color:#153b61}.report-audit-row{display:flex;justify-content:space-between;gap:12px;padding:10px 4px;border-bottom:1px solid #d8e2eb}.report-audit-row span small{display:block;color:#596d7c;margin-top:4px}.report-audit-row strong{white-space:nowrap}.report-audit-total{background:#dff1e7;padding:13px 9px;border-radius:9px;font-weight:850;margin-top:10px}</style><style id="v106-blue-check">#cash .cash-status-panel{background:#e8f2ff!important;border:3px solid #2f79b5!important;border-radius:18px!important;box-shadow:none!important;padding:18px 15px!important}#cash .cash-status-panel h3{color:#133e6c;font-weight:900}#cash .cash-check-row{border-bottom:1px solid #bfd5ed}#cash .cash-check-row:last-child{background:#d7e9fc!important;color:#133e6c!important}#cash .cash-status-panel .muted{color:#486786}</style><style id="v110-overall">#cash .overall-control{background:#e8f2ff;border:3px solid #2f79b5;border-radius:18px;padding:18px 15px;margin:18px 0;color:#173b61}#cash .overall-control h3{font-size:clamp(21px,5vw,27px);color:#143e6b;margin:0 0 18px}#cash .overall-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 4px;border-bottom:1px solid #c4d6e9;font-weight:800;font-size:clamp(15px,3.7vw,19px)}#cash .overall-row strong{white-space:nowrap;font-size:clamp(18px,4.6vw,25px)}#cash .overall-breakdown{background:white;border:1px solid #c5d6e7;border-radius:13px;padding:12px;margin:12px 0}#cash .overall-breakdown>div{display:flex;justify-content:space-between;gap:10px;padding:9px 2px;color:#476078;font-size:clamp(14px,3.4vw,17px)}#cash .overall-breakdown strong{white-space:nowrap;color:#173b61}#cash .overall-actual{background:#d7e8f9;border-radius:11px;padding:17px 10px;margin:12px 0}#cash .overall-difference{background:#fff;border-radius:11px;padding:17px 10px;border:0}#cash .overall-control p{font-size:13px;color:#506b83;margin:13px 3px 0}</style><style id="v114-version">header{position:relative;padding-right:130px}#visibleVersion{position:absolute;right:9px;top:10px;background:#fff;color:#07396d;border-radius:9px;padding:7px 9px;font-weight:900;font-size:14px;line-height:1.15;text-align:center}@media(max-width:440px){header{padding-right:102px}header b{font-size:19px}header small{font-size:11px}#visibleVersion{font-size:12px;padding:6px}}</style><style id="v116-intermediate">.overall-breakdown .overall-intermediate{background:#e5f2e9;border:2px solid #5a9d72;border-radius:8px;font-weight:900;padding:11px 9px;margin:5px 0 9px}</style></head><body><header><span id="visibleVersion">TESTVERSION<br>116</span><b id="brand">GASTRO · ABRECHNUNG</b><small>Digitale Waren- und Kassenabrechnung · TESTVERSION 116</small></header><div class="wrap"><div class="note noprint">⚠️ <b>Testversion 116:</b> Daten bleiben nur in diesem Browser. Keine TSE, keine Cloud-Synchronisierung, keine rechtssichere elektronische Registrierkasse. Für echte Kassenführung zusätzlich ein geeignetes Kassensystem verwenden.</div><div class="tabs noprint"><button id="t-start" onclick="tab('start')">① Start + Ende</button><button id="t-cash" onclick="tab('cash')">② Kasse</button><button id="t-stock" onclick="tab('stock')">③ Waren</button><button id="t-report" onclick="tab('report')">④ Bericht</button><button id="t-settings" onclick="tab('settings')">⑤ ⚙️ Einstellungen</button><button id="t-clear" type="button" onclick="clearStockEntries()" title="Waren, Zählprotokoll, Kassenwerte und Unterschrift löschen">🗑️ Testeingaben löschen</button></div>
+<section class="card screen" id="start"><div class="start-shift-box"><h2>📍 Schicht / Stand starten</h2><div class="grid"><div><label>Veranstaltung</label><select id="event" required onchange="eventChanged()"><option value="">Bitte Veranstaltung auswählen</option><option value="custom">✏️ Eigene Veranstaltung eingeben</option><option value="stadium">🏟️ Stadion</option><option>Brunnenlauf</option><option>Marathon</option><option>Stoffmarkt</option><option>Botanischer Garten</option><option>VfB</option><option>Knights</option><option>Aurich | E-Center</option><option>Bremerhaven | FCmila</option><option>Brake | Famila</option><option>Bremerhaven | Ikea</option><option>Delmenhorst | Graftwiesen</option><option>Delmenhorst | Zurbrüggen</option><option>Kaltenkirchen | Festplatz</option><option>Kassel | d/e/z</option><option>Leer | Ostfrieslandhalle</option><option>Oldenburg | Famila Wechloy</option><option>Oldenburg | Freigelände Weser-Ems-Hallen</option><option>Oldenburg | Ikea</option><option>Oldenburg, Metjendorf | Fliegerhorst</option><option>Posthausen | dodenhof</option><option>Varel | Famila</option><option>Vechta | Famila</option><option>Westerstede | Famila</option><option>Wildeshausen | Famila</option><option>Wilhelmshaven | Sportforum</option></select><div class="hide" id="customEventWrap"><label>Anderer Veranstaltungsort</label><input id="customEvent" oninput="save();refreshStartGate()" placeholder="Veranstaltungsort eingeben"/></div></div><div class="hide start-stadium" id="stadiumWrap"><label>Gegnerische Mannschaft (Pflichtfeld)</label><input id="opponent" oninput="save()" placeholder="Gegnerische Mannschaft eintragen" required/></div><div><label>Vor- und Nachname des Mitarbeiters</label><select id="employeePick" aria-label="Mitarbeiter aus Liste auswählen" onchange="chooseEmployee(this.value)"><option value="">👤 Mitarbeiter aus Liste auswählen</option><option value="__other__">✏️ Anderer Mitarbeiter</option></select><input id="employee" list="employeeSuggestions" required autocomplete="name" placeholder="Vor- und Nachnamen eingeben" style="display:none"/><datalist id="employeeSuggestions"></datalist><small class="employee-help">Mitarbeiter auswählen oder neuen Namen eingeben. Neue Namen erscheinen anschließend in der Liste.</small></div><div><label for="locationPick">Stand / Standort</label><select id="locationPick" onchange="chooseLocation(this.value)"><option value="">Bitte Stand auswählen</option><option>Imbisswagen</option><option>Getränkewagen</option><option>Eiswagen</option><option>Tresenzelt</option><option>Pavillon</option><option>Kiosk</option><option value="__other__">✏️ Sonstiges</option></select><div id="locationOtherWrap" class="hide"><label for="locationOther">Sonstigen Standort eintragen</label><input id="locationOther" placeholder="Standort selbst eingeben" oninput="updateOtherLocation()"/></div><input type="hidden" id="location" required/></div><div><label>Datum</label><input id="date" required type="date"/></div><input id="company" type="hidden" value="Gastro Janssen"/><div id="stadiumWeather"><div><label>Wetter</label><select id="weather" required><option value="">Bitte Wetter auswählen</option><option>☀️ Sonnig</option><option>⛅ Bewölkt</option><option>🌤️ Trocken</option><option>🌧️ Regen</option><option>💨 Windig</option><option>❄️ Schnee</option></select></div><div><label>Temperatur (°C)</label><select id="temperature" aria-label="Temperatur auswählen" required><option value="">Bitte Temperatur auswählen</option><option value="-5">-5 °C</option><option value="-4">-4 °C</option><option value="-3">-3 °C</option><option value="-2">-2 °C</option><option value="-1">-1 °C</option><option value="0">0 °C</option><option value="1">1 °C</option><option value="2">2 °C</option><option value="3">3 °C</option><option value="4">4 °C</option><option value="5">5 °C</option><option value="6">6 °C</option><option value="7">7 °C</option><option value="8">8 °C</option><option value="9">9 °C</option><option value="10">10 °C</option><option value="11">11 °C</option><option value="12">12 °C</option><option value="13">13 °C</option><option value="14">14 °C</option><option value="15">15 °C</option><option value="16">16 °C</option><option value="17">17 °C</option><option value="18">18 °C</option><option value="19">19 °C</option><option value="20">20 °C</option><option value="21">21 °C</option><option value="22">22 °C</option><option value="23">23 °C</option><option value="24">24 °C</option><option value="25">25 °C</option><option value="26">26 °C</option><option value="27">27 °C</option><option value="28">28 °C</option><option value="29">29 °C</option><option value="30">30 °C</option><option value="31">31 °C</option><option value="32">32 °C</option><option value="33">33 °C</option><option value="34">34 °C</option><option value="35">35 °C</option><option value="36">36 °C</option><option value="37">37 °C</option><option value="38">38 °C</option><option value="39">39 °C</option><option value="40">40 °C</option><option value="41">41 °C</option><option value="42">42 °C</option><option value="43">43 °C</option><option value="44">44 °C</option><option value="45">45 °C</option><option value="46">46 °C</option><option value="47">47 °C</option><option value="48">48 °C</option><option value="49">49 °C</option><option value="50">50 °C</option></select></div></div></div></div><div class="start-float-box"><label for="startFloat">💶 Wechselgeld erhalten (€):</label><input id="startFloat" type="text" inputmode="decimal" autocomplete="off" placeholder="z. B. 20,00" oninput="syncStartFloat()" onblur="formatMoneyField(this);syncStartFloat()"/><small>Wird automatisch in die Kasse übernommen. Bei zusätzlichem Wechselgeld kann der Betrag später unter „Kasse“ geändert werden.</small></div><div class="start-gate-note" id="startGateNote" role="status">🔒 Bitte Veranstaltung, Mitarbeiter, Standort und Datum ausfüllen. Wetter und Temperatur müssen für diese Schicht neu ausgewählt bzw. eingegeben werden. Erst dann erscheinen die Warenfelder.</div><div class="quick-stock hide" id="quickStockGate"><h3>📦 Anfangsbestände und Waren schnell eingeben</h3><p class="muted">🏟️ Stadion und 🎪 Veranstaltungen haben getrennte Warenlisten und Preise. Currywurst wird automatisch als 20 % der verkauften Bratwürste berechnet. Falls keine verkauft wurde, bitte „Keine Currywurst verkauft“ ankreuzen.</p><p class="muted">Stadion-Flaschenbier: 0,33 l je Flasche ÷ 0,4 l je Becher = 0,825 Becher pro Flasche (24 Flaschen = 19,8 Portionen). Die Artikel stehen untereinander. Anfangsbestand, Endbestand, Personal und Schwund direkt eingeben. Zugang und Abgang sind bei Bedarf ausklappbar. Preise, Einheit und Verkaufseinheiten mit einem Klick auf den grünen Preis-Button ändern. Alle Werte werden automatisch mit ③ Waren abgeglichen.</p><div id="quickStartItems"></div><button class="green wide" onclick="tab('cash')" type="button">Weiter zur Kasse →</button></div><p class="muted">Tippe einmal auf den grünen Preis-Button: Preis, Einheit und Verkaufseinheiten werden gemeinsam angezeigt.</p></section>
+<section class="card screen hide" id="stock"><h2>Warenabrechnung</h2><p class="muted">Flaschenbier Stadion wird mit 0,33 l je Flasche und 0,4 l je Becher umgerechnet (Faktor 0,825). Anfangsbestand − Endbestand + Zugang − Abgang = verbrauchte Ware. Schwund und Personal werden zusätzlich abgezogen. Preise und Verkaufseinheiten können direkt beim Artikel geändert werden.</p><div id="items"></div><div class="total"><span>Rechnerischer Warenumsatz</span><span id="stockTotal">0,00 €</span></div><div class="sticky"><button class="green wide" onclick="tab('cash')">Weiter zur Kasse →</button></div></section>
+<section class="card screen hide" id="cash"><h2>💶 Zählprotokoll – Bargeld</h2><p class="muted">Links steht der Nennwert. Nur die Anzahl eintragen – der Betrag rechts wird automatisch berechnet.</p><details class="cash-count-details" id="rollsDetails"><summary>＋ Münzrollen (optional) anzeigen</summary><div class="cash-count-body"><h3>🧻 Münzrollen</h3><p class="muted">Anzahl der vollständigen Rollen eintragen. 10-Cent-Rolle = 40 Münzen (4 €), 20-Cent-Rolle = 40 Münzen (8 €), 50-Cent-Rolle = 40 Münzen (20 €), 1-Euro-Rolle = 25 Münzen (25 €), 2-Euro-Rolle = 25 Münzen (50 €). Lose Münzen bitte oben zählen.</p><table class="count-table"><thead><tr><th>Rolle</th><th>Anzahl Rollen</th><th>Betrag</th></tr></thead><tbody id="rollDenoms"></tbody><tfoot><tr><th>Summe Rollen</th><th></th><th id="rollTotal">0,00 €</th></tr></tfoot></table></div></details><details class="cash-count-details" id="coinsDetails"><summary>＋ Kleingeld (optional) anzeigen</summary><div class="cash-count-body"><h3>🪙 Kleingeld (lose Münzen)</h3><table class="count-table"><thead><tr><th>Nennwert</th><th>Anzahl</th><th>Betrag</th></tr></thead><tbody id="coinDenoms"></tbody><tfoot><tr><th>Summe Kleingeld</th><th></th><th id="coinTotal">0,00 €</th></tr></tfoot></table></div></details><details class="cash-count-details" id="notesDetails"><summary>＋ Scheine anzeigen</summary><div class="cash-count-body"><h3>💶 Scheine</h3><table class="count-table"><thead><tr><th>Nennwert</th><th>Anzahl</th><th>Betrag</th></tr></thead><tbody id="noteDenoms"></tbody><tfoot><tr><th>Summe Scheine</th><th></th><th id="noteTotal">0,00 €</th></tr></tfoot></table></div></details><div class="total"><span>Bargeld gesamt</span><span id="denomTotal">0,00 €</span></div><div class="cash-check-card" aria-live="polite"><h3>💶 Kassenkontrolle – Mitarbeiter</h3><div class="cash-check-line"><span>Bargeld gesamt gezählt</span><strong id="cashInlineActual">0,00 €</strong></div><div class="cash-check-line"><span>Rechnerisch erwartetes Bargeld (inkl. Wechselgeld)</span><strong id="cashInlineExpected">0,00 €</strong></div><div class="cash-check-line cash-check-diff"><span>Kassendifferenz (Ist − Soll)</span><strong id="cashInlineDiff">0,00 €</strong></div><p>Das gesamte gezählte Bargeld einschließlich Wechselgeld abgeben.</p></div><div class="cash-deposit-panel office-only-panel" aria-live="polite"><h3>📒 Für die Buchhaltung – Bargeld ins Kassenbuch eintragen</h3><div class="cash-check-line"><span>Bargeld gesamt gezählt</span><strong id="depositCounted">0,00 €</strong></div><div class="cash-check-line"><span>− Wechselgeld</span><strong id="depositFloat">0,00 €</strong></div><div class="deposit-result"><span>BARGELD INS KASSENBUCH EINTRAGEN</span><strong id="depositAmount">0,00 €</strong></div><p class="muted">Gezähltes Bargeld ohne Wechselgeld. Bar bezahlte Ausgaben anhand der Quittungen gesondert berücksichtigen.</p><span id="depositExpected" hidden></span><span id="depositDifference" hidden></span><span id="depositHint" hidden></span></div><div class="cash-entry"><h3>💳 EC / SumUp, Wechselgeld und Quittungen</h3><p class="muted">Beträge selbst eintragen. Die Zusammenfassung steht anschließend im Bericht.</p><div class="grid"><div><label>Wechselgeld zu Schichtbeginn (€)</label><input id="float" placeholder="0,00" inputmode="decimal" min="0" oninput="update()" step="0.01" type="text" autocomplete="off" onblur="formatMoneyField(this)"/></div><div><label>EC / SumUp laut Terminal (€)</label><input id="card" placeholder="0,00" inputmode="decimal" min="0" oninput="update()" step="0.01" type="text" autocomplete="off" onblur="formatMoneyField(this)"/></div><div><label>Quittungen – aus Bargeld bezahlte Ausgaben (€)</label><input id="receipts" inputmode="decimal" min="0" oninput="update()" step="0.01" type="text" autocomplete="off" onblur="formatMoneyField(this)" placeholder="0,00"/></div></div><p class="muted">Quittungen werden zum gezählten Bargeld hinzugerechnet, damit die aus der Kasse bezahlten Ausgaben beim Umsatzabgleich berücksichtigt werden. Belege bitte aufbewahren.</p></div><div class="overall-control" aria-live="polite"><h3>📊 Gesamtkontrolle</h3><div class="overall-row"><span>Umsatz laut gezählter Ware (Soll)</span><strong id="overallStock">0,00 €</strong></div><div class="overall-breakdown"><div><span>Gezähltes Bargeld</span><strong id="overallCounted">0,00 €</strong></div><div><span>− Wechselgeld</span><strong id="overallFloat">0,00 €</strong></div><div class="overall-intermediate"><span>= Bargeld ins Kassenbuch</span><strong id="overallBookCash">0,00 €</strong></div><div><span>+ Quittungen / Belege</span><strong id="overallReceipts">0,00 €</strong></div><div><span>+ EC / SumUp</span><strong id="overallCard">0,00 €</strong></div></div><div class="overall-row overall-actual"><span>Tatsächlicher Gesamtumsatz (Ist)</span><strong id="overallActual">0,00 €</strong></div><div class="overall-row overall-difference"><span>Umsatzdifferenz (Ist − Soll)</span><strong id="overallDiff">0,00 €</strong></div><p>Das gesamte gezählte Bargeld wird abgegeben. Die Umsatzdifferenz zeigt die Abweichung zur Warenabrechnung.</p></div><div class="signature-block cash-sign"><h3>✍️ Unterschrift – Bargeld gezählt</h3><p class="muted">Zum Unterschreiben den großen Button öffnen. Unterschreiben ist nur im Querformat-Feld möglich.</p><canvas height="180" id="signature" width="720" style="display:none!important;pointer-events:none!important" aria-hidden="true"></canvas><div id="landscapeSignatureStatus" class="muted">Noch keine Unterschrift vorhanden.</div><div class="signature-preview-frame"><img id="landscapeSignaturePreview" alt="Vorschau der Unterschrift" style="display:none;width:100%;height:100%;object-fit:contain" /><span id="landscapeSignaturePlaceholder">Hier erscheint die Unterschrift nach dem Unterschreiben im Querformat.</span></div><button id="openLandscapeSign" class="green wide" type="button" onclick="openLandscapeSignature()">✍️ UNTERSCHRIFT QUERFORMAT ÖFFNEN</button></div><div class="event-notes-box noprint"><h3>📝 Besonderheiten zur Veranstaltung</h3><textarea id="notes" rows="5" oninput="save()" placeholder="Besonderheiten oder Hinweise zur Abrechnung hier eingeben …"></textarea></div><div class="cash-finalize noprint"><div id="cashClosedMessage" class="hide">🔒 Diese Kasse wurde endgültig abgeschlossen. Die Abrechnung bleibt einsehbar.</div><button id="finishCashButton" type="button" class="wide" onclick="finishGastroCash()">🔒 Kasse endgültig abschließen</button><p class="muted">Vor dem Abschluss bitte alle Kassenwerte prüfen und im Querformat unterschreiben. Danach sind Änderungen für diese Schicht gesperrt.</p></div><div class="pdf-share-box"><h3>📄 Kassenbericht als PDF</h3><p>PDF zur Bestandsprüfung jederzeit ansehen – auch ohne Unterschrift und vor dem endgültigen Kassenabschluss. Ohne Abschluss ist die PDF vorläufig. Zum Versenden bitte vorher unterschreiben.</p><button class="wide" type="button" onclick="previewGastroPDF()">👁️ PDF ansehen</button><button class="green wide" type="button" onclick="sendGastroPDF()">📤 PDF versenden</button><p class="muted">Beim Versenden WhatsApp, E-Mail oder eine andere App auswählen.</p><div id="androidPdfHelp" class="steps hide"><b>📱 PDF auf Android teilen</b><p id="androidPdfHelpReason"></p><p><b>Einfachster Weg:</b> PDF öffnen und im PDF-Betrachter auf das Teilen-Symbol tippen. Dann WhatsApp oder E-Mail auswählen.</p><button type="button" class="green wide" onclick="openAndroidPdf()">📄 PDF öffnen und teilen</button><button type="button" class="wide" onclick="downloadAndroidPdf()">⬇️ PDF herunterladen (Alternative)</button><p class="muted">Tipp: Die Kasse im normalen Chrome-Browser öffnen, nicht im eingebauten Browser einer anderen App.</p></div></div><button class="wide" onclick="tab('report')">Kassenbericht ansehen →</button></section>
+<section class="card hide" id="report"><h2>Waren- und Kassenbericht</h2><p class="note noprint">Leere Testabrechnung: Trage deine Warenmengen und Kassenwerte selbst ein. Die Unterschrift aus dem Zählprotokoll erscheint hier automatisch.</p><p id="reportMeta"></p><p><b>Abschlussdatum und Uhrzeit:</b> <span id="reportClosedAt">Noch nicht abgeschlossen</span></p><div class="report-deposit-panel"><h3>📒 Bargeld ins Kassenbuch eintragen</h3><div class="cash-check-line"><span>Bargeld gesamt gezählt</span><strong id="reportDepositCounted">0,00 €</strong></div><div class="cash-check-line"><span>− Wechselgeld</span><strong id="reportDepositFloat">0,00 €</strong></div><div class="deposit-result"><span>BARGELD INS KASSENBUCH EINTRAGEN</span><strong id="reportDepositAmount">0,00 €</strong></div><span id="reportDepositExpected" hidden></span><span id="reportDepositDifference" hidden></span></div><h3>Zählprotokoll</h3><table><thead><tr><th>Nennwert</th><th>Anzahl</th><th>Betrag</th></tr></thead><tbody id="reportDenoms"></tbody></table><div class="report-preview-status" id="reportPreviewStatus">Vorläufiger Bericht – Kasse noch nicht endgültig abgeschlossen</div><div class="report-sales-audit"><h3>🧮 Umsatzprüfung – so setzt sich die Summe zusammen</h3><div id="reportSalesAudit"></div><p class="muted">Die Gesamtsumme enthält alle verkauften Artikel und ggf. den automatisch berechneten Currywurst-Zuschlag. Nur tatsächlich verkaufte Würstchen zählen: Anfang + Zugang − Abgang − Ende − Schwund − Personal.</p></div><h3>Warenabrechnung</h3><div class="scroll"><table class="report-table"><thead><tr><th>Artikel</th><th>Anfangsbestand</th><th>Endbestand</th><th>Zugang</th><th>Abgang</th><th>Schwund</th><th>Personal</th><th>Verkauf</th><th>Preis</th><th>Umsatz</th></tr></thead><tbody id="reportRows"></tbody></table></div><div class="total"><span>Rechnerischer Warenumsatz</span><span id="rStock"></span></div><div class="report-cash-inputs noprint"><h3>Kassenabschluss – Übersicht</h3><div class="cash-overview" id="cashOverview"></div><div class="grid"><div><label>Gezähltes Bargeld</label><div class="total" id="cashTotal">0,00 €</div></div><div><label>Tatsächlicher Tagesumsatz</label><div class="total" id="actualTotal">0,00 €</div></div></div></div><h3>Kassen- und Umsatzabgleich</h3><table><tbody><tr><td>Kassenbestand gesamt (gezählt)</td><td id="rCash"></td></tr><tr><td>− Wechselgeld</td><td id="rFloat"></td></tr><tr><th>Zwischensumme</th><th id="rIntermediate"></th></tr><tr><td>+ Quittungen / Belege (bar bezahlt)</td><td id="rReceipts"></td></tr><tr><th>Kassenumsatz bar</th><th id="rBarRevenue"></th></tr><tr><td>+ EC / SumUp</td><td id="rCard"></td></tr><tr><th>Tagesumsatz gesamt</th><th id="rActual"></th></tr><tr><th>Rechnerischer Umsatz laut verbrauchter Ware</th><th id="rCalculatedRevenue"></th></tr><tr><th>Tatsächlicher Tagesumsatz</th><th id="rActualCompare"></th></tr><tr><th>Kassendifferenz (Ist − Soll)</th><th id="rDiff"></th></tr></tbody></table><p><b>Bemerkung:</b> <span id="rNotes"></span></p><div class="signature-block"><h3>Unterschrift Mitarbeiter / Kassenabschluss</h3><p>Die Unterschrift wird automatisch aus dem Zählprotokoll (Schritt 3) übernommen:</p><p class="signature-employee-name"><b>Name:</b> <span id="signatureEmployeeName">–</span></p><img alt="Unterschrift Mitarbeiter – Bargeldzählung" id="printSignature" style="display:none"/></div><div class="note">Die Differenz ist eine rechnerische Abweichung und nicht automatisch ein Kassenfehlbetrag. Warenmengen, Umrechnungen, Pfand und Zahlungsbewegungen müssen gegebenenfalls geprüft werden.</div><div class="noprint"><button class="wide" type="button" onclick="previewGastroPDF()">👁️ PDF ansehen</button><button class="green wide" type="button" onclick="sendGastroPDF()">📤 PDF versenden</button><p class="muted">Auf Android am besten Chrome verwenden. Falls direktes Teilen nicht verfügbar ist, auf der Kassenseite die PDF öffnen.</p></div></section>
+<section class="card screen hide" id="settings"><h2>⚙️ Artikel &amp; Preise einstellen</h2><p class="muted">Hier kannst du Preise, Umrechnungen und Artikel verändern. Bei Zapfbier bedeutet „Einheiten pro Gebinde“: Becher pro Fass. Beispiel: 50 Liter / 0,4 Liter = 125 Becher. Bei Pommes: 25 Portionen je Tüte.</p><div id="settingsItems"></div><h3>Neuen Artikel hinzufügen</h3><div class="grid"><div><label>Artikelname</label><input id="newName" placeholder="z. B. Brezel"/></div><div><label>Preis je Portion / Stück (€)</label><input id="newPrice" min="0" step="0.01" type="number" value="3"/></div><div><label>Bestandseinheit</label><select id="newUnit"><option>Stück</option><option>Waffeln</option><option>Flasche</option><option>Tüte</option><option>Fass</option><option>Becher</option></select></div><div><label>Verkaufseinheiten je Bestandseinheit</label><input id="newFactor" min="0.01" step="0.01" type="number" value="1"/></div></div><button class="green wide" onclick="addItem()">+ Artikel hinzufügen</button><p class="note">Änderungen an Preisen oder Umrechnungen wirken sich auf die aktuelle Abrechnung aus. Bei einer abgeschlossenen Schicht erst den Bericht sichern.</p><button class="red wide" onclick="resetAll()">Testdaten vollständig zurücksetzen</button></section>
+</div><div id="landscapeSignModal" role="dialog" aria-modal="true" aria-label="Unterschrift im Querformat" style="display:none">
+<div class="landscape-sign-top"><strong>✍️ Unterschrift im Querformat</strong><button type="button" onclick="closeLandscapeSignature()">Zurück</button></div>
+<div class="landscape-sign-hint">Bitte hier mit dem Finger unterschreiben.</div>
+<canvas id="landscapeSignCanvas" width="1100" height="380"></canvas>
+<div class="landscape-sign-bottom"><button id="clearLandscapeSign" class="landscape-clear-button" type="button" onclick="resetLandscapeSignature()">🗑️ Unterschrift löschen / neu</button><button type="button" class="green" onclick="acceptLandscapeSignature()">✓ Unterschrift übernehmen</button></div>
+</div>
+<script>
+const $=id=>document.getElementById(id),eur=n=>Number(n||0).toLocaleString('de-DE',{style:'currency',currency:'EUR'}),fmt=n=>{const v=Number(String(n??'').replace(',','.'));return (Number.isFinite(v)?v:0).toLocaleString('de-DE',{maximumFractionDigits:2})};
+const defaults=[['Bratwurst',4,'Stück',1],['Pommes',4,'Tüte',25],['Currywurst-Zuschlag',1,'Stück',1],['Fassbier',4.5,'Fass',125],['Flaschenbier Stadion',4.5,'Flasche',0.825],['Flaschenbier',4.5,'Flasche',1],['Cola / Fanta / Sprite',4,'Flasche',2.5],['Wasser',2,'Flasche',2.5],['Glühwein',4,'Becher',1],['Kaffee',2.5,'Becher',1],['Softeis',3,'Waffeln',1]].map((x,i)=>({id:i===4?16:i>4?i:i+1,name:x[0],price:x[1],unit:x[2],factor:x[3],start:'',end:'',waste:'',staff:'',incoming:'',outgoing:''}));
+let s;try{s=JSON.parse(localStorage.getItem('gastro_janssen_v51'))}catch(e){}if(!s||!Array.isArray(s.items))s={items:defaults,meta:{},counts:{},float:'',card:'',receipts:'',notes:''};// Bestehende V3-Daten übernehmen; Getränkemengen zusammenführen, ohne Bestände zu verlieren.
+if(!s.counts)s.counts={};if(!s.rolls)s.rolls={};
+if(s.items){let drinks=s.items.filter(x=>['Cola','Fanta','Sprite','Cola / Fanta / Sprite'].includes(x.name));if(drinks.length){let first=drinks[0];for(const key of ['start','incoming','outgoing','end','waste','staff']){first[key]=drinks.reduce((sum,x)=>sum+numberRaw(x[key]),0)||''}first.name='Cola / Fanta / Sprite';s.items=s.items.filter(x=>x===first||!drinks.includes(x))}if(!s.items.some(x=>x.name==='Softeis'))s.items.push({id:Math.max(0,...s.items.map(x=>x.id))+1,name:'Softeis',price:3,unit:'Waffeln',factor:1,start:'',end:'',waste:'',staff:'',incoming:'',outgoing:''})}
+// Zwei frei benennbare Sonstiges-Artikel direkt nach Softeis, auch bei vorhandenen Testdaten.
+for(let n=1;n<=2;n++){
+ const id=16+n;
+ if(!s.items.some(x=>x.id===id))s.items.push({id,name:'Sonstiges '+n,price:0,unit:'Stück',factor:1,start:'',end:'',incoming:'',outgoing:'',waste:'',staff:'',quickMisc:true});
+}
+for(let n=1;n<=2;n++){const x=s.items.find(x=>x.id===16+n);if(x)x.quickMisc=true;}
+const softIndex=s.items.findIndex(x=>x.name==='Softeis');
+if(softIndex>=0){const extras=s.items.filter(x=>x.quickMisc);s.items=s.items.filter(x=>!x.quickMisc);s.items.splice(softIndex+1,0,...extras);}
+// Musterabrechnung vom 07.11.2026 aus der bereitgestellten PDF; offene Unstimmigkeiten sind markiert.
+const demoRows={
+ 'Bratwurst':{start:420,end:70,waste:15,staff:7,price:4,factor:1},
+ 'Pommes':{start:18,end:9.5,waste:0,staff:4,price:4,factor:25},
+ 'Currywurst-Zuschlag':{start:83,end:0,waste:0,staff:0,price:1,factor:1},
+ 'Glühwein':{start:100,end:15,waste:0,staff:0,price:4,factor:1},
+ 'Kaffee':{start:50,end:8,waste:0,staff:0,price:2.5,factor:1},
+ 'Fassbier':{start:3.75,end:2,waste:0,staff:0,price:4.5,factor:125},
+ 'Flaschenbier':{start:120,end:0,waste:0,staff:0,price:4.5,factor:0.825},
+ 'Cola / Fanta / Sprite':{start:40,end:0,waste:0,staff:0,price:4,factor:2.5},
+ 'Wasser':{start:8,end:0,waste:0,staff:0,price:2,factor:2.5}
+};
+function loadDemo(){
+ if(!confirm('Musterabrechnung vom 07.11.2026 laden? Die aktuellen Testeingaben werden überschrieben.'))return;
+ applyDemo();save();renderItems();renderQuickStart();renderCash();tab('report');
+}
+function applyDemo(){
+ s.items=defaults.map(x=>({...x}));for(const x of s.items)if(demoRows[x.name])Object.assign(x,demoRows[x.name]);
+ for(let i=1;i<=5;i++)s.items.push({id:10+i,name:'',price:'',unit:'Stück',factor:1,start:'',incoming:'',outgoing:'',end:'',waste:'',staff:'',extra:i});
+ s.meta={company:'Gastro Janssen',location:'Kiosk',date:'2026-11-07',employee:'Demo-Mitarbeiter',event:'VfB Oldenburg',weather:'Trocken, kalt',temperature:10};
+ s.rolls={};s.counts={'100':2,'50':44,'20':71,'10':75,'5':52,'2':18,'1':11,'0.5':25,'0.2':0,'0.1':0};
+ s.float='1000';s.card='374,50';s.receipts='';s.notes='Musterwerte aus Imbiss 2.pdf. Differenz ungeklärt. Wasser: 8 Liter ergeben 20 Becher (nicht 100). Fassbier-Rundung: 984,375 € = 984,38 €. Flaschenbier laut Vorlage als 99 Becher berechnet.';s.signature='';
+ 
+
+$('startFloat').value=s.float||'';$('opponent').value=s.meta.opponent||'';$('stadiumWrap').classList.add('hide');$('stadiumWeather').classList.remove('hide');loadLocationPicker(s.meta.location);$('date').value=s.meta.date;$('employee').value=s.meta.employee;$('weather').value='';$('temperature').value=s.meta.temperature;
+ $('event').value='custom';$('customEvent').value=s.meta.event;$('customEventWrap').classList.remove('hide');$('float').value=s.float;$('card').value=s.card;$('receipts').value=s.receipts||'';$('notes').value=s.notes;
+ sigctx.clearRect(0,0,signature.width,signature.height);$('printSignature').removeAttribute('src');
+}
+
+// Neuen Stadionartikel auch in bereits gespeicherten Testständen ergänzen.
+if(!s.items.some(x=>x.name==='Flaschenbier Stadion')){const fresh={...defaults.find(x=>x.name==='Flaschenbier Stadion')};const pos=s.items.findIndex(x=>x.name==='Fassbier');s.items.splice(pos>=0?pos+1:0,0,fresh);}
+// Fünf frei beschriftbare Zusatzartikel, dauerhaft gespeichert.
+for(let i=1;i<=5;i++)if(!s.items.some(x=>x.extra===i))s.items.push({id:Math.max(0,...s.items.map(x=>Number(x.id)||0))+1,name:'',price:'',unit:'Stück',factor:1,start:'',incoming:'',outgoing:'',end:'',waste:'',staff:'',extra:i});
+// Zwei voneinander getrennte Warenlisten. Preise und Einheiten werden je Liste gespeichert.
+const profileTemplates={
+ event:[['Bratwurst',4,'Stück',1],['Pommes',4,'Tüte',25],['Currywurst (20 % Bratwurst)',1,'Stück',1],['Kaffee',2.5,'Becher',1],['Cola / Sprite / Wasser',3,'1-Liter-Flasche',3.33],['Softeis',3,'Waffeln',1],['Bierflaschen',3.5,'Stück',1],['Sonstiges 1',0,'Stück',1],['Sonstiges 2',0,'Stück',1]],
+ stadium:[['Rostbratwurst',4,'Stück',1],['Pommes',4,'Tüte',25],['Currywurst (20 % Bratwurst)',1,'Stück',1],['Kaffee',2.5,'Becher',1],['Glühwein',4,'Becher',1],['Fassbier',4.5,'Fass (50 l)',125],['Flaschenbier Stadion',4.5,'Flasche (0,33 l)',0.825],['Cola / Sprite',4,'1-Liter-Flasche',2.5],['Wasser',2,'1-Liter-Flasche',2.5],['Softeis',3,'Waffeln',1],['Sonstiges 1',0,'Stück',1],['Sonstiges 2',0,'Stück',1]]
+};
+// Warenlisten aus Version 44 an die neuen Artikel anpassen, ohne andere Eingaben zu löschen.
+function migrateProfile46(which,items){
+ if(!Array.isArray(items))return items;
+ const template=profileTemplates[which];
+ const names=new Set(template.map(a=>a[0]));
+ const mergeNames=which==='event'?['Cola','Sprite','Wasser']:['Cola','Sprite'];
+ const combinedName=which==='event'?'Cola / Sprite / Wasser':'Cola / Sprite';
+ const old=items.filter(x=>mergeNames.includes(x.name));
+ let combined=items.find(x=>x.name===combinedName);
+ if(!combined&&old.length){
+  combined={...old[0],name:combinedName};
+  for(const k of ['start','end','waste','staff','incoming','outgoing']){
+   const values=old.map(x=>Number(String(x[k]??'').replace(',','.'))||0);
+   combined[k]=values.some(Boolean)?String(values.reduce((a,b)=>a+b,0)):'';
+  }
+ }
+ let result=items.filter(x=>!mergeNames.includes(x.name)&&names.has(x.name));
+ if(combined&&!result.some(x=>x.name===combinedName))result.push(combined);
+ for(const [name,price,unit,factor] of template){
+  let x=result.find(v=>v.name===name);
+  if(!x){x={id:Math.max(99,...result.map(v=>Number(v.id)||0))+1,name,price,unit,factor,start:'',end:'',waste:'',staff:'',incoming:'',outgoing:'',quickMisc:name.startsWith('Sonstiges'),autoCurry:name.startsWith('Currywurst')};result.push(x)}
+  if(name.startsWith('Currywurst')){x.autoCurry=true;x.noCurry=!!x.noCurry}
+  if(name==='Fassbier'){x.unit='Fass (50 l)';x.factor=125}
+  if(which==='stadium'&&name==='Flaschenbier Stadion'){x.unit='Flasche (0,33 l)';x.factor=0.825;x.price=4.5}
+  if(name===combinedName){x.unit=unit;if(which==='event'){if(Math.abs(Number(x.factor)-3.3)<0.000001||!Number(x.factor))x.factor=3.33;}else{x.factor=factor}}
+  if(which==='stadium'&&name==='Wasser'){x.unit=unit;x.factor=factor}
+  if(name==='Softeis'){x.unit='Waffeln';x.factor=1;x.price=3}
+  if(which==='event'&&name==='Bierflaschen'){x.unit='Stück';x.factor=1;x.price=3.5}
+ }
+ return result.sort((a,b)=>template.findIndex(v=>v[0]===a.name)-template.findIndex(v=>v[0]===b.name));
+}
+if(s.itemProfiles){for(const which of ['event','stadium'])if(s.itemProfiles[which])s.itemProfiles[which]=migrateProfile46(which,s.itemProfiles[which]);}
+if(s.activeProfile&&s.itemProfiles?.[s.activeProfile])s.items=JSON.parse(JSON.stringify(s.itemProfiles[s.activeProfile]));
+function createProfile(which){return profileTemplates[which].map((a,i)=>({id:100+i,name:a[0],price:a[1],unit:a[2],factor:a[3],start:'',end:'',waste:'',staff:'',incoming:'',outgoing:'',quickMisc:a[0].startsWith('Sonstiges'),autoCurry:a[0].startsWith('Currywurst')}));}
+if(!s.itemProfiles)s.itemProfiles={};
+let activeProfile=s.activeProfile||null;
+function profileForEvent(){return $('event').value==='stadium'?'stadium':'event'}
+function switchProfile(){
+ const next=profileForEvent();
+ if(activeProfile===next)return;
+ if(activeProfile)s.itemProfiles[activeProfile]=JSON.parse(JSON.stringify(s.items));
+ s.items=JSON.parse(JSON.stringify(s.itemProfiles[next]||createProfile(next)));
+ activeProfile=next;s.activeProfile=next;
+ renderItems();renderQuickStart();renderResults();
+}
+function currySold(){const w=s.items.find(x=>/^(Rost)?Bratwurst$/i.test(x.name.trim()));if(!w)return 0;return Math.round(calcItem(w).qty*0.2*100)/100;}
+function numberRaw(v){return Math.max(0,Number(String(v??'').replace(',','.'))||0)}
+const notesDenoms=[5,10,20,50,100,200],coinDenoms=[.1,.2,.5,1,2],denominations=[...notesDenoms,...coinDenoms];const rollDenoms=[.1,.2,.5,1,2],rollPieces={"0.1":40,"0.2":40,"0.5":40,"1":25,"2":25};function invalidatePreparedPDF(){
+ if(typeof preparedPDF!=='undefined')preparedPDF=null;
+ const ready=document.getElementById('iphonePdfReady'), reportReady=document.getElementById('reportPdfReady');
+ if(ready)ready.classList.add('hide');
+ if(reportReady)reportReady.classList.add('hide');
+}
+function save(){invalidatePreparedPDF();s.activeProfile=activeProfile;if(activeProfile)s.itemProfiles[activeProfile]=JSON.parse(JSON.stringify(s.items));s.meta={company:$('company').value,location:$('location').value,date:$('date').value,employee:$('employee').value,event:$('event').value==='custom'?$('customEvent').value:$('event').value,weather:$('weather').value,temperature:$('temperature').value,opponent:$('event').value==='stadium'?$('opponent').value:''};s.float=$('float').value;s.card=$('card').value;s.receipts=$('receipts').value;s.notes=$('notes').value;localStorage.setItem('gastro_janssen_v51',JSON.stringify(s));refreshStartGate()}function syncStartFloat(){
+ const start=$('startFloat'),cash=$('float');if(!start||!cash)return;
+ cash.value=start.value;
+ update();
+}
+function formatMoneyField(el){
+ const raw=String(el.value||'').trim();
+ if(!raw)return;
+ let cleaned=raw.replace(/\s/g,'').replace(/€/g,'');
+ if(cleaned.includes(',')&&cleaned.includes('.'))cleaned=cleaned.replace(/\./g,'');
+ cleaned=cleaned.replace(',','.');
+ if(!/^\d+(?:\.\d{0,2})?$/.test(cleaned)){alert('Bitte einen gültigen Eurobetrag eingeben, z. B. 20 oder 27,50.');el.focus();return;}
+ const amount=Number(cleaned);
+ if(!Number.isFinite(amount)||amount>99999999){alert('Bitte einen gültigen Betrag eingeben.');el.focus();return;}
+ el.value=amount.toFixed(2).replace('.',',');
+ if(el.id==='startFloat'){$('float').value=el.value;}
+ if(el.id==='float'&&$('startFloat'))$('startFloat').value=el.value;
+ update();
+}
+function number(v){return Math.max(0,Number(String(v??'').replace(',','.'))||0)}function calcItem(x){if(x.autoCurry){const qty=x.noCurry?0:currySold();return {qty,negative:false,amount:Math.round(qty*number(x.price)*100)/100}}let used=(number(x.start)+number(x.incoming)-number(x.outgoing)-number(x.end))*number(x.factor)-number(x.waste)-number(x.staff);return {qty:Math.max(0,Math.round(used*10000)/10000),negative:used<0,amount:Math.round(Math.max(0,used)*number(x.price)*100)/100}}function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function field(id,key,v){return `<input id="goodsfield${id}_${key}" aria-label="${esc(key)}" type="text" inputmode="decimal" placeholder="" value="${esc(v)}" oninput="changeItem(${id},'${key}',this.value)">`}function consumptionUnit(x){
+ const name=(x.name||'').toLowerCase();
+ if(name.includes('bratwurst')||name.includes('currywurst'))return 'Stück';
+ if(name.includes('pommes'))return 'Portionen';
+ if(name.includes('fassbier')||name.includes('cola')||name.includes('fanta')||name.includes('sprite')||name.includes('wasser')||name.includes('kaffee')||name.includes('glühwein'))return 'Becher';
+ if(name.includes('flaschenbier stadion'))return 'Becher';
+ if(name.includes('flaschenbier'))return 'Flaschen';
+ if(name.includes('softeis'))return 'Waffeln';
+ return x.factor==1?(x.unit||'Stück'):'Portionen';
+}
+function setNoCurry(id,checked){const x=s.items.find(v=>v.id===id);if(!x||!x.autoCurry)return;x.noCurry=checked;save();renderResults();renderQuickStart();if(!$('report').classList.contains('hide'))renderReport();}
+function renderItems(){
+ $('items').innerHTML=s.items.map((x,i)=>`<article class="item goods-card ${x.autoCurry?'automatic-curry':''} ${i%2===0?'goods-tint':''}" id="goods${x.id}">
+ <div class="goods-head"><div class="goods-title"><span class="goods-number">${i+1}</span><div><strong id="itemtitle${x.id}">${esc(x.name||'Zusatzartikel '+(x.extra||'')+' – Namen eingeben')}</strong><small>${esc(x.unit)} · ${fmt(x.factor)} Verkaufseinheit(en) je ${esc(x.unit)}</small></div></div><span class="goods-price">${eur(x.price)}</span></div>
+ ${x.extra?`<div class="goods-extra"><label>✏️ Name des neuen Artikels</label><input type="text" value="${esc(x.name)}" placeholder="z. B. Crêpe oder Kakao" oninput="changeItemName(${x.id},this.value)"></div>`:''}
+ ${x.autoCurry?`<label class="curry-switch"><input type="checkbox" ${x.noCurry?'checked':''} onchange="setNoCurry(${x.id},this.checked)"> Keine Currywurst verkauft (0 Stück)</label>`:''}
+ <div class="goods-fields"><div><label>① Anfangsbestand <small>(${esc(x.unit)})</small></label>${field(x.id,'start',x.start)}</div><div><label>② Endbestand <small>(${esc(x.unit)})</small></label>${field(x.id,'end',x.end)}</div><div><label>③ Zugang <small>(${esc(x.unit)})</small></label>${field(x.id,'incoming',number(x.incoming)===0?'':x.incoming)}</div><div><label>④ Abgang <small>(${esc(x.unit)})</small></label>${field(x.id,'outgoing',number(x.outgoing)===0?'':x.outgoing)}</div><div><label>⑤ Schwund <small>(${esc(consumptionUnit(x))})</small></label>${field(x.id,'waste',x.waste)}</div><div><label>⑥ Personal <small>(${esc(consumptionUnit(x))})</small></label>${field(x.id,'staff',x.staff)}</div></div>
+ <details class="goods-options"><summary>⚙️ Preis und Verkaufseinheit ändern</summary><div class="goods-options-grid"><div><label>Preis je Verkaufseinheit (€)</label>${field(x.id,'price',x.price)}</div><div><label>Verkaufseinheiten je ${esc(x.unit)}</label>${field(x.id,'factor',x.factor)}</div>${x.extra?`<div><label>Bestandseinheit</label><select onchange="changeItem(${x.id},'unit',this.value)">${['Stück','Waffeln','Becher','Tüte','Flasche','Liter','Fass'].map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select></div>`:''}</div></details>
+ <div id="itemresult${x.id}" class="goods-result"></div></article>`).join('');renderResults()}
+function renderResults(){let sum=0;for(const x of s.items){let c=calcItem(x);if(!x.extra||x.name.trim())sum+=c.amount;let el=$('itemresult'+x.id);if(el)el.innerHTML=(c.negative?'<span class="error">⚠️ Abzüge größer als Bestand! </span>':'')+`<div class="calc-detail"><div>(${fmt(x.start)} Anfang + ${fmt(x.incoming)} Zugang − ${fmt(x.outgoing)} Abgang − ${fmt(x.end)} Ende) × ${fmt(x.factor)} Verkaufseinheiten</div><div>− ${fmt(x.waste)} Schwund − ${fmt(x.staff)} Personal</div><strong>= ${fmt(c.qty)} verkauft × ${eur(number(x.price))} = ${eur(c.amount)}</strong></div>`}$('stockTotal').textContent=eur(sum)}function changeItemName(id,v){let x=s.items.find(x=>x.id===id);if(!x)return;x.name=v;save();if(x.quickMisc){const q=$('miscname'+id);if(q&&q!==document.activeElement)q.value=v;const h=q?.closest('.quick-card')?.querySelector('.quick-card-head strong');if(h)h.textContent=v||'Sonstiges';}let title=document.getElementById('itemtitle'+id);if(title)title.textContent=v||'Neuer Artikel – bitte benennen';renderResults()}function refreshItemTitle(id){renderResults()}function changeItem(id,k,v){invalidatePreparedPDF();let x=s.items.find(x=>x.id===id);if(x){x[k]=v;save();if(['start','end','incoming','outgoing','waste','staff'].includes(k)){let q=$('quick'+k+id);if(q&&q!==document.activeElement)q.value=v;let goods=$('goodsfield'+id+'_'+k);if(goods&&goods!==document.activeElement)goods.value=v;}if(k==='name'){let t=$('itemtitle'+id);if(t)t.textContent=v||'Neuer Artikel – bitte benennen';renderResults();return;}if(k==='unit'){let active=document.activeElement;let y=window.scrollY;renderItems();window.scrollTo(0,y);return;}if(k==='price'){let m=$('miscprice'+id);if(m&&m!==document.activeElement)m.value=v;let p=$('quickprice'+id);if(p)p.innerHTML=eur(x.price)+' <small>je '+esc(consumptionUnit(x))+'</small>';let gp=document.querySelector('#goods'+id+' .goods-price');if(gp)gp.textContent=eur(x.price);}renderResults();if(!$('report').classList.contains('hide'))renderReport()}}function renderSettings(){$('settingsItems').innerHTML=s.items.map(x=>`<div class="settings-item"><div class="row"><div><label>Artikelname</label><input value="${esc(x.name)}" onchange="changeSetting(${x.id},'name',this.value)"></div><div><label>Preis (€)</label><input type="number" min="0" step="0.01" value="${esc(x.price)}" onchange="changeSetting(${x.id},'price',this.value)"></div><div><label>Einheit</label><select onchange="changeSetting(${x.id},'unit',this.value)">${['Stück','Waffeln','Flasche','Tüte','Fass','Becher','Liter','Kiste'].map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select></div><div><label>Portionen je Einheit</label><input type="number" min="0.01" step="any" value="${esc(x.factor)}" onchange="changeSetting(${x.id},'factor',this.value)"></div></div><button onclick="removeItem(${x.id})">Artikel entfernen</button></div>`).join('')}
+function changeSetting(id,k,v){let x=s.items.find(x=>x.id===id);if(!x)return;if(['price','factor'].includes(k)&&!(number(v)>0||k==='price'&&number(v)===0)){alert('Bitte eine gültige Zahl eingeben.');renderSettings();return}x[k]=v;save();renderItems();renderQuickStart()}function removeItem(id){if(!confirm('Artikel wirklich entfernen?'))return;s.items=s.items.filter(x=>x.id!==id);save();renderSettings();renderItems();renderQuickStart()}function addItem(){let name=$('newName').value.trim(),factor=number($('newFactor').value),price=number($('newPrice').value);if(!name||factor<=0||price<0||!Number.isFinite(price)){alert('Bitte gültigen Namen, Preis und Umrechnung eingeben.');return}s.items.push({id:Math.max(0,...s.items.map(x=>x.id))+1,name,price,unit:$('newUnit').value,factor,start:'',end:'',waste:'',staff:'',incoming:'',outgoing:''});$('newName').value='';save();renderSettings();renderItems();renderQuickStart()}
+let shiftWeatherConfirmed=false,shiftTemperatureConfirmed=true;
+const standardLocations=['Imbisswagen','Getränkewagen','Eiswagen','Tresenzelt','Pavillon','Kiosk'];
+function chooseLocation(value){
+ const other=value==='__other__';
+ $('locationOtherWrap').classList.toggle('hide',!other);
+ $('location').value=other?$('locationOther').value:value;
+ save();
+}
+function updateOtherLocation(){
+ $('location').value=$('locationOther').value.trim();save();
+}
+function loadLocationPicker(value){
+ const loc=String(value||'');
+ const standard=standardLocations.includes(loc);
+ $('locationPick').value=!loc?'':standard?loc:'__other__';
+ $('locationOtherWrap').classList.toggle('hide',!loc||standard);
+ $('locationOther').value=!loc||standard?'':loc;
+ $('location').value=loc;
+}
+function refreshStartFieldColors(){
+ const done={event:!!$('event').value,employeePick:!!$('employee').value.trim(),locationPick:!!$('location').value.trim(),date:!!$('date').value,weather:shiftWeatherConfirmed&&!!$('weather').value,temperature:!!$('temperature').value};
+ for(const [id,ok] of Object.entries(done))$(id).classList.toggle('start-done',ok);
+}
+function nextStartField(from){
+ const order=['event','customEvent','opponent','employeePick','employee','locationPick','locationOther','date','weather','temperature'];
+ const visible=id=>{const e=$(id);return e&&e.getClientRects().length&&getComputedStyle(e).display!=='none'&&!e.disabled};
+ const i=order.indexOf(from),next=order.slice(i+1).find(id=>visible(id)&&!$(id).value);
+ if(next){$(next).focus();$(next).scrollIntoView({block:'center',behavior:'smooth'});}
+}
+function refreshStartGate(){
+ const event=$('event').value;
+ const missing=[];
+ const check=(id,ok,label)=>{const el=$(id);if(el){el.classList.toggle('missing-required',!ok);el.setAttribute('aria-invalid',String(!ok));}if(!ok)missing.push(label);};
+ check('event',!!event,'Veranstaltung auswählen');
+ if(event==='custom')check('customEvent',!!$('customEvent').value.trim(),'Veranstaltung eintragen');
+ if(event==='stadium')check('opponent',!!$('opponent').value.trim(),'Gegnerische Mannschaft eintragen');
+ check('employeePick',!!$('employee').value.trim(),'Mitarbeiter auswählen');if($('employeePick').value==='__other__')check('employee',!!$('employee').value.trim(),'Mitarbeitername eingeben');
+ check('locationPick',!!$('location').value.trim(),'Standort / Stand auswählen');if($('locationPick').value==='__other__')check('locationOther',!!$('locationOther').value.trim(),'Sonstigen Standort eintragen');
+ check('date',!!$('date').value,'Datum auswählen');
+ check('weather',shiftWeatherConfirmed&&!!$('weather').value,'Wetter auswählen');
+ check('temperature',$('temperature').value!==''&&Number.isFinite(Number($('temperature').value))&&Number($('temperature').value)>=-5&&Number($('temperature').value)<=50,'Temperatur auswählen');
+ refreshStartFieldColors();const complete=missing.length===0;
+ const cashBtn=$('t-cash');if(cashBtn){cashBtn.disabled=!complete;cashBtn.setAttribute('aria-disabled',String(!complete));cashBtn.title=complete?'':'Erst Schichtdaten und Wetter vollständig eingeben';}
+ const stock=$('quickStockGate'),note=$('startGateNote');
+ if(stock)stock.classList.toggle('hide',!complete);
+ if(note){
+  note.classList.toggle('hide',complete);
+  note.innerHTML=complete?'':'<strong>🔴 Es fehlen noch '+missing.length+' Angaben:</strong><ul>'+missing.map(x=>'<li>'+x+'</li>').join('')+'</ul><small>Erst wenn alles ausgefüllt ist, werden Kasse und Warenfelder freigeschaltet.</small>';
+ }
+ return complete;
+}
+
+function noteTotal(){return notesDenoms.reduce((a,d)=>a+d*number(s.counts[d]),0)}function coinTotal(){return coinDenoms.reduce((a,d)=>a+d*number(s.counts[d]),0)}function rollTotal(){return rollDenoms.reduce((a,d)=>a+d*rollPieces[d]*number(s.rolls[d]),0)}function count(){return Math.round((noteTotal()+coinTotal()+rollTotal())*100)/100}function update(){if($('startFloat')&&document.activeElement!==$('startFloat'))$('startFloat').value=$('float').value;save();renderResults();renderCashCheck();renderExpectedCash();let cash=count(),actual=cash+number(s.card)+number(s.receipts)-number(s.float);$('cashTotal').textContent=eur(cash);if($('denomTotal'))$('denomTotal').textContent=eur(cash);$('noteTotal').textContent=eur(noteTotal());$('coinTotal').textContent=eur(coinTotal());$('rollTotal').textContent=eur(rollTotal());for(const d of rollDenoms){const el=$('rollSum'+String(d).replace('.','_'));if(el)el.textContent=eur(d*rollPieces[d]*number(s.rolls[d]))}for(const d of denominations){let el=$('denomSum'+String(d).replace('.','_'));if(el)el.textContent=eur(d*number(s.counts[d]))}$('actualTotal').textContent=eur(actual);renderCashOverview()}function renderCash(){const row=d=>`<tr><td><b>${eur(d)}</b></td><td><input aria-label="Anzahl ${eur(d)}" type="number" min="0" step="1" inputmode="numeric" enterkeyhint="next" value="${esc(s.counts[d]??'')}" oninput="setCount('${d}',this.value)"></td><td id="denomSum${String(d).replace('.','_')}">${eur(d*number(s.counts[d]))}</td></tr>`;$('noteDenoms').innerHTML=notesDenoms.map(row).join('');$('coinDenoms').innerHTML=coinDenoms.map(row).join('');$('rollDenoms').innerHTML=rollDenoms.map(d=>`<tr><td><b>${eur(d)} (${rollPieces[d]} Stück)</b></td><td><input aria-label="Anzahl Rollen ${eur(d)}" type="number" min="0" step="1" inputmode="numeric" enterkeyhint="next" value="${esc(s.rolls[d]??'')}" oninput="setRoll('${d}',this.value)"></td><td id="rollSum${String(d).replace('.','_')}">${eur(d*rollPieces[d]*number(s.rolls[d]))}</td></tr>`).join('');setupSimpleCounting();update();renderCashClosed()}function setupSimpleCounting(){
+ const cash=$('cash'),entry=cash.querySelector('.cash-entry'),intro=cash.querySelector('h2')?.nextElementSibling;
+ if(entry&&intro)intro.after(entry);
+ const groups=[['rollsDetails','Münzrollen (optional)',rollDenoms.some(d=>number(s.rolls[d])>0)],['coinsDetails','Kleingeld (optional)',coinDenoms.some(d=>number(s.counts[d])>0)],['notesDetails','Scheine',notesDenoms.some(d=>number(s.counts[d])>0)]];
+ for(const [id,title,hasValues] of groups){
+  const details=$(id);if(!details)continue;
+  details.open=hasValues;
+  const summary=details.querySelector('summary');
+  const updateLabel=()=>{summary.textContent=(details.open?'− '+title+' ausblenden':'＋ '+title+' anzeigen');};
+  details.ontoggle=updateLabel;updateLabel();
+ }
+ const fields=[...cash.querySelectorAll('#rollDenoms input,#coinDenoms input,#noteDenoms input')];
+ fields.forEach((field,i)=>{field.setAttribute('enterkeyhint',i===fields.length-1?'done':'next');field.addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const visible=fields.filter(x=>x.getClientRects().length);const j=visible.indexOf(field);const next=visible[j+1];if(next){next.focus();next.scrollIntoView({block:'center',behavior:'smooth'});}else field.blur();});});
+}
+function setRoll(d,v){s.rolls[d]=v;update()}
+function setCount(d,v){s.counts[d]=v;update()}
+function renderReport(){update();renderCashCheck();let stock=0;$('reportRows').innerHTML=s.items.filter(x=>!x.extra||x.name.trim()).map(x=>{let c=calcItem(x);stock+=c.amount;return `<tr><td>${esc(x.name)}${c.negative?' ⚠':''}</td><td>${fmt(x.start)} ${esc(x.unit)}</td><td>${fmt(x.end)}</td><td>${fmt(x.incoming)}</td><td>${fmt(x.outgoing)}</td><td>${fmt(x.waste)}</td><td>${fmt(x.staff)}</td><td>${fmt(c.qty)}</td><td>${eur(x.price)}</td><td>${eur(c.amount)}</td></tr>`}).join('');const audit=$('reportSalesAudit');if(audit){const sold=s.items.filter(x=>!x.extra||x.name.trim()).map(x=>({x,c:calcItem(x)})).filter(v=>v.c.qty>0||v.c.amount>0);audit.innerHTML=sold.map(({x,c})=>'<div class="report-audit-row"><span>'+esc(x.name)+(x.autoCurry?' <small>(automatischer Zuschlag – prüfen)</small>':'')+'<small>'+fmt(c.qty)+' × '+eur(x.price)+'</small></span><strong>'+eur(c.amount)+'</strong></div>').join('')+'<div class="report-audit-row report-audit-total"><span>Gesamter Warenumsatz</span><strong>'+eur(stock)+'</strong></div>';const status=$('reportPreviewStatus');if(status)status.textContent=s.cashClosed?'🔒 Endgültiger Kassenbericht – abgeschlossen am '+gastroClosedAtLabel():'🟡 Vorläufiger Bericht – Kasse noch nicht endgültig abgeschlossen';}
+ let cash=count(),card=number(s.card),flo=number(s.float),actual=cash+card+number(s.receipts)-flo,diff=actual-stock;$('reportMeta').textContent=[s.meta.company,s.meta.event,s.meta.location,s.meta.date,s.meta.employee,s.meta.opponent?('Gegner: '+s.meta.opponent):'',s.meta.weather,(s.meta.temperature??15)+' °C'].filter(Boolean).join(' | ');$('reportClosedAt').textContent=gastroClosedAtLabel();const depositValues={reportDepositCounted:cash,reportDepositFloat:flo,reportDepositAmount:cash-flo,reportDepositExpected:stock-card-number(s.receipts),reportDepositDifference:diff};for(const [id,v] of Object.entries(depositValues)){const el=$(id);if(el)el.textContent=(id==='reportDepositDifference'&&v>0?'+ ':'')+eur(v);}$('rCalculatedRevenue').textContent=eur(stock);$('rActualCompare').textContent=eur(actual);$('rStock').textContent=eur(stock);$('rIntermediate').textContent=eur(cash-flo);$('rBarRevenue').textContent=eur(cash-flo+number(s.receipts));$('signatureEmployeeName').textContent=s.meta.employee||'–';$('rCash').textContent=eur(cash);$('rCard').textContent=eur(card);$('rReceipts').textContent=eur(number(s.receipts));$('rFloat').textContent='− '+eur(flo);$('rActual').textContent=eur(actual);$('rDiff').textContent=(diff>0?'+ ':'')+eur(diff);$('rDiff').className=Math.abs(diff)<.005?'good':'error';$('rNotes').textContent=s.notes||'–';if(s.signature){$('printSignature').src=s.signature;$('printSignature').style.display='block'}else{$('printSignature').removeAttribute('src');$('printSignature').style.display='none'}$('reportDenoms').innerHTML=`<tr class="report-group"><th colspan="3">💶 1. Geldscheine</th></tr>`+notesDenoms.map(d=>`<tr><td>${eur(d)}</td><td>${fmt(s.counts[d])}</td><td>${eur(d*number(s.counts[d]))}</td></tr>`).join('')+`<tr class="report-subtotal"><th>Summe Scheine</th><th></th><th>${eur(noteTotal())}</th></tr><tr class="report-group"><th colspan="3">🪙 2. Kleingeld (lose Münzen)</th></tr>`+coinDenoms.map(d=>`<tr><td>${eur(d)}</td><td>${fmt(s.counts[d])}</td><td>${eur(d*number(s.counts[d]))}</td></tr>`).join('')+`<tr class="report-subtotal"><th>Summe Kleingeld</th><th></th><th>${eur(coinTotal())}</th></tr><tr class="report-group"><th colspan="3">🧾 3. Münzrollen</th></tr>`+rollDenoms.map(d=>`<tr><td>Rolle ${eur(d)}</td><td>${fmt(s.rolls[d])}</td><td>${eur(d*rollPieces[d]*number(s.rolls[d]))}</td></tr>`).join('')+`<tr class="report-subtotal"><th>Summe Rollen</th><th></th><th>${eur(rollTotal())}</th></tr><tr class="report-grand"><th>Bargeld gesamt</th><th></th><th>${eur(cash)}</th></tr>`}
+function tab(name){if(['stock','settings'].includes(name)){const code=prompt('🔒 Nicht erforderlich für Mitarbeiter.\nBitte Code eingeben:');if(code===null)return;if(code!=='4711'){alert('Falscher Code. Bereich bleibt gesperrt.');return;}}if((name==='stock'||name==='cash')&&!refreshStartGate()){alert('Bitte zuerst auf Start + Ende alle Schichtdaten sowie Wetter und Temperatur eingeben.');name='start';}save();for(let id of ['start','stock','cash','report','settings']){$(id).classList.toggle('hide',id!==name);$('t-'+id).classList.toggle('active',id===name)}if(name==='start'){renderQuickStart();refreshStartGate();}if(name==='report')renderReport();if(name==='settings')renderSettings();if(name==='cash')renderCash();renderCashClosed();window.scrollTo(0,0)}
+function renderExpectedCash(){
+ const stock=s.items.filter(x=>!x.extra||x.name.trim()).reduce((sum,x)=>sum+calcItem(x).amount,0);
+ const card=number(s.card),receipts=number(s.receipts),flo=number(s.float),actual=count();
+ const expected=Math.round((stock-card-receipts+flo)*100)/100,diff=Math.round((actual-expected)*100)/100;
+ const values={expectedGoods:stock,expectedCard:card,expectedReceipts:receipts,expectedFloat:flo,expectedCash:expected,actualCashCount:actual};
+ for(const [id,value] of Object.entries(values)){const el=$(id);if(el)el.textContent=eur(value);}
+ const deposit=count()-flo,depositSoll=expected-flo;
+ for(const [id,value] of Object.entries({depositCounted:actual,depositFloat:flo,depositAmount:deposit,depositExpected:depositSoll,depositDifference:diff})){const el=$(id);if(el)el.textContent=(id==='depositDifference'&&value>0?'+ ':'')+eur(value);}
+ const depositHint=$('depositHint');if(depositHint)depositHint.textContent=deposit<0?'Achtung: Gezählt ist weniger Bargeld als Wechselgeld. Bitte Zählung und Wechselgeld prüfen.':'Wechselgeld ('+eur(flo)+') bleibt in der Kasse. Zur Abgabe sind '+eur(deposit)+'.';
+ const inlineExpected=$('cashInlineExpected'),inlineActual=$('cashInlineActual'),inlineDiff=$('cashInlineDiff');
+ if(inlineExpected)inlineExpected.textContent=eur(expected);
+ if(inlineActual)inlineActual.textContent=eur(actual);
+ if(inlineDiff){inlineDiff.textContent=(diff>0?'+ ':diff<0?'− ':'')+eur(Math.abs(diff));inlineDiff.style.color=diff<-.005?'#aa1730':'#13703d';}
+ const actualRevenue=Math.round((actual-flo+receipts+card)*100)/100,overallDiff=Math.round((actualRevenue-stock)*100)/100;
+ for(const [id,value] of Object.entries({overallStock:stock,overallCounted:actual,overallFloat:flo,overallBookCash:Math.round((actual-flo)*100)/100,overallReceipts:receipts,overallCard:card,overallActual:actualRevenue,overallDiff:overallDiff})){const el=$(id);if(el)el.textContent=(id==='overallDiff'&&value>0?'+ ':'')+eur(value);}
+ const diffEl=$('overallDiff');if(diffEl)diffEl.style.color=overallDiff<-.005?'#aa1730':overallDiff>.005?'#13703d':'#163e66';
+ const hasStock=s.items.some(x=>(!x.extra||x.name.trim())&&['start','end','incoming','outgoing','waste','staff'].some(k=>String(x[k]??'').trim()!==''));
+
+}
+function renderCashCheck(){/* Kassenprüfung aus der Ansicht entfernt; übrige Berechnungen bleiben erhalten. */}
+function gastroClosedAtLabel(){
+ if(!s.cashClosedAt)return s.cashClosed?'Nicht erfasst (älterer Abschluss)':'Noch nicht abgeschlossen';
+ const d=new Date(s.cashClosedAt);
+ return Number.isNaN(d.getTime())?'Nicht erfasst':new Intl.DateTimeFormat('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).format(d)+' Uhr';
+}
+function renderCashClosed(){
+ const closed=!!s.cashClosed;
+ const msg=$('cashClosedMessage'),btn=$('finishCashButton');
+ if(msg){msg.classList.toggle('hide',!closed);msg.textContent=closed?'🔒 Kasse endgültig abgeschlossen am '+gastroClosedAtLabel()+'. Die Abrechnung bleibt einsehbar.':'';}
+ if(btn){btn.disabled=closed;btn.textContent=closed?'🔒 Kasse abgeschlossen':'🔒 Kasse endgültig abschließen';}
+ for(const id of ['start','cash','stock','settings']){
+  const section=$(id);if(!section)continue;
+  section.querySelectorAll('input,select,textarea').forEach(el=>{el.disabled=closed;});
+  section.querySelectorAll('button').forEach(el=>{
+   if(el.id==='finishCashButton')return;
+   if(el.closest('.cash-finalize'))return;
+   if(el.closest('.pdf-share-box'))return;
+   if(el.closest('.quick-stock')){el.disabled=closed;return;}
+   if(el.closest('.cash-sign')){el.disabled=closed;return;}
+   if(el.closest('.cash-entry')||el.closest('.count-table')||el.closest('.start-shift-box')||id==='stock'||id==='settings')el.disabled=closed;
+  });
+ }
+}
+function finishGastroCash(){
+ if(s.cashClosed)return;
+ if(!refreshStartGate()){alert('Bitte zuerst alle Angaben auf Start + Ende vervollständigen.');tab('start');return;}
+ if(!s.signature){alert('Bitte zuerst im Querformat unterschreiben.');tab('cash');setTimeout(()=>{$('openLandscapeSign').scrollIntoView({behavior:'smooth',block:'center'});$('openLandscapeSign').focus({preventScroll:true});},120);return;}
+ if(!confirm('KASSE ENDGÜLTIG ABSCHLIESSEN?\n\nDanach können die Angaben dieser Schicht nicht mehr geändert werden. Der Bericht und die PDF bleiben verfügbar.\n\nWirklich abschließen?'))return;
+ save();s.cashClosed=true;s.cashClosedAt=new Date().toISOString();
+ localStorage.setItem('gastro_janssen_v51',JSON.stringify(s));
+ renderCashClosed();renderCashCheck();alert('🔒 Kasse endgültig abgeschlossen am '+gastroClosedAtLabel()+'.');
+}
+function chooseEmployee(name){
+ if(s.cashClosed)return;
+ if(!name)return;
+ if(name==='__other__'){$('employee').style.display='block';$('employee').value='';save();$('employee').focus();return;}
+ $('employee').value=name;$('employee').style.display='none';save();rememberEmployee();
+}
+function syncEmployeeSelect(){
+ const select=$('employeePick');if(!select)return;
+ const previous=select.value;
+ select.innerHTML='<option value="">👤 Mitarbeiter aus Liste auswählen</option><option value="__other__">✏️ Anderer Mitarbeiter</option>';
+ for(const name of employeeNames()){const opt=document.createElement('option');opt.value=name;opt.textContent=employeeDisplayName(name);select.appendChild(opt);}
+ const current=$('employee').value.trim();
+ select.value=employeeNames().includes(current)?current:(current||previous==='__other__'?'__other__':'');$('employee').style.display=select.value==='__other__'?'block':'none';
+}
+
+function renderCashOverview(){let cash=count(),card=number(s.card),flo=number(s.float),actual=cash+card+number(s.receipts)-flo;let stock=s.items.reduce((v,x)=>v+(!x.extra||x.name.trim()?calcItem(x).amount:0),0);$('cashOverview').innerHTML=[['💶 Kassenbestand gesamt',cash],['➖ Wechselgeld',-flo],['🧮 Zwischensumme',cash-flo],['🧾 + Quittungen / Belege',number(s.receipts)],['💶 Kassenumsatz bar',cash-flo+number(s.receipts)],['💳 + EC / SumUp',card],['📦 Rechnerischer Umsatz laut verbrauchter Ware (Soll)',stock],['✅ Tatsächlicher Tagesumsatz (Ist)',actual],['📊 Kassendifferenz (Ist − Soll)',actual-stock]].map(([label,v])=>`<div class="cash-line"><span>${label}</span><strong>${v<0?'− ':''}${eur(Math.abs(v))}</strong></div>`).join('')}function resetAll(){if(confirm('Wirklich ALLE Testdaten dieses Geräts löschen?')){localStorage.removeItem('gastro_janssen_v51');location.reload()}}function clearStockEntries(){
+ if(!confirm('Wirklich ALLE Testeingaben löschen?\\n\\nWarenmengen, Zählprotokoll, Geldbeträge, Veranstaltungsdaten, Bemerkungen, Abschluss und Unterschrift werden gelöscht. Artikel, Preise und Einstellungen bleiben erhalten.'))return;
+ // Beide Warenprofile bereinigen, damit beim Veranstaltungswechsel keine alten Testmengen zurückkehren.
+ const clearAmounts=items=>{if(!Array.isArray(items))return;for(const item of items)for(const key of ['start','end','incoming','outgoing','waste','staff'])item[key]='';};
+ clearAmounts(s.items);
+ if(s.itemProfiles)for(const items of Object.values(s.itemProfiles))clearAmounts(items);
+ s.cashClosed=false;s.cashClosedAt='';s.counts={};s.rolls={};s.float='';s.card='';s.receipts='';s.notes='';s.signature='';s.meta={};
+ // Keine alte Signatur aus Vorschau, Querformat-Dialog oder zwischengespeichertem PDF übernehmen.
+ const signatureCanvas=document.getElementById('signature');
+ if(signatureCanvas)signatureCanvas.getContext('2d').clearRect(0,0,signatureCanvas.width,signatureCanvas.height);
+ const landscapeCanvas=document.getElementById('landscapeSignCanvas');
+ if(landscapeCanvas)landscapeCanvas.getContext('2d').clearRect(0,0,landscapeCanvas.width,landscapeCanvas.height);
+ for(const id of ['printSignature','landscapeSignaturePreview']){const el=document.getElementById(id);if(el){el.removeAttribute('src');el.style.display='none';}}
+ const status=document.getElementById('landscapeSignatureStatus');if(status)status.textContent='Noch keine Unterschrift vorhanden.';
+ const placeholder=document.getElementById('landscapeSignaturePlaceholder');if(placeholder)placeholder.style.display='block';
+ invalidatePreparedPDF();
+ // Das Zurücksetzen ohne eventChanged() speichern, da dieses alte Warenprofile erneut laden könnte.
+ localStorage.setItem('gastro_janssen_v51',JSON.stringify(s));
+ location.reload();
+}
+
+// V26: Erstellt eine E-Mail mit lesbarer Abrechnung. Browser können keine PDF-Anhänge automatisch an mailto anhängen.
+function sendReportEmail(){
+ save();
+ if(!s.meta.employee.trim()){alert('Bitte zuerst Vor- und Nachnamen des Mitarbeiters eintragen.');tab('start');$('employee').focus();return;}
+ const recipient='olaf.janssen@flohmaxx.de';
+ const stock=s.items.filter(x=>!x.extra||x.name.trim()).map(x=>({x,c:calcItem(x)}));
+ const sum=stock.reduce((v,r)=>v+r.c.amount,0),cash=count(),card=number(s.card),change=number(s.float),actual=cash+card-change;
+ const lines=[
+ 'GASTRO JANSEN – TESTABRECHNUNG',
+ 'Veranstaltung: '+(s.meta.event||'–'),
+ 'Standort: '+(s.meta.location||'–'),
+ 'Datum: '+(s.meta.date||'–'),
+ 'Mitarbeiter: '+s.meta.employee,
+ 'Gegner: '+(s.meta.opponent||'–'),
+ 'Wetter: '+(s.meta.weather||'–')+' / '+(s.meta.temperature||'–')+' °C',
+ '', 'WARENABRECHNUNG',
+ ...stock.map(({x,c})=>x.name+': Anfang '+fmt(x.start)+', Ende '+fmt(x.end)+', Zugang '+fmt(x.incoming)+', Abgang '+fmt(x.outgoing)+', Schwund '+fmt(x.waste)+', Personal '+fmt(x.staff)+' | Verkauf '+fmt(c.qty)+' × '+eur(x.price)+' = '+eur(c.amount)),
+ '', 'Warenumsatz: '+eur(sum),'', 'KASSENZÄHLUNG',
+ ...denominations.filter(d=>number(s.counts[d])).map(d=>eur(d)+' × '+fmt(s.counts[d])+' = '+eur(d*number(s.counts[d]))),
+ 'Bargeld: '+eur(cash), 'EC / SumUp: '+eur(card),'Wechselgeld: '+eur(change),'Quittungen: '+eur(number(s.receipts)),
+ 'Tagesumsatz: '+eur(actual),'Differenz: '+eur(actual-sum),
+ 'Bemerkungen: '+(s.notes||'–'),
+ '', 'Hinweis: Die handschriftliche Unterschrift kann per E-Mail nicht automatisch mitgesendet werden.',
+ 'Für einen vollständigen Bericht mit Unterschrift bitte unter „④ Bericht“ über „Drucken / als PDF speichern“ eine PDF erzeugen und manuell anhängen.'
+ ];
+ const subject='Gastro Janssen – Testabrechnung '+(s.meta.date||'')+' – '+s.meta.employee;
+ const url='mailto:'+recipient+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(lines.join('\n'));
+ if(url.length>12000){alert('Die E-Mail ist für manche E-Mail-Programme zu lang. Bitte den Bericht als PDF speichern und manuell an '+recipient+' senden.');tab('report');return;}
+ window.location.href=url;
+}
+
+// V27: WhatsApp-Nachricht wird nur vorbereitet. Der Mitarbeiter sendet sie selbst.
+function sendReportWhatsApp(){
+ save();
+ if(!s.meta.employee.trim()){alert('Bitte zuerst Vor- und Nachnamen des Mitarbeiters eintragen.');tab('start');$('employee').focus();return;}
+ const stock=s.items.filter(x=>!x.extra||x.name.trim()).map(x=>({x,c:calcItem(x)}));
+ const sum=stock.reduce((v,r)=>v+r.c.amount,0);
+ const cash=count(),card=number(s.card),change=number(s.float),actual=cash+card-change;
+ const lines=[
+  'GASTRO JANSEN – TESTABRECHNUNG',
+  'Veranstaltung: '+(s.meta.event||'–'),
+  'Standort: '+(s.meta.location||'–'),
+  'Datum: '+(s.meta.date||'–'),
+  'Mitarbeiter: '+s.meta.employee,
+  'Gegner: '+(s.meta.opponent||'–'),
+  'Wetter: '+(s.meta.weather||'–')+' / '+(s.meta.temperature??'–')+' °C',
+  '', 'WAREN',
+  ...stock.filter(({x,c})=>c.qty!==0||number(x.start)||number(x.end)||number(x.incoming)||number(x.outgoing)).map(({x,c})=>x.name+': '+fmt(c.qty)+' verkauft = '+eur(c.amount)),
+  'Warenumsatz: '+eur(sum),
+  '', 'KASSE',
+  'Bargeld: '+eur(cash),
+  'EC / SumUp: '+eur(card),
+  'Wechselgeld: '+eur(change),'Quittungen: '+eur(number(s.receipts)),
+  'Tagesumsatz: '+eur(actual),
+  'Differenz: '+eur(actual-sum),
+  'Bemerkungen: '+(s.notes||'–'),
+  '', 'Hinweis: Unterschrift und PDF-Bericht sind nicht automatisch angehängt.'
+ ];
+ const url='https://wa.me/491724567866?text='+encodeURIComponent(lines.join('\n'));
+ if(url.length>8000){alert('Die WhatsApp-Nachricht ist sehr lang. Bitte den Bericht als PDF speichern und über WhatsApp manuell teilen.');tab('report');return;}
+ window.open(url,'_blank','noopener');
+}
+
+// V32: Vollstaendig offlinefaehige PDF-Erstellung ohne CDN / Fremdbibliotheken.
+let preparedPDF=null;
+function makeOfflinePDF(){
+ // A4-Bericht, sauber gesetzte Tabellen, ohne externe Bibliotheken.
+ const W=1240,H=1754,L=66,R=66,B=92,TOP=72,usable=W-L-R,pages=[];
+ let cv,ctx,y,pageNo=0;
+ const blue='#123e68',ink='#1d3145',muted='#526578',lineColor='#d4e0ea',pale='#edf4fa';
+ function text(t,x,yy,size=19,bold=false,color=ink,align='left'){
+  ctx.fillStyle=color;ctx.font=(bold?'700 ':'400 ')+size+'px Arial';ctx.textAlign=align;ctx.fillText(String(t??''),x,yy);ctx.textAlign='left';
+ }
+ function rule(yy){ctx.strokeStyle=lineColor;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(L,yy);ctx.lineTo(W-R,yy);ctx.stroke()}
+ function newPage(){
+  cv=document.createElement('canvas');cv.width=W;cv.height=H;ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);pages.push(cv);pageNo++;y=TOP;
+  text('GASTRO JANSEN',L,y,34,true,blue);text('WAREN- UND KASSENABRECHNUNG',W-R,y,23,true,blue,'right');y+=24;rule(y);y+=40;
+ }
+ function need(h){if(y+h>H-B)newPage()}
+ function section(title){
+  need(88);y+=12;
+  ctx.fillStyle=blue;ctx.beginPath();ctx.roundRect(L,y-8,usable,57,11);ctx.fill();
+  text(title.toUpperCase(),L+20,y+30,22,true,'#fff');y+=76;
+ }
+ function boxedSection(title,lines,accent='blue'){
+  const rowH=56,headH=64,pad=14,height=headH+lines.length*rowH+pad;
+  need(height+18);
+  const top=y,edge=accent==='green'?'#2b8554':blue,shade=accent==='green'?'#e4f5e9':'#eaf3fb';
+  ctx.fillStyle='#fff';ctx.strokeStyle=edge;ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(L,top,usable,height,15);ctx.fill();ctx.stroke();
+  ctx.fillStyle=edge;ctx.beginPath();ctx.roundRect(L+1,top+1,usable-2,headH,12);ctx.fill();
+  text(title.toUpperCase(),L+20,top+41,23,true,'#fff');
+  let yy=top+headH;
+  lines.forEach(([label,value,kind],i)=>{
+   const special=kind==='total'||kind==='diff';
+   if(special){ctx.fillStyle=shade;ctx.fillRect(L+4,yy,usable-8,rowH)}
+   else if(i%2){ctx.fillStyle='#f7f9fc';ctx.fillRect(L+4,yy,usable-8,rowH)}
+   ctx.fillStyle=lineColor;ctx.fillRect(L+18,yy+rowH-2,usable-36,1);
+   const color=kind==='diff'?(diff<-.005?'#b42332':diff>.005?'#13703d':blue):special?edge:ink;
+   text(label,L+19,yy+36,special?20:19,special,color===ink?ink:ink);
+   text(value,W-R-18,yy+36,special?24:22,true,color,'right');
+   yy+=rowH;
+  });
+  y=top+height+20;
+ }
+ function wrap(value,maxWidth,size=18){
+  const out=[];ctx.font=size+'px Arial';let row='';
+  for(const word of String(value??'').split(/\s+/)){const trial=row?row+' '+word:word;if(row&&ctx.measureText(trial).width>maxWidth){out.push(row);row=word}else row=trial}if(row)out.push(row);return out.length?out:['–'];
+ }
+ function info(label,value){const lines=wrap(value,usable-270,19);need(lines.length*30+6);text(label,L+8,y,19,true,muted);lines.forEach((t,i)=>text(t,L+270,y+i*30,19));y+=lines.length*30+6}
+ function row(vals,widths,height=43,header=false,alt=false,aligns=[]){
+  need(height);if(header||alt){ctx.fillStyle=header?blue:pale;ctx.fillRect(L,y-27,usable,height)}
+  let x=L;for(let i=0;i<vals.length;i++){const align=aligns[i]||'left';let tx=x+(align==='right'?widths[i]-8:8);text(vals[i],tx,y,header?16:17,header,header?'#fff':ink,align);x+=widths[i]}
+  y+=height;if(!header){ctx.strokeStyle='#e6edf3';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,y-27);ctx.lineTo(W-R,y-27);ctx.stroke()}
+ }
+ function total(label,value,emphasis=false){need(47);if(emphasis){ctx.fillStyle='#e4f1e8';ctx.fillRect(L,y-27,usable,46)}text(label,L+12,y,19,emphasis,ink);text(value,W-R-12,y,21,true,emphasis?'#17633d':blue,'right');y+=48}
+ const products=s.items.filter(x=>!x.extra||x.name.trim());
+ const stock=products.reduce((sum,x)=>sum+calcItem(x).amount,0);
+ const cash=count(),card=number(s.card),flo=number(s.float),receipts=number(s.receipts);
+ const actual=Math.round((cash+card+receipts-flo)*100)/100;
+ const expected=Math.round((stock-card-receipts+flo)*100)/100;
+ const diff=Math.round((cash-expected)*100)/100;
+ function titlePage(title,subtitle){
+  newPage();text(title,L,y+53,31,true,blue);y+=92;
+  text((s.meta.location||'Standort nicht angegeben')+'  |  '+(s.meta.date||'–')+'  |  '+(s.meta.employee||'–'),L,y,18,false,muted);y+=33;
+  if(subtitle){text(subtitle,L,y,18,false,muted);y+=30}rule(y);y+=32;
+ }
+ function valueLine(label,value,highlight=false){
+  need(57);if(highlight){ctx.fillStyle='#e5f3e9';ctx.fillRect(L,y-29,usable,54)}
+  text(label,L+15,y,highlight?21:19,highlight,ink);text(value,W-R-15,y,highlight?25:21,true,highlight?'#17633d':blue,'right');y+=57;
+ }
+ function differenceLine(label,value){
+  need(66);ctx.fillStyle=diff<-.005?'#fde8e8':'#e4f3e9';ctx.fillRect(L,y-32,usable,62);
+  text(label,L+15,y,22,true,ink);text(value,W-R-15,y,26,true,diff<-.005?'#b42332':'#16713e','right');y+=70;
+ }
+ // Seite 1: Klare, voneinander getrennte Kontrollkaesten
+ titlePage('TAGESABSCHLUSS / KASSENKONTROLLE','Mitarbeiter, Gesamtumsatz und Buchhaltung');
+ section('Veranstaltung und Schicht');
+ info('Veranstaltung',s.meta.event||'–');info('Standort',s.meta.location||'–');info('Datum',s.meta.date||'–');info('Mitarbeiter',s.meta.employee||'–');
+ if(s.meta.opponent)info('Gegner',s.meta.opponent);
+ info('Wetter / Temperatur',(s.meta.weather||'–')+'  |  '+(s.meta.temperature??15)+' °C');
+ info('Status',s.cashClosed?'Endgueltig abgeschlossen':'VORLAEUFIG - noch nicht abgeschlossen');
+ if(s.cashClosed)info('Abschluss am',gastroClosedAtLabel());
+ y+=18;
  boxedSection('1. Mitarbeiter-Kassenkontrolle',[
  ['Bargeld gesamt gezaehlt (Ist)',eur(cash)],
  ['Erwartetes Bargeld inkl. Wechselgeld',eur(expected)],
  ['Kassendifferenz (Ist - Soll)',(diff>0?'+ ':'')+eur(diff),'diff']
- ],'blue',true);
+ ]);
  boxedSection('2. Gesamtkontrolle / Umsatz',[
  ['Umsatz laut gezaehlter Ware (Soll)',eur(stock)],
  ['Bargeld gezaehlt',eur(cash)],
@@ -12,12 +607,12 @@
  ['+ EC / SumUp',eur(card)],
  ['Tatsaechlicher Gesamtumsatz (Ist)',eur(actual),'total'],
  ['Umsatzdifferenz (Ist - Soll)',(diff>0?'+ ':'')+eur(diff),'diff']
- ],'blue',true);
+ ]);
  boxedSection('3. Buchhaltung / Kassenbuch',[
  ['Bargeld gesamt gezaehlt',eur(cash)],
  ['- Wechselgeld',eur(flo)],
  ['Bargeld ins Kassenbuch eintragen',eur(cash-flo),'total']
- ],'green',true);
+ ],'green');
  // Seite 2: ausschließlich Warenbewegungen
  titlePage('WARENABRECHNUNG','Seite 2 · Anfang, Zugang, Personal, Schwund, Ende und Umsatz');
  const widths=[220,94,88,78,78,90,91,100,113,156];
@@ -35,41 +630,49 @@
  y+=15;total('Rechnerischer Warenumsatz',eur(stock),true);
  section('Erläuterung');
  for(const t of wrap('Verkauf = (Anfang + Zugang − Abgang − Ende) × Verkaufseinheiten je Gebinde − Schwund − Personal. Currywurst-Zuschlag wird automatisch aus 20 % der verkauften Bratwürste berechnet.',usable-20,18)){text(t,L+10,y,18);y+=29}
- // Seite 3: Zaehlprotokoll, Differenz, Bemerkungen und Unterschrift auf einer Seite.
- titlePage('ZÄHLPROTOKOLL / UNTERSCHRIFT','Seite 3 · Bargeldzählung, Bemerkungen und Unterschrift');
- const dWidths=[390,270,448];
- row(['Stückelung','Anzahl','Betrag'],dWidths,42,true,false,['left','right','right']);
- denominations.forEach((d,i)=>row([eur(d),fmt(s.counts[d]),eur(d*number(s.counts[d]))],dWidths,32,false,i%2===1,['left','right','right']));
+ // Seite 3: vollständiges Zählprotokoll und Unterschrift
+ titlePage('ZÄHLPROTOKOLL / BARGELD','Seite 3 · Nachzählung, Differenz und Unterschrift');
+ const dWidths=[390,270,448];row(['Stückelung','Anzahl','Betrag'],dWidths,47,true,false,['left','right','right']);
+ denominations.forEach((d,i)=>row([eur(d),fmt(s.counts[d]),eur(d*number(s.counts[d]))],dWidths,36,false,i%2===1,['left','right','right']));
+ valueLine('Summe Scheine',eur(noteTotal()));valueLine('Summe lose Münzen',eur(coinTotal()));
  const usedRolls=rollDenoms.filter(d=>number(s.rolls[d])>0);
- if(usedRolls.length){
-  y+=9;
-  row(['Münzrolle','Anzahl','Betrag'],dWidths,39,true,false,['left','right','right']);
-  usedRolls.forEach((d,i)=>row(['Rolle '+eur(d),fmt(s.rolls[d]),eur(d*rollPieces[d]*number(s.rolls[d]))],dWidths,32,false,i%2===1,['left','right','right']));
- }
- boxedSection('Zählkontrolle',[
-  ['Scheine',eur(noteTotal())],
-  ['Lose Münzen',eur(coinTotal())],
-  ['Münzrollen',eur(rollTotal())],
-  ['Bargeld gesamt gezählt (Ist)',eur(cash),'total'],
-  ['Erwartetes Bargeld inkl. Wechselgeld',eur(expected)],
-  ['Kassendifferenz (Ist - Soll)',(diff>0?'+ ':'')+eur(diff),'diff']
- ],'blue',true);
- // Bemerkungen und Unterschrift erscheinen direkt unter dem Zaehlprotokoll.
- const noteLines=wrap(s.notes||'Keine Bemerkungen.',usable-40,18);
- const signHeight=s.signature?126:42;
- const tailHeight=48+Math.min(noteLines.length,5)*26+52+signHeight+25;
- need(tailHeight);
- ctx.fillStyle=blue;ctx.beginPath();ctx.roundRect(L,y,usable,42,9);ctx.fill();
- text('BEMERKUNGEN / DIFFERENZKLÄRUNG',L+16,y+28,20,true,'#fff');y+=53;
- noteLines.slice(0,5).forEach(t=>{text(t,L+14,y,18);y+=26});
- y+=12;
- ctx.fillStyle=blue;ctx.beginPath();ctx.roundRect(L,y,usable,42,9);ctx.fill();
- text('UNTERSCHRIFT MITARBEITER',L+16,y+28,20,true,'#fff');y+=59;
- text('Mitarbeiter: '+(s.meta.employee||'Nicht angegeben'),L+12,y,19,true,ink);y+=27;
+ if(usedRolls.length){section('Münzrollen');usedRolls.forEach(d=>row(['Rolle '+eur(d),fmt(s.rolls[d]),eur(d*rollPieces[d]*number(s.rolls[d]))],dWidths,36,false,false,['left','right','right']));}
+ valueLine('Summe Rollen',eur(rollTotal()));
+ valueLine('Gezähltes Bargeld (Ist)',eur(cash),true);
+ valueLine('Bargeld laut Ware (Soll)',eur(expected),true);
+ differenceLine('Differenz (Ist − Soll)',(diff>0?'+ ':'')+eur(diff));
+ // Seite 4: Unterzeichnung und Bemerkungen separat, ohne unkontrollierte Seitenumbrüche
+ titlePage('KASSENABSCHLUSS / UNTERSCHRIFT','Seite 4 · Abschlusswerte, Bemerkungen und Unterschrift');
+ section('Abschlussstatus');
+ info('Status',s.cashClosed?'Endgueltig abgeschlossen':'VORLAEUFIG - noch nicht abgeschlossen');
+ if(s.cashClosed)info('Abschluss am',gastroClosedAtLabel());
+ boxedSection('Mitarbeiter-Kassenkontrolle',[
+ ['Bargeld gesamt gezaehlt',eur(cash)],
+ ['Erwartetes Bargeld inkl. Wechselgeld',eur(expected)],
+ ['Kassendifferenz (Ist - Soll)',(diff>0?'+ ':'')+eur(diff),'diff']
+ ]);
+ boxedSection('Gesamtumsatz',[
+ ['Umsatz laut gezaehlter Ware (Soll)',eur(stock)],
+ ['Bargeld gezaehlt',eur(cash)],
+ ['- Wechselgeld',eur(flo)],
+ ['= Bargeld ins Kassenbuch',eur(cash-flo),'total'],
+ ['+ Quittungen / Belege',eur(receipts)],
+ ['+ EC / SumUp',eur(card)],
+ ['Tatsaechlicher Gesamtumsatz (Ist)',eur(actual),'total'],
+ ['Umsatzdifferenz (Ist - Soll)',(diff>0?'+ ':'')+eur(diff),'diff']
+ ]);
+ boxedSection('Kassenbuch',[
+ ['Bargeld gesamt gezaehlt',eur(cash)],
+ ['- Wechselgeld',eur(flo)],
+ ['Bargeld ins Kassenbuch eintragen',eur(cash-flo),'total']
+ ],'green');
+ section('Bemerkungen / Differenzklärung');
+ for(const t of wrap(s.notes||'Keine Bemerkungen.',usable-20,19)){need(31);text(t,L+10,y,19);y+=31}
+ section('Unterschrift Mitarbeiter');
+ need(48);text('Unterschrieben von: '+(s.meta.employee||'Nicht angegeben'),L+10,y,20,true,ink);y+=42;
  if(s.signature){
-  try{const preview=document.getElementById('printSignature'),sig=(preview&&preview.complete&&preview.naturalWidth)?preview:document.getElementById('signature');ctx.drawImage(sig,L+12,y-10,580,105);y+=105}
-  catch(e){text('Unterschrift gespeichert.',L+12,y,18);y+=26}
- }else{ text('Noch nicht unterschrieben – vorläufige Kontrollansicht.',L+12,y,18,false,muted);y+=26; }
+  need(190);try{const preview=document.getElementById('printSignature'),sig=(preview&&preview.complete&&preview.naturalWidth)?preview:document.getElementById('signature');ctx.drawImage(sig,L+10,y-22,650,160);y+=164}catch(e){text('Unterschrift gespeichert – siehe Mitarbeitername oben.',L+10,y,18);y+=32}
+ }else{need(48);text('Keine Unterschrift erfasst.',L+10,y,19);y+=45}
  // Seitenzahlen und Zuordnung auf jeder Seite
  pages.forEach((p,i)=>{const c=p.getContext('2d');c.strokeStyle='#d4e0ea';c.beginPath();c.moveTo(L,H-68);c.lineTo(W-R,H-68);c.stroke();c.font='16px Arial';c.fillStyle='#607286';c.fillText('Gastro Janssen  |  '+(s.meta.date||'')+'  |  '+(s.meta.location||''),L,H-43);c.textAlign='right';c.fillText('Seite '+(i+1)+' / '+pages.length,W-R,H-43);c.textAlign='left'});
  // PDF-Container mit je einer A4-JPEG-Seite, offline und iOS-kompatibel.
@@ -240,7 +843,7 @@ function acceptLandscapeSignature(){
 
 /* V57: Versionsabgleich fuer installierte iPhone-Homebildschirm-Web-App. */
 (function(){
- const current=117;let checking=false,lastCheck=0;
+ const current=116;let checking=false,lastCheck=0;
  async function checkAppVersion(){
   if(checking||Date.now()-lastCheck<25000||document.getElementById('landscapeSignModal')?.style.display==='flex')return;
   checking=true;lastCheck=Date.now();
